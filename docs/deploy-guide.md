@@ -1,4 +1,4 @@
-﻿# 部署指南
+# 部署指南
 
 ## 当前推荐顺序
 
@@ -18,7 +18,7 @@
 - Framework preset: Astro
 - Build command: `npm run build`
 - Build output directory: `dist`
-- Environment variable: `SITE_URL`
+- Environment variable: `SITE_URL=https://blog.playlab.eu.cc`
 
 ## 国内服务器
 
@@ -27,6 +27,6 @@
 基本步骤：
 
 1. 本地 `npm run build`
-2. 上传 `dist/` 到服务器，例如 `/var/www/drew-playbook`
+2. 上传 `dist/` 到服务器，例如 `/var/www/biau-playlab`
 3. 用 Nginx 配置静态站点
 4. 如果有 CDN，再把静态资源前置到 CDN

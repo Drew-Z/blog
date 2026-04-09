@@ -1,4 +1,4 @@
-﻿---
+---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import GameCard from '../../components/GameCard.astro';
@@ -6,7 +6,7 @@ import GameCard from '../../components/GameCard.astro';
 const games = (await getCollection('games')).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 ---
 
-<BaseLayout title="游戏作品 | Drew Playbook" description="整合后的游戏项目展示页。">
+<BaseLayout title="游戏作品 | Biau Playlab" description="整合后的游戏项目展示页。">
   <section class="page-heading card page-heading--rich">
     <p class="eyebrow">Games</p>
     <h1>游戏作品</h1>

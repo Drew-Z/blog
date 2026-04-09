@@ -1,4 +1,4 @@
-﻿---
+---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import DevlogCard from '../../components/DevlogCard.astro';
@@ -6,7 +6,7 @@ import DevlogCard from '../../components/DevlogCard.astro';
 const logs = (await getCollection('devlogs')).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 ---
 
-<BaseLayout title="开发日志 | Drew Playbook" description="项目开发过程、阶段结论和站点整合记录。">
+<BaseLayout title="开发日志 | Biau Playlab" description="项目开发过程、阶段结论和站点整合记录。">
   <section class="page-heading card page-heading--rich">
     <p class="eyebrow">Devlogs</p>
     <h1>开发日志</h1>

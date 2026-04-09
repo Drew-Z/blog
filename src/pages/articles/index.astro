@@ -1,4 +1,4 @@
-﻿---
+---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ArticleCard from '../../components/ArticleCard.astro';
@@ -8,7 +8,7 @@ const articles = (await getCollection('articles', ({ data }) => !data.draft)).so
 );
 ---
 
-<BaseLayout title="文章归档 | Drew Playbook" description="系统设计文章、游戏分析和迁移后的旧博客内容。">
+<BaseLayout title="文章归档 | Biau Playlab" description="系统设计文章、游戏分析和迁移后的旧博客内容。">
   <section class="page-heading card page-heading--rich">
     <p class="eyebrow">Articles</p>
     <h1>文章归档</h1>

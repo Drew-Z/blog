@@ -1,4 +1,4 @@
-﻿# Drew Playbook
+# Biau Playlab
 
 一个用 Astro 搭建的个人作品站，整合了：
 
@@ -35,7 +35,7 @@ npm run build
 - Build command: `npm run build`
 - Build output directory: `dist`
 - Environment variables:
-  - `SITE_URL=https://你的正式域名`
+  - `SITE_URL=https://blog.playlab.eu.cc`
 
 如果你绑定自定义域名，通常不需要额外设置 `BASE_PATH`。
 

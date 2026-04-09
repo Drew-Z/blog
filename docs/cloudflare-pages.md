@@ -27,14 +27,13 @@
 
 ### 方案 B：直接绑定正式域名
 
-如果你已经决定用独立域名，比如：
+当前正式域名已经是：
 
-- `https://blog.example.com`
-- `https://portfolio.example.com`
+- `https://blog.playlab.eu.cc`
 
-环境变量建议：
+环境变量建议直接设置为：
 
-- `SITE_URL=https://你的正式域名`
+- `SITE_URL=https://blog.playlab.eu.cc`
 
 同样不需要设置 `BASE_PATH`。
 
@@ -53,9 +52,9 @@
 
 7. 在环境变量里添加：
 
-- `SITE_URL`
+- `SITE_URL=https://blog.playlab.eu.cc`
 
-如果你是正式域名部署，把它设成正式域名；如果你先用 `pages.dev`，就设成对应的 `pages.dev` 地址。
+如果你以后切换域名，再把这里替换成新的正式域名即可。
 
 如果 Cloudflare 后台里暂时看不到 `ciallo-bill/blog`，优先检查这两件事：
 
@@ -77,6 +76,8 @@ Cloudflare 官方文档当前的要点是：
 - `public/_headers`：静态资源缓存与基础安全响应头
 - 已移除 GitHub Pages 的自动部署 workflow，避免仓库 push 后再触发无用的 Actions 失败
 - 当前 Git 远程地址已切换为 `git@github.com:ciallo-bill/blog.git`
+- 当前生产域名：`https://blog.playlab.eu.cc`
+- 当前 `pages.dev` 主地址建议统一跳转到正式域名，不再作为对外入口
 
 ## 我对你当前项目的推荐
 
