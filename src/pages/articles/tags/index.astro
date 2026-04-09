@@ -1,0 +1,57 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import { withBase } from '../../../utils/site';
+import { getPublishedArticleTagCounts } from '../../../utils/content';
+import { siteMeta, slugifyTag } from '../../../utils/site-meta';
+
+const tags = await getPublishedArticleTagCounts();
+const totalTaggedArticles = tags.reduce((sum, item) => sum + item.count, 0);
+---
+
+<BaseLayout title={`文章标签 | ${siteMeta.name}`} description="按主题浏览公开文章，快速查看不同分析方向的内容沉淀。">
+  <Breadcrumbs items={[{ label: '首页', href: '/' }, { label: '文章', href: '/articles' }, { label: '标签' }]} />
+  <section class="page-heading card page-heading--rich">
+    <p class="eyebrow">Tags</p>
+    <h1>文章标签</h1>
+    <p>这里把公开文章按主题聚合，适合快速浏览我长期在写哪些方向，也方便直接跳到你最关心的话题。</p>
+  </section>
+
+  <section class="section-banner">
+    <div class="feature-grid">
+      <div class="mini-panel">
+        <p class="eyebrow">标签数量</p>
+        <strong>{tags.length}</strong>
+        <p>当前公开内容覆盖的话题数。</p>
+      </div>
+      <div class="mini-panel">
+        <p class="eyebrow">标签引用</p>
+        <strong>{totalTaggedArticles}</strong>
+        <p>所有文章标签被使用的累计次数。</p>
+      </div>
+      <div class="mini-panel">
+        <p class="eyebrow">浏览方式</p>
+        <strong>主题聚合</strong>
+        <p>先按话题切，再进入对应文章会更高效。</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="section-heading">
+      <div>
+        <h2>全部标签</h2>
+        <p class="content-meta">标签越靠前，说明该方向下的公开内容越多。</p>
+      </div>
+      <a href={withBase('/articles')}>返回文章归档</a>
+    </div>
+    <div class="tag-cloud">
+      {tags.map(({ tag, count }) => (
+        <a class="tag-cloud-link" href={withBase(`/articles/tags/${slugifyTag(tag)}`)}>
+          <span>{tag}</span>
+          <strong>{count}</strong>
+        </a>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

@@ -528,6 +528,7 @@ a {
 
 .status-pill,
 .tag-list span,
+.tag-list a,
 .badge {
   display: inline-flex;
   align-items: center;
@@ -557,15 +558,74 @@ a {
 }
 
 .tag-list span,
+.tag-list a,
 .badge {
   color: var(--brand-strong);
   border: 1px solid rgba(29, 107, 96, 0.18);
   background: rgba(29, 107, 96, 0.08);
 }
 
+.tag-list a:hover,
+.tag-cloud-link:hover {
+  border-color: rgba(29, 107, 96, 0.34);
+  background: rgba(29, 107, 96, 0.14);
+}
+
 .link-list,
 .download-list {
   grid-template-columns: 1fr;
+}
+
+.tag-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.tag-cloud-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  border-radius: 18px;
+  border: 1px solid rgba(39, 55, 50, 0.08);
+  background: rgba(255, 255, 255, 0.56);
+}
+
+.tag-cloud-link strong {
+  color: var(--text-strong);
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+}
+
+.milestone-list {
+  display: grid;
+  gap: 14px;
+}
+
+.milestone-item {
+  position: relative;
+  padding: 18px 18px 18px 22px;
+  border-radius: 22px;
+  border: 1px solid rgba(39, 55, 50, 0.08);
+  background: rgba(255, 255, 255, 0.54);
+}
+
+.milestone-item::before {
+  content: '';
+  position: absolute;
+  inset: 18px auto 18px 0;
+  width: 4px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, var(--brand), var(--brand-2));
+}
+
+.milestone-item h3,
+.tag-summary-card h3 {
+  margin: 0;
+  color: var(--text-strong);
+  font-family: var(--font-display);
+  font-size: 1.32rem;
 }
 
 .link-list a,

@@ -48,3 +48,15 @@ export function estimateReadingTime(source: string): string {
 
   return `${minutes} 分钟阅读`;
 }
+
+export function slugifyTag(tag: string): string {
+  return tag
+    .trim()
+    .toLowerCase()
+    .replace(/&/g, ' and ')
+    .replace(/\+/g, ' plus ')
+    .replace(/\s+/g, '-')
+    .replace(/[^\p{Letter}\p{Number}-]+/gu, '')
+    .replace(/-+/g, '-')
+    .replace(/^-|-$/g, '');
+}

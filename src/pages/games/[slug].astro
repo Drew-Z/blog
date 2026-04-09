@@ -83,6 +83,26 @@ const readingTime = estimateReadingTime(game.body);
         </div>
       </section>
 
+      {game.data.milestones.length > 0 && (
+        <section class="card">
+          <div class="section-heading">
+            <div>
+              <h2>阶段里程碑</h2>
+              <p class="content-meta">把版本收口节点单独拎出来，方便快速理解项目是怎样一步步成形的。</p>
+            </div>
+          </div>
+          <div class="milestone-list">
+            {game.data.milestones.map((milestone) => (
+              <article class="milestone-item">
+                <p class="eyebrow">{formatDate(milestone.date)}</p>
+                <h3>{milestone.title}</h3>
+                <p>{milestone.summary}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+      )}
+
       {relatedLogs.length > 0 && (
         <section class="card">
           <div class="section-heading">

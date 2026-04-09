@@ -1,0 +1,87 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ArticleCard from '../../../components/ArticleCard.astro';
+import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import { withBase } from '../../../utils/site';
+import { getPublishedArticles, getPublishedArticleTagCounts } from '../../../utils/content';
+import { siteMeta, slugifyTag } from '../../../utils/site-meta';
+
+export async function getStaticPaths() {
+  const [articles, tags] = await Promise.all([
+    getPublishedArticles(),
+    getPublishedArticleTagCounts()
+  ]);
+
+  return tags.map(({ tag, count }) => ({
+    params: { tag: slugifyTag(tag) },
+    props: {
+      tag,
+      count,
+      articles: articles.filter((article) => article.data.tags.some((item) => slugifyTag(item) === slugifyTag(tag)))
+    }
+  }));
+}
+
+const { tag, count, articles } = Astro.props;
+---
+
+<BaseLayout title={`${tag} | 文章标签`} description={`浏览与 ${tag} 相关的公开文章。`}>
+  <Breadcrumbs
+    items={[
+      { label: '首页', href: '/' },
+      { label: '文章', href: '/articles' },
+      { label: '标签', href: '/articles/tags' },
+      { label: tag }
+    ]}
+  />
+  <section class="page-heading card page-heading--rich">
+    <p class="eyebrow">Tag Archive</p>
+    <h1>{tag}</h1>
+    <p>这里收录所有带有“{tag}”标签的公开文章，适合集中查看这一类分析与方法沉淀。</p>
+  </section>
+
+  <section class="section-banner">
+    <div class="feature-grid">
+      <div class="mini-panel">
+        <p class="eyebrow">相关文章</p>
+        <strong>{count}</strong>
+        <p>当前标签下已公开的文章数量。</p>
+      </div>
+      <div class="mini-panel">
+        <p class="eyebrow">浏览建议</p>
+        <strong>按时间阅读</strong>
+        <p>当前页面已按发布时间倒序整理，方便先看最近的表达状态。</p>
+      </div>
+      <div class="mini-panel">
+        <p class="eyebrow">更多主题</p>
+        <strong>继续切换</strong>
+        <p>如果想横向比较不同方向，可回到标签页继续浏览。</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="card tag-summary-card">
+    <div class="section-heading">
+      <div>
+        <h2>当前主题</h2>
+        <p class="content-meta">这个标签用来聚合同一类问题、方法或案例观察。</p>
+      </div>
+      <a href={withBase('/articles/tags')}>查看全部标签</a>
+    </div>
+    <p>你现在看到的是“{tag}”专题页。如果是第一次来，建议先读最新一篇，再按兴趣展开到相关文章。</p>
+  </section>
+
+  <section class="grid grid--cards-lg">
+    {articles.map((article) => (
+      <ArticleCard
+        href={`/articles/${article.id}`}
+        title={article.data.title}
+        description={article.data.description}
+        pubDate={article.data.pubDate}
+        tags={article.data.tags}
+        coverImage={article.data.coverImage}
+        featured={article.data.featured}
+      />
+    ))}
+  </section>
+</BaseLayout>

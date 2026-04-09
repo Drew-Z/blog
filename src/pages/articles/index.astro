@@ -2,13 +2,16 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ArticleCard from '../../components/ArticleCard.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
-import { getPublishedArticles } from '../../utils/content';
-import { formatDate, siteMeta } from '../../utils/site-meta';
+import { withBase } from '../../utils/site';
+import { getPublishedArticles, getPublishedArticleTagCounts } from '../../utils/content';
+import { formatDate, siteMeta, slugifyTag } from '../../utils/site-meta';
 
 const articles = await getPublishedArticles();
+const tagCounts = await getPublishedArticleTagCounts();
 const featuredCount = articles.filter((article) => article.data.featured).length;
-const tagCount = new Set(articles.flatMap((article) => article.data.tags)).size;
+const tagCount = tagCounts.length;
 const latestArticle = articles[0];
+const hotTags = tagCounts.slice(0, 10);
 ---
 
 <BaseLayout title={`文章归档 | ${siteMeta.name}`} description="系统策划拆解、游戏分析和方法沉淀文章。">
@@ -43,6 +46,26 @@ const latestArticle = articles[0];
       </div>
     </div>
   </section>
+
+  {hotTags.length > 0 && (
+    <section class="card">
+      <div class="section-heading">
+        <div>
+          <h2>按标签浏览</h2>
+          <p class="content-meta">把相近主题聚合在一起，适合快速判断我最常写什么、分析重心在哪里。</p>
+        </div>
+        <a href={withBase('/articles/tags')}>查看全部标签</a>
+      </div>
+      <div class="tag-cloud">
+        {hotTags.map(({ tag, count }) => (
+          <a class="tag-cloud-link" href={withBase(`/articles/tags/${slugifyTag(tag)}`)}>
+            <span>{tag}</span>
+            <strong>{count}</strong>
+          </a>
+        ))}
+      </div>
+    </section>
+  )}
 
   <section class="grid grid--cards-lg">
     {articles.map((article) => (

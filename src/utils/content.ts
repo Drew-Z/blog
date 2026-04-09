@@ -34,6 +34,21 @@ export async function getPublishedArticleById(id: string): Promise<PublicArticle
   return articles.find((article) => article.id === id);
 }
 
+export async function getPublishedArticleTagCounts() {
+  const articles = await getPublishedArticles();
+  const counter = new Map<string, number>();
+
+  for (const article of articles) {
+    for (const tag of article.data.tags) {
+      counter.set(tag, (counter.get(tag) ?? 0) + 1);
+    }
+  }
+
+  return [...counter.entries()]
+    .map(([tag, count]) => ({ tag, count }))
+    .sort((a, b) => b.count - a.count || a.tag.localeCompare(b.tag, 'zh-CN'));
+}
+
 export async function getArticleWorkbenchStats() {
   const [publishedArticles, articleWorkbench] = await Promise.all([
     getCollection('publishedArticles', ({ data }) => !data.draft),

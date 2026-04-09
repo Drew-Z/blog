@@ -73,6 +73,13 @@ const games = defineCollection({
     contribution: z.array(z.string()).default([]),
     outcome: z.string().optional(),
     nextStep: z.array(z.string()).default([]),
+    milestones: z.array(
+      z.object({
+        date: z.coerce.date(),
+        title: z.string(),
+        summary: z.string()
+      })
+    ).default([]),
     devlogSlugs: z.array(z.string()).default([])
   })
 });

@@ -46,6 +46,7 @@ const imageUrl = image
     {imageUrl && <meta name="twitter:image" content={imageUrl} />}
     <meta name="generator" content={Astro.generator} />
     <link rel="canonical" href={canonical} />
+    <link rel="alternate" type="application/rss+xml" title={`${siteMeta.name} RSS`} href={withBase('/rss.xml')} />
     <title>{title}</title>
   </head>
   <body>

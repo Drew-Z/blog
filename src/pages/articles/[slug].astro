@@ -5,7 +5,7 @@ import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import ContentToc from '../../components/ContentToc.astro';
 import { withBase } from '../../utils/site';
 import { getPublishedArticles } from '../../utils/content';
-import { estimateReadingTime, formatDate } from '../../utils/site-meta';
+import { estimateReadingTime, formatDate, slugifyTag } from '../../utils/site-meta';
 
 export async function getStaticPaths() {
   const articles = await getPublishedArticles();
@@ -46,7 +46,9 @@ const readingTime = estimateReadingTime(article.body);
           <h1>{article.data.title}</h1>
           <p>{article.data.description}</p>
           <div class="tag-list">
-            {article.data.tags.map((tag) => <span>{tag}</span>)}
+            {article.data.tags.map((tag) => (
+              <a href={withBase(`/articles/tags/${slugifyTag(tag)}`)}>{tag}</a>
+            ))}
           </div>
         </div>
         <div class="content-meta-panel">
@@ -100,7 +102,9 @@ const readingTime = estimateReadingTime(article.body);
           <div class="mini-panel">
             <p class="eyebrow">标签</p>
             <div class="tag-list">
-              {article.data.tags.map((tag) => <span>{tag}</span>)}
+              {article.data.tags.map((tag) => (
+                <a href={withBase(`/articles/tags/${slugifyTag(tag)}`)}>{tag}</a>
+              ))}
             </div>
           </div>
           {article.data.updatedDate ? (
