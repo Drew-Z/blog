@@ -1,13 +1,14 @@
 ﻿---
-import { getCollection, render } from 'astro:content';
+import { render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import ContentToc from '../../components/ContentToc.astro';
 import { withBase } from '../../utils/site';
+import { getPublishedArticles } from '../../utils/content';
 import { estimateReadingTime, formatDate } from '../../utils/site-meta';
 
 export async function getStaticPaths() {
-  const articles = await getCollection('articles', ({ data }) => !data.draft);
+  const articles = await getPublishedArticles();
   return articles.map((article) => ({
     params: { slug: article.id },
     props: { article }
@@ -16,7 +17,7 @@ export async function getStaticPaths() {
 
 const { article } = Astro.props;
 const { Content, headings } = await render(article);
-const allArticles = await getCollection('articles', ({ data }) => !data.draft);
+const allArticles = await getPublishedArticles();
 const relatedArticles = allArticles
   .filter((item) => item.id !== article.id)
   .map((item) => ({

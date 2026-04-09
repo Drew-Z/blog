@@ -18,7 +18,12 @@ export async function getStaticPaths() {
 const { game } = Astro.props;
 const { Content, headings } = await render(game);
 const allLogs = await getCollection('devlogs');
-const relatedLogs = allLogs.filter((log) => log.data.relatedGame === game.slug);
+const relatedLogs =
+  game.data.devlogSlugs.length > 0
+    ? game.data.devlogSlugs
+        .map((slug) => allLogs.find((log) => log.slug === slug))
+        .filter((log): log is (typeof allLogs)[number] => Boolean(log))
+    : allLogs.filter((log) => log.data.relatedGame === game.slug);
 const allGames = await getCollection('games');
 const relatedGames = allGames
   .filter((item) => item.slug !== game.slug)
@@ -184,12 +189,16 @@ const readingTime = estimateReadingTime(game.body);
             <p>{game.data.platforms.join(' / ') || '待补充'}</p>
           </div>
           <div class="mini-panel">
-            <p class="eyebrow">仓库路径</p>
-            <p>{game.data.repoPath ?? '未提供'}</p>
+            <p class="eyebrow">关联日志</p>
+            <p>{relatedLogs.length} 篇阶段记录</p>
           </div>
           <div class="mini-panel">
-            <p class="eyebrow">当前分支</p>
-            <p>{game.data.currentBranch ?? '未提供'}</p>
+            <p class="eyebrow">关键画面</p>
+            <p>{game.data.screenshots.length} 张项目截图</p>
+          </div>
+          <div class="mini-panel">
+            <p class="eyebrow">体验方式</p>
+            <p>{game.data.playableWeb ? '可在线试玩' : hasLinks ? '可通过外链或下载体验' : '案例页展示'}</p>
           </div>
         </div>
       </section>

@@ -3,11 +3,13 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import { withBase } from '../utils/site';
+import { getArticleWorkbenchStats, getPublishedArticles } from '../utils/content';
 import { siteMeta } from '../utils/site-meta';
 
 const games = await getCollection('games');
 const logs = await getCollection('devlogs');
-const articles = await getCollection('articles', ({ data }) => !data.draft);
+const articles = await getPublishedArticles();
+const articleWorkbenchStats = await getArticleWorkbenchStats();
 ---
 
 <BaseLayout title={`关于 | ${siteMeta.name}`} description="这个作品展示博客的定位、内容结构与当前关注。">
@@ -43,8 +45,8 @@ const articles = await getCollection('articles', ({ data }) => !data.draft);
         <p>用系统策划拆解、游戏分析和方法沉淀补足“表达能力”和“结构化思考”这一层。</p>
       </div>
       <div class="mini-panel">
-        <p class="eyebrow">静态部署</p>
-        <p>基于 Astro 与 Content Collections 构建，适合直接部署到 Cloudflare Pages 或静态服务器。</p>
+        <p class="eyebrow">发布流</p>
+        <p>公开文章和内部素材已经分开维护，正式发布内容统一走站点文章入口，避免素材库和公开站混在一起。</p>
       </div>
     </div>
   </section>
@@ -111,6 +113,11 @@ const articles = await getCollection('articles', ({ data }) => !data.draft);
           <div class="mini-panel">
             <p class="eyebrow">技术栈</p>
             <p>Astro + Content Collections</p>
+          </div>
+          <div class="mini-panel">
+            <p class="eyebrow">公开文章</p>
+            <p>{articles.length} 篇已发布 / {articleWorkbenchStats.drafts} 篇内部素材</p>
+            {articleWorkbenchStats.duplicates > 0 ? <p>其中 {articleWorkbenchStats.duplicates} 篇是与公开稿重复的历史版本。</p> : null}
           </div>
         </div>
       </section>
