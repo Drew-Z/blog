@@ -2,21 +2,45 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ArticleCard from '../../components/ArticleCard.astro';
+import { formatDate, siteMeta } from '../../utils/site-meta';
 
 const articles = (await getCollection('articles', ({ data }) => !data.draft)).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
 );
+const featuredCount = articles.filter((article) => article.data.featured).length;
+const tagCount = new Set(articles.flatMap((article) => article.data.tags)).size;
+const latestArticle = articles[0];
 ---
 
-<BaseLayout title="文章归档 | Biau Playlab" description="系统设计文章、游戏分析和迁移后的旧博客内容。">
+<BaseLayout title={`文章归档 | ${siteMeta.name}`} description="系统策划拆解、游戏分析和方法沉淀文章。">
   <section class="page-heading card page-heading--rich">
     <p class="eyebrow">Articles</p>
     <h1>文章归档</h1>
-    <p>这里保留原有博客里的长文章，也纳入了从 Quartz 迁来的内容。它们更适合展示分析能力、表达方式和方法论。</p>
-    <div class="tag-list">
-      <span>{articles.length} 篇文章</span>
-      <span>长文优先</span>
-      <span>持续可扩展</span>
+    <p>这里以系统策划拆解、游戏分析和方法沉淀为主，也保留了少量对实际工作有帮助的技术长文，更适合展示分析能力与表达质量。</p>
+  </section>
+
+  <section class="section-banner">
+    <div class="feature-grid">
+      <div class="mini-panel">
+        <p class="eyebrow">文章总数</p>
+        <strong>{articles.length}</strong>
+        <p>当前公开可浏览的长文内容。</p>
+      </div>
+      <div class="mini-panel">
+        <p class="eyebrow">精选文章</p>
+        <strong>{featuredCount}</strong>
+        <p>适合第一次来时优先阅读。</p>
+      </div>
+      <div class="mini-panel">
+        <p class="eyebrow">主题标签</p>
+        <strong>{tagCount}</strong>
+        <p>目前覆盖的主要话题范围。</p>
+      </div>
+      <div class="mini-panel">
+        <p class="eyebrow">最近更新</p>
+        <strong>{latestArticle ? formatDate(latestArticle.data.pubDate) : '待补充'}</strong>
+        <p>保持文章入口的持续整理与沉淀。</p>
+      </div>
     </div>
   </section>
 

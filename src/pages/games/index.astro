@@ -2,19 +2,43 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import GameCard from '../../components/GameCard.astro';
+import { siteMeta } from '../../utils/site-meta';
 
 const games = (await getCollection('games')).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const featuredCount = games.filter((game) => game.data.featured).length;
+const playableCount = games.filter((game) => game.data.playableWeb || game.data.status === 'playable').length;
+const ongoingCount = games.filter((game) => game.data.status === 'ongoing').length;
 ---
 
-<BaseLayout title="游戏作品 | Biau Playlab" description="整合后的游戏项目展示页。">
+<BaseLayout title={`游戏作品 | ${siteMeta.name}`} description="围绕玩法验证、展示版包装和多端适配整理的项目案例。">
   <section class="page-heading card page-heading--rich">
     <p class="eyebrow">Games</p>
     <h1>游戏作品</h1>
-    <p>这里集中展示当前最值得对外说明的 Godot 项目，强调项目定位、验证目标、阶段状态和下一步计划。</p>
-    <div class="tag-list">
-      <span>{games.length} 个项目</span>
-      <span>案例页优先</span>
-      <span>后续可补 Web 试玩</span>
+    <p>这里收录围绕玩法验证、展示版收口和多端适配整理的项目案例。每个项目页都会说明目标、阶段、职责、关键画面和下一步计划。</p>
+  </section>
+
+  <section class="section-banner">
+    <div class="feature-grid">
+      <div class="mini-panel">
+        <p class="eyebrow">项目总数</p>
+        <strong>{games.length}</strong>
+        <p>当前公开可浏览的项目案例。</p>
+      </div>
+      <div class="mini-panel">
+        <p class="eyebrow">重点项目</p>
+        <strong>{featuredCount}</strong>
+        <p>优先推荐先看的代表作。</p>
+      </div>
+      <div class="mini-panel">
+        <p class="eyebrow">持续迭代</p>
+        <strong>{ongoingCount}</strong>
+        <p>仍在继续推进和打磨的项目。</p>
+      </div>
+      <div class="mini-panel">
+        <p class="eyebrow">试玩入口</p>
+        <strong>{playableCount}</strong>
+        <p>已经具备 Web 或可玩验证条件的项目。</p>
+      </div>
     </div>
   </section>
 

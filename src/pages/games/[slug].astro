@@ -3,13 +3,7 @@ import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import GameEmbed from '../../components/GameEmbed.astro';
 import { withBase } from '../../utils/site';
-
-const statusLabel: Record<string, string> = {
-  prototype: '原型中',
-  playable: '可玩原型',
-  showcase: '展示版',
-  ongoing: '持续迭代中'
-};
+import { formatDate, gameStatusLabels } from '../../utils/site-meta';
 
 export async function getStaticPaths() {
   const games = await getCollection('games');
@@ -26,7 +20,7 @@ const relatedLogs = allLogs.filter((log) => log.data.relatedGame === game.slug);
 const hasLinks = game.data.downloadLinks.length > 0 || Boolean(game.data.externalPage);
 ---
 
-<BaseLayout title={`${game.data.title} | 游戏案例`} description={game.data.summary}>
+<BaseLayout title={`${game.data.title} | 项目案例`} description={game.data.summary}>
   <article class="content-layout">
     <div class="content-main">
       <header class="content-header card content-header--game">
@@ -127,8 +121,16 @@ const hasLinks = game.data.downloadLinks.length > 0 || Boolean(game.data.externa
         </div>
         <div class="meta-grid">
           <div class="mini-panel">
+            <p class="eyebrow">首次记录</p>
+            <p>{formatDate(game.data.pubDate)}</p>
+          </div>
+          <div class="mini-panel">
+            <p class="eyebrow">最近更新</p>
+            <p>{game.data.updatedDate ? formatDate(game.data.updatedDate) : formatDate(game.data.pubDate)}</p>
+          </div>
+          <div class="mini-panel">
             <p class="eyebrow">阶段</p>
-            <p>{statusLabel[game.data.status] ?? game.data.status}</p>
+            <p>{gameStatusLabels[game.data.status] ?? game.data.status}</p>
           </div>
           <div class="mini-panel">
             <p class="eyebrow">引擎</p>
@@ -140,7 +142,7 @@ const hasLinks = game.data.downloadLinks.length > 0 || Boolean(game.data.externa
           </div>
           <div class="mini-panel">
             <p class="eyebrow">平台</p>
-            <p>{game.data.platforms.join(' / ')}</p>
+            <p>{game.data.platforms.join(' / ') || '待补充'}</p>
           </div>
           <div class="mini-panel">
             <p class="eyebrow">仓库路径</p>

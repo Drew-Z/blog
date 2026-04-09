@@ -1,26 +1,31 @@
 ---
 import { withBase } from '../utils/site';
+import { navLinks, siteMeta } from '../utils/site-meta';
 
-const links = [
-  { href: '/', label: '首页' },
-  { href: '/games', label: '游戏作品' },
-  { href: '/logs', label: '开发日志' },
-  { href: '/articles', label: '文章归档' },
-  { href: '/about', label: '关于站点' }
-];
+function normalizePath(path: string): string {
+  const normalized = path.replace(/\/+$/, '');
+  return normalized || '/';
+}
+
+const currentPath = normalizePath(Astro.url.pathname);
 ---
 
-<nav class="site-nav">
+<nav class="site-nav" aria-label="主导航">
   <a class="brand" href={withBase('/')}>
-    <span class="brand-mark">B</span>
+    <span class="brand-mark">BP</span>
     <span class="brand-copy">
-      <strong>Biau Playlab</strong>
-      <small>Game Projects + Design Writing</small>
+      <strong>{siteMeta.name}</strong>
+      <small>{siteMeta.tagline}</small>
     </span>
   </a>
   <div class="nav-links">
-    {links.map((link) => (
-      <a href={withBase(link.href)}>{link.label}</a>
-    ))}
+    {navLinks.map((link) => {
+      const href = withBase(link.href);
+      const isActive = currentPath === normalizePath(href);
+
+      return (
+        <a href={href} aria-current={isActive ? 'page' : undefined}>{link.label}</a>
+      );
+    })}
   </div>
 </nav>

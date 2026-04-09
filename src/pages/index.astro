@@ -5,6 +5,7 @@ import ArticleCard from '../components/ArticleCard.astro';
 import GameCard from '../components/GameCard.astro';
 import DevlogCard from '../components/DevlogCard.astro';
 import { withBase } from '../utils/site';
+import { siteMeta } from '../utils/site-meta';
 
 const games = (await getCollection('games')).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 const logs = (await getCollection('devlogs')).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
@@ -15,24 +16,31 @@ const articles = (await getCollection('articles', ({ data }) => !data.draft)).so
 const featuredGames = games.filter((item) => item.data.featured).slice(0, 3);
 const featuredLogs = logs.filter((item) => item.data.featured).slice(0, 3);
 const featuredArticles = articles.filter((item) => item.data.featured).slice(0, 3);
+
+const homeGames = featuredGames.length > 0 ? featuredGames : games.slice(0, 3);
+const homeLogs = featuredLogs.length > 0 ? featuredLogs : logs.slice(0, 3);
+const homeArticles = featuredArticles.length > 0 ? featuredArticles : articles.slice(0, 3);
+const latestLog = logs[0];
+const latestArticle = articles[0];
 ---
 
-<BaseLayout title="Biau Playlab | 游戏作品与博客整合站" description="一个整合 Godot 游戏作品、开发日志、系统设计文章和旧博客内容的个人展示站。">
+<BaseLayout title={`${siteMeta.name} | ${siteMeta.title}`} description={siteMeta.description}>
   <section class="hero hero--home">
     <div class="hero-copy">
-      <p class="eyebrow">Unified Portfolio</p>
-      <h1>把游戏项目、博客文章和过程文档收成一个能直接展示的站点。</h1>
+      <p class="eyebrow">Portfolio Blog</p>
+      <h1>用游戏原型、系统拆解和开发日志，展示一个项目从想法到落地的全过程。</h1>
       <p>
-        这不是单纯的博客首页，而是一个围绕真实项目搭出来的作品入口：前面先看游戏案例，接着看开发日志，最后再进入更长篇的系统设计文章和旧博客内容。
+        {siteMeta.description}
+        这里既有能直接浏览的项目案例，也有记录设计判断和迭代过程的日志与长文，更适合招聘、合作和同行交流时快速建立理解。
       </p>
       <div class="button-row">
-        <a class="button" href={withBase('/games')}>先看游戏作品</a>
-        <a class="button button--ghost" href={withBase('/logs')}>看开发日志</a>
+        <a class="button" href={withBase('/games')}>查看作品案例</a>
+        <a class="button button--ghost" href={withBase('/articles')}>阅读精选文章</a>
       </div>
       <div class="tag-list">
-        <span>Godot 4</span>
-        <span>Astro</span>
-        <span>作品展示</span>
+        <span>Godot 原型</span>
+        <span>系统策划</span>
+        <span>玩法验证</span>
         <span>开发复盘</span>
       </div>
     </div>
@@ -42,7 +50,7 @@ const featuredArticles = articles.filter((item) => item.data.featured).slice(0, 
       <div class="kpi-grid">
         <div class="mini-panel">
           <strong>{games.length}</strong>
-          <p>个已整合游戏案例</p>
+          <p>个项目案例</p>
         </div>
         <div class="mini-panel">
           <strong>{logs.length}</strong>
@@ -53,35 +61,46 @@ const featuredArticles = articles.filter((item) => item.data.featured).slice(0, 
           <p>篇公开文章</p>
         </div>
       </div>
-      <p>
-        当前版本优先统一入口和信息结构，先把两个 Godot 项目、原有 Astro 文章和 Quartz 的有效内容都纳进来，后面再补在线试玩、下载页和更细的项目时间线。
-      </p>
+
+      <div class="mini-panel">
+        <p class="eyebrow">当前重点</p>
+        <ul class="timeline-list">
+          <li>把玩法原型收成更适合展示和投递的项目案例。</li>
+          <li>用开发日志沉淀关键设计判断，而不只是记录结果。</li>
+          <li>通过系统拆解文章补齐方法论与分析深度。</li>
+        </ul>
+      </div>
+
+      <div class="mini-panel">
+        <p class="eyebrow">最近更新</p>
+        <div class="link-list">
+          {latestLog ? <a href={withBase(`/logs/${latestLog.slug}`)}>最新日志：{latestLog.data.title}</a> : null}
+          {latestArticle ? <a href={withBase(`/articles/${latestArticle.id}`)}>最新文章：{latestArticle.data.title}</a> : null}
+          <a href={withBase('/about')}>查看站点介绍与浏览建议</a>
+        </div>
+      </div>
     </div>
   </section>
 
   <section class="section-banner">
     <div class="section-heading">
       <div>
-        <h2>这个站点现在怎么组织</h2>
-        <p class="content-meta">让访客先看成品，再顺着过程往下读。</p>
+        <h2>第一次来，建议这样浏览</h2>
+        <p class="content-meta">先看代表作，再看过程，最后读方法论，理解效率最高。</p>
       </div>
     </div>
     <div class="feature-grid">
       <div class="mini-panel">
-        <p class="eyebrow">01 游戏作品</p>
-        <p>每个项目都是一个完整案例页，包含定位、阶段状态、关键截图、职责和下一步计划。</p>
+        <p class="eyebrow">01 作品案例</p>
+        <p>先看游戏项目页，快速了解我在做什么、项目到了什么阶段，以及核心能力落在什么地方。</p>
       </div>
       <div class="mini-panel">
         <p class="eyebrow">02 开发日志</p>
-        <p>把 README、任务板、路线图和分支阶段结论重新整理成外部也能读懂的过程记录。</p>
+        <p>再看阶段日志，理解这些项目是如何收口、为什么这么做，以及中间有哪些判断与取舍。</p>
       </div>
       <div class="mini-panel">
-        <p class="eyebrow">03 文章归档</p>
-        <p>保留原博客里的长文章，同时把 Quartz 里真正有价值的内容迁进同一个文章入口。</p>
-      </div>
-      <div class="mini-panel">
-        <p class="eyebrow">04 部署友好</p>
-        <p>整个站点是标准静态站，后续可以无缝挂 Cloudflare Pages、GitHub Pages 或国内服务器。</p>
+        <p class="eyebrow">03 深度文章</p>
+        <p>最后读系统设计和游戏拆解文章，看到我如何组织分析框架、表达复杂内容以及做出判断。</p>
       </div>
     </div>
   </section>
@@ -89,13 +108,13 @@ const featuredArticles = articles.filter((item) => item.data.featured).slice(0, 
   <section class="home-section">
     <div class="section-heading">
       <div>
-        <h2>重点游戏项目</h2>
-        <p class="content-meta">先把你最希望别人看到的两款作品摆在首页首屏之后。</p>
+        <h2>精选作品</h2>
+        <p class="content-meta">围绕玩法验证、展示版包装与多端适配整理的代表项目。</p>
       </div>
       <a href={withBase('/games')}>查看全部</a>
     </div>
     <div class="grid grid--cards-lg">
-      {featuredGames.map((game) => (
+      {homeGames.map((game) => (
         <GameCard
           href={`/games/${game.slug}`}
           title={game.data.title}
@@ -115,13 +134,13 @@ const featuredArticles = articles.filter((item) => item.data.featured).slice(0, 
   <section class="home-section">
     <div class="section-heading">
       <div>
-        <h2>最近开发日志</h2>
-        <p class="content-meta">这部分负责把“我做了什么”和“为什么这么做”讲清楚。</p>
+        <h2>最新开发日志</h2>
+        <p class="content-meta">记录阶段推进、方案取舍与版本收口，让项目过程也能被外部看懂。</p>
       </div>
       <a href={withBase('/logs')}>进入日志页</a>
     </div>
     <div class="grid grid--cards-lg">
-      {featuredLogs.map((log) => (
+      {homeLogs.map((log) => (
         <DevlogCard
           href={`/logs/${log.slug}`}
           title={log.data.title}
@@ -139,12 +158,12 @@ const featuredArticles = articles.filter((item) => item.data.featured).slice(0, 
     <div class="section-heading">
       <div>
         <h2>精选文章</h2>
-        <p class="content-meta">长文章保留你原来博客的优势，也补进了 Quartz 的实用内容。</p>
+        <p class="content-meta">以系统策划拆解、游戏分析和方法沉淀为主的长篇内容。</p>
       </div>
       <a href={withBase('/articles')}>查看归档</a>
     </div>
     <div class="grid grid--cards-lg">
-      {featuredArticles.map((article) => (
+      {homeArticles.map((article) => (
         <ArticleCard
           href={`/articles/${article.id}`}
           title={article.data.title}
@@ -161,22 +180,23 @@ const featuredArticles = articles.filter((item) => item.data.featured).slice(0, 
   <section class="section-banner">
     <div class="section-heading">
       <div>
-        <h2>为什么现在适合先做 Astro 主站</h2>
-        <p class="content-meta">这版不是知识库优先，而是展示优先。</p>
+        <h2>这个站更适合用于什么场景</h2>
+        <p class="content-meta">不只是写博客，而是为投递、合作和同行交流准备的统一入口。</p>
       </div>
+      <a href={withBase('/about')}>查看关于页</a>
     </div>
     <div class="feature-grid">
       <div class="mini-panel">
-        <p class="eyebrow">主站职责清楚</p>
-        <p>Astro 很适合做内容型作品站，首页、项目页、日志页和文章页都能保持统一风格。</p>
+        <p class="eyebrow">招聘 / 面试</p>
+        <p>可以先看代表作，再补一篇日志和一篇文章，快速判断我在项目、复盘和表达上的完整度。</p>
       </div>
       <div class="mini-panel">
-        <p class="eyebrow">内容迁移成本低</p>
-        <p>你原来的 Astro 文章可以直接保留，Quartz 的少量有效内容也可以逐步迁入，不用一次性大搬家。</p>
+        <p class="eyebrow">合作沟通</p>
+        <p>项目案例讲成果，日志讲过程，长文讲方法，能更完整地承接“你具体是怎么做事的”这个问题。</p>
       </div>
       <div class="mini-panel">
-        <p class="eyebrow">部署选择多</p>
-        <p>站点最终产物是静态文件，你可以按访问人群选择 Cloudflare、GitHub，或者部署到国内机器反代。</p>
+        <p class="eyebrow">同行交流</p>
+        <p>如果你更关心系统设计、内容组织或原型收口方式，文章和日志会比单纯的作品截图更有信息量。</p>
       </div>
     </div>
   </section>

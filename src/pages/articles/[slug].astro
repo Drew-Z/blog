@@ -1,6 +1,8 @@
 ﻿---
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { withBase } from '../../utils/site';
+import { formatDate } from '../../utils/site-meta';
 
 export async function getStaticPaths() {
   const articles = await getCollection('articles', ({ data }) => !data.draft);
@@ -27,9 +29,14 @@ const { Content } = await render(article);
           </div>
         </div>
         <div class="content-meta-panel">
+          {article.data.coverImage ? (
+            <div class="content-header-visual">
+              <img src={withBase(article.data.coverImage)} alt={article.data.title} loading="eager" />
+            </div>
+          ) : null}
           <div class="mini-panel">
             <p class="eyebrow">发布日期</p>
-            <time datetime={article.data.pubDate.toISOString()}>{article.data.pubDate.toLocaleDateString('zh-CN')}</time>
+            <time datetime={article.data.pubDate.toISOString()}>{formatDate(article.data.pubDate)}</time>
           </div>
           <div class="mini-panel">
             <p class="eyebrow">阅读定位</p>
@@ -54,6 +61,12 @@ const { Content } = await render(article);
             {article.data.tags.map((tag) => <span>{tag}</span>)}
           </div>
         </div>
+        {article.data.updatedDate ? (
+          <div class="mini-panel">
+            <p class="eyebrow">最近更新</p>
+            <p>{formatDate(article.data.updatedDate)}</p>
+          </div>
+        ) : null}
         <div class="mini-panel">
           <p class="eyebrow">用途</p>
           <p>这部分内容更偏系统设计文章、案例分析和方法论沉淀。</p>

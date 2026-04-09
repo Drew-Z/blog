@@ -1,5 +1,6 @@
 ﻿---
 import { withBase } from '../utils/site';
+import { formatDate } from '../utils/site-meta';
 
 interface Props {
   href: string;
@@ -33,10 +34,11 @@ const { href, title, description, pubDate, tags = [], coverImage, featured = fal
     <h3><a href={withBase(href)}>{title}</a></h3>
     <p>{description}</p>
     <div class="meta-row">
-      <time datetime={pubDate.toISOString()}>{pubDate.toLocaleDateString('zh-CN')}</time>
+      <time datetime={pubDate.toISOString()}>{formatDate(pubDate)}</time>
       <div class="tag-list">
         {tags.map((tag) => <span>{tag}</span>)}
       </div>
     </div>
+    <a class="inline-link" href={withBase(href)}>阅读全文</a>
   </div>
 </article>

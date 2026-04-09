@@ -1,32 +1,48 @@
 ---
+import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { withBase } from '../utils/site';
+import { siteMeta } from '../utils/site-meta';
+
+const games = await getCollection('games');
+const logs = await getCollection('devlogs');
+const articles = await getCollection('articles', ({ data }) => !data.draft);
 ---
 
-<BaseLayout title="关于站点 | Biau Playlab" description="站点的整合方式、技术选择和后续规划。">
+<BaseLayout title={`关于 | ${siteMeta.name}`} description="这个作品展示博客的定位、内容结构与当前关注。">
   <section class="page-heading card page-heading--rich">
     <p class="eyebrow">About</p>
-    <h1>这是一个先展示作品、再承接文章和笔记的个人站点。</h1>
+    <h1>这是一个围绕独立游戏原型、系统设计与开发写作搭建的个人作品展示博客。</h1>
     <p>
-      新站点放在 `D:\workspace4Codex\blog`，定位不是纯博客，也不是纯笔记库，而是一个把 Godot 游戏项目、开发过程文档和长文章统一组织起来的展示站。
+      这里不是单纯的资料堆积页，也不是只放截图的作品页。我把项目案例、开发过程和长文章放在同一个入口里，让访客能同时看到“做了什么”和“为什么这样做”。
     </p>
+    <div class="tag-list">
+      <span>{games.length} 个项目</span>
+      <span>{logs.length} 篇日志</span>
+      <span>{articles.length} 篇文章</span>
+    </div>
   </section>
 
   <section class="section-banner">
     <div class="section-heading">
-      <h2>当前整合来源</h2>
+      <h2>这个站里主要有什么</h2>
     </div>
     <div class="feature-grid">
       <div class="mini-panel">
-        <p class="eyebrow">游戏项目</p>
-        <p>`game-first-tetris` 和 `game-next-spacewar` 作为独立仓库继续开发，站点负责统一展示和讲故事。</p>
+        <p class="eyebrow">作品案例</p>
+        <p>围绕 Godot 原型、展示版收口和多端适配整理项目案例，强调目标、阶段、职责和下一步计划。</p>
       </div>
       <div class="mini-panel">
-        <p class="eyebrow">原 Astro 博客</p>
-        <p>公开文章内容直接保留到 `articles` 集合，继续充当长篇分析与作品文章的承载层。</p>
+        <p class="eyebrow">开发日志</p>
+        <p>记录功能推进、方案取舍与阶段结论，让外部也能看懂项目是怎么一步步收口的。</p>
       </div>
       <div class="mini-panel">
-        <p class="eyebrow">原 Quartz 博客</p>
-        <p>有效 Markdown 数量不多，所以没有再保留独立子站，而是直接迁进主站文章体系。</p>
+        <p class="eyebrow">深度文章</p>
+        <p>用系统策划拆解、游戏分析和方法沉淀补足“表达能力”和“结构化思考”这一层。</p>
+      </div>
+      <div class="mini-panel">
+        <p class="eyebrow">静态部署</p>
+        <p>基于 Astro 与 Content Collections 构建，适合直接部署到 Cloudflare Pages 或静态服务器。</p>
       </div>
     </div>
   </section>
@@ -35,55 +51,78 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     <div class="content-main">
       <section class="card">
         <div class="section-heading">
-          <h2>为什么选这个技术方案</h2>
+          <h2>我重点在做什么</h2>
         </div>
         <div class="feature-grid">
           <div class="mini-panel">
-            <p class="eyebrow">Astro</p>
-            <p>适合内容站和作品站混合场景，页面结构清晰，静态构建稳定，后续要补组件也不会太重。</p>
+            <p class="eyebrow">玩法原型</p>
+            <p>把核心循环先做出来，再逐步补足外层入口、反馈结构和可展示性，而不是停在开发态原型。</p>
           </div>
           <div class="mini-panel">
-            <p class="eyebrow">Content Collections</p>
-            <p>让游戏、开发日志、文章这三类内容拥有各自的数据结构，维护时比散装 Markdown 更稳。</p>
+            <p class="eyebrow">系统拆解</p>
+            <p>用长文章把复杂系统拆成可说明的结构，训练自己也帮助别人快速理解设计逻辑。</p>
           </div>
           <div class="mini-panel">
-            <p class="eyebrow">静态部署</p>
-            <p>站点没有运行时后端，适合多平台部署，也方便后续挂国内 CDN 或静态资源缓存。</p>
+            <p class="eyebrow">开发复盘</p>
+            <p>把“做了什么”之外的判断、取舍和踩坑记录下来，让过程也成为作品的一部分。</p>
           </div>
         </div>
       </section>
 
       <section class="card">
         <div class="section-heading">
-          <h2>后续最值得补的内容</h2>
+          <h2>建议浏览顺序</h2>
+        </div>
+        <ol class="timeline-list">
+          <li>先从作品页进入，快速看代表项目的目标、阶段和关键画面。</li>
+          <li>再读一篇关联日志，理解这个项目是怎么推进和收口的。</li>
+          <li>最后选一篇系统拆解或方法文章，看我如何表达复杂内容和组织分析框架。</li>
+        </ol>
+      </section>
+
+      <section class="card">
+        <div class="section-heading">
+          <h2>后续会继续补什么</h2>
         </div>
         <ul class="timeline-list">
-          <li>为两个游戏补更完整的录屏、GIF 或 Web 导出版本。</li>
-          <li>给每个项目补“版本时间线”和“里程碑卡片”，让外部访客更容易看懂进展。</li>
-          <li>逐步把零散笔记筛选后迁入文章体系，而不是继续维持多个入口。</li>
-          <li>根据最终域名决定是否拆成主站 + notes 子路径。</li>
+          <li>为项目补更完整的录屏、真实截图和可试玩入口。</li>
+          <li>给重点项目增加更清晰的版本时间线和里程碑说明。</li>
+          <li>持续筛选零散笔记，只把真正值得公开的内容整理进主站。</li>
         </ul>
       </section>
     </div>
 
     <aside class="content-sidebar card">
-      <div class="section-heading">
-        <h2>部署兼容</h2>
-      </div>
-      <div class="meta-grid">
-        <div class="mini-panel">
-          <p class="eyebrow">Cloudflare Pages</p>
-          <p>最适合这类静态展示站，构建简单，全球访问体验更稳。</p>
+      <section>
+        <div class="section-heading">
+          <h2>站点速览</h2>
         </div>
-        <div class="mini-panel">
-          <p class="eyebrow">GitHub Pages</p>
-          <p>适合作为免费稳定的公开托管入口，但自定义构建链和缓存能力相对弱一些。</p>
+        <div class="meta-grid">
+          <div class="mini-panel">
+            <p class="eyebrow">定位</p>
+            <p>作品展示博客</p>
+          </div>
+          <div class="mini-panel">
+            <p class="eyebrow">方向</p>
+            <p>Godot 原型 / 系统策划 / 开发写作</p>
+          </div>
+          <div class="mini-panel">
+            <p class="eyebrow">技术栈</p>
+            <p>Astro + Content Collections</p>
+          </div>
         </div>
-        <div class="mini-panel">
-          <p class="eyebrow">国内服务器</p>
-          <p>如果你希望国内访问更稳，可以直接上传 `dist` 到 Nginx 静态站，再配自己的域名。</p>
+      </section>
+
+      <section>
+        <div class="section-heading">
+          <h2>快速入口</h2>
         </div>
-      </div>
+        <div class="link-list">
+          <a href={withBase('/games')}>查看游戏作品</a>
+          <a href={withBase('/logs')}>查看开发日志</a>
+          <a href={withBase('/articles')}>查看文章归档</a>
+        </div>
+      </section>
     </aside>
   </section>
 </BaseLayout>

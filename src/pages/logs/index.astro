@@ -2,19 +2,43 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import DevlogCard from '../../components/DevlogCard.astro';
+import { formatDate, siteMeta } from '../../utils/site-meta';
 
 const logs = (await getCollection('devlogs')).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const featuredCount = logs.filter((log) => log.data.featured).length;
+const projectCount = new Set(logs.map((log) => log.data.project)).size;
+const latestLog = logs[0];
 ---
 
-<BaseLayout title="开发日志 | Biau Playlab" description="项目开发过程、阶段结论和站点整合记录。">
+<BaseLayout title={`开发日志 | ${siteMeta.name}`} description="项目开发过程、阶段结论和关键方案取舍记录。">
   <section class="page-heading card page-heading--rich">
     <p class="eyebrow">Devlogs</p>
     <h1>开发日志</h1>
-    <p>这里不是流水账，而是把 README、任务板和路线图重新整理成对外也能读懂的项目过程记录。</p>
-    <div class="tag-list">
-      <span>{logs.length} 篇日志</span>
-      <span>项目过程优先</span>
-      <span>便于后续继续累计</span>
+    <p>这里不是流水账，而是把阶段目标、方案取舍和版本结论整理成外部也能读懂的项目过程记录。</p>
+  </section>
+
+  <section class="section-banner">
+    <div class="feature-grid">
+      <div class="mini-panel">
+        <p class="eyebrow">日志总数</p>
+        <strong>{logs.length}</strong>
+        <p>用于持续追踪项目与站点演进。</p>
+      </div>
+      <div class="mini-panel">
+        <p class="eyebrow">关联项目</p>
+        <strong>{projectCount}</strong>
+        <p>目前覆盖的项目与主题范围。</p>
+      </div>
+      <div class="mini-panel">
+        <p class="eyebrow">精选日志</p>
+        <strong>{featuredCount}</strong>
+        <p>更适合第一次阅读的阶段节点。</p>
+      </div>
+      <div class="mini-panel">
+        <p class="eyebrow">最近更新</p>
+        <strong>{latestLog ? formatDate(latestLog.data.pubDate) : '待补充'}</strong>
+        <p>尽量让关键变化有清晰的阶段记录。</p>
+      </div>
     </div>
   </section>
 

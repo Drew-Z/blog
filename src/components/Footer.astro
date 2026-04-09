@@ -1,4 +1,39 @@
-﻿<footer class="site-footer">
-  <p>这个站点把游戏项目、开发日志、系统设计文章和旧博客内容放进同一个入口。</p>
-  <p>当前技术栈：Astro + Content Collections。适合部署到 Cloudflare Pages、GitHub Pages，或直接挂到国内静态站服务器。</p>
+---
+import { withBase } from '../utils/site';
+import { navLinks, siteMeta } from '../utils/site-meta';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="footer-grid">
+    <section>
+      <p class="eyebrow">Portfolio Blog</p>
+      <h2>{siteMeta.name}</h2>
+      <p>{siteMeta.description}</p>
+    </section>
+
+    <section>
+      <p class="eyebrow">内容入口</p>
+      <div class="footer-nav">
+        {navLinks.map((link) => (
+          <a href={withBase(link.href)}>{link.label}</a>
+        ))}
+      </div>
+    </section>
+
+    <section>
+      <p class="eyebrow">当前方向</p>
+      <ul class="timeline-list footer-list">
+        <li>围绕 Godot 原型做可展示的项目案例。</li>
+        <li>用开发日志沉淀关键设计判断与迭代过程。</li>
+        <li>用系统拆解文章补足方法论与表达深度。</li>
+      </ul>
+    </section>
+  </div>
+
+  <div class="footer-bottom">
+    <p>© {year} {siteMeta.name}</p>
+    <p>Astro + Content Collections</p>
+  </div>
 </footer>

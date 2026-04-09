@@ -2,12 +2,7 @@
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { withBase } from '../../utils/site';
-
-const projectLabel: Record<string, string> = {
-  'game-first-tetris': 'Game First Tetris',
-  'game-next-spacewar': 'Game Next Spacewar',
-  'blog-platform': 'Blog Platform'
-};
+import { devlogProjectLabels, formatDate } from '../../utils/site-meta';
 
 export async function getStaticPaths() {
   const logs = await getCollection('devlogs');
@@ -38,11 +33,11 @@ const relatedGame = games.find((game) => game.slug === log.data.relatedGame);
         <div class="content-meta-panel">
           <div class="mini-panel">
             <p class="eyebrow">发布日期</p>
-            <time datetime={log.data.pubDate.toISOString()}>{log.data.pubDate.toLocaleDateString('zh-CN')}</time>
+            <time datetime={log.data.pubDate.toISOString()}>{formatDate(log.data.pubDate)}</time>
           </div>
           <div class="mini-panel">
             <p class="eyebrow">所属项目</p>
-            <p>{projectLabel[log.data.project] ?? log.data.project}</p>
+            <p>{devlogProjectLabels[log.data.project] ?? log.data.project}</p>
           </div>
         </div>
       </header>
@@ -53,16 +48,36 @@ const relatedGame = games.find((game) => game.slug === log.data.relatedGame);
     </div>
 
     <aside class="content-sidebar card">
-      <div class="section-heading">
-        <h2>日志摘要</h2>
-      </div>
-      {log.data.highlights.length > 0 ? (
-        <ul class="timeline-list">
-          {log.data.highlights.map((item) => <li>{item}</li>)}
-        </ul>
-      ) : (
-        <p>这篇日志主要用于沉淀阶段判断和后续方向。</p>
-      )}
+      <section>
+        <div class="section-heading">
+          <h2>日志信息</h2>
+        </div>
+        <div class="meta-grid">
+          <div class="mini-panel">
+            <p class="eyebrow">发布时间</p>
+            <p>{formatDate(log.data.pubDate)}</p>
+          </div>
+          {log.data.status ? (
+            <div class="mini-panel">
+              <p class="eyebrow">阶段状态</p>
+              <p>{log.data.status}</p>
+            </div>
+          ) : null}
+        </div>
+      </section>
+
+      <section>
+        <div class="section-heading">
+          <h2>日志摘要</h2>
+        </div>
+        {log.data.highlights.length > 0 ? (
+          <ul class="timeline-list">
+            {log.data.highlights.map((item) => <li>{item}</li>)}
+          </ul>
+        ) : (
+          <p>这篇日志主要用于沉淀阶段判断和后续方向。</p>
+        )}
+      </section>
 
       {relatedGame && (
         <section>

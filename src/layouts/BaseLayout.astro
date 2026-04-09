@@ -1,17 +1,20 @@
 ﻿---
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
-import '../styles/global.css';
+import '../styles/editorial.css';
+import { siteMeta } from '../utils/site-meta';
 
 interface Props {
-  title: string;
+  title?: string;
   description?: string;
 }
 
 const {
-  title,
-  description = '整合 Godot 游戏作品、开发日志、系统设计文章与博客笔记的个人站点。'
+  title = `${siteMeta.name} | ${siteMeta.title}`,
+  description = siteMeta.description
 } = Astro.props;
+
+const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).toString() : Astro.url.toString();
 ---
 
 <!doctype html>
@@ -20,7 +23,14 @@ const {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <meta name="description" content={description} />
-    <meta name="theme-color" content="#121826" />
+    <meta name="theme-color" content="#f4ede1" />
+    <meta property="og:site_name" content={siteMeta.name} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="canonical" href={canonical} />
     <title>{title}</title>
   </head>
   <body>

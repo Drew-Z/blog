@@ -1,5 +1,6 @@
 ﻿---
 import { withBase } from '../utils/site';
+import { gameStatusLabels } from '../utils/site-meta';
 
 interface Props {
   href: string;
@@ -41,7 +42,7 @@ const {
   </a>
   <div class="card-body">
     <div class="game-card-top">
-      <p class="eyebrow">Game Case</p>
+      <p class="eyebrow">Project Case</p>
       <div class="tag-list">
         {featured ? <span class="status-pill status-pill--active">重点项目</span> : null}
         <span class:list={["status-pill", playableWeb && 'status-pill--active']}>{playableWeb ? '可在线试玩' : '案例展示中'}</span>
@@ -62,8 +63,9 @@ const {
     </div>
 
     <div class="meta-stack">
-      <span>阶段：{status}</span>
+      <span>阶段：{gameStatusLabels[status] ?? status}</span>
       <span>平台：{platforms.join(' / ') || '待补充'}</span>
     </div>
+    <a class="inline-link" href={withBase(href)}>查看项目详情</a>
   </div>
 </article>
