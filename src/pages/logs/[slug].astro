@@ -1,8 +1,10 @@
 ﻿---
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import ContentToc from '../../components/ContentToc.astro';
 import { withBase } from '../../utils/site';
-import { devlogProjectLabels, formatDate } from '../../utils/site-meta';
+import { devlogProjectLabels, estimateReadingTime, formatDate } from '../../utils/site-meta';
 
 export async function getStaticPaths() {
   const logs = await getCollection('devlogs');
@@ -13,12 +15,19 @@ export async function getStaticPaths() {
 }
 
 const { log } = Astro.props;
-const { Content } = await render(log);
+const { Content, headings } = await render(log);
 const games = await getCollection('games');
 const relatedGame = games.find((game) => game.slug === log.data.relatedGame);
+const allLogs = await getCollection('devlogs');
+const relatedLogs = allLogs
+  .filter((item) => item.slug !== log.slug && item.data.project === log.data.project)
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3);
+const readingTime = estimateReadingTime(log.body);
 ---
 
 <BaseLayout title={`${log.data.title} | 开发日志`} description={log.data.description}>
+  <Breadcrumbs items={[{ label: '首页', href: '/' }, { label: '日志', href: '/logs' }, { label: log.data.title }]} />
   <article class="content-layout">
     <div class="content-main">
       <header class="content-header card content-header--article">
@@ -45,6 +54,22 @@ const relatedGame = games.find((game) => game.slug === log.data.relatedGame);
       <div class="prose-block prose-block--article">
         <Content />
       </div>
+
+      {relatedLogs.length > 0 && (
+        <section class="card">
+          <div class="section-heading">
+            <div>
+              <h2>同项目更多日志</h2>
+              <p class="content-meta">如果你想顺着时间线继续看，这几篇会更相关。</p>
+            </div>
+          </div>
+          <div class="link-list">
+            {relatedLogs.map((item) => (
+              <a href={withBase(`/logs/${item.slug}`)}>{item.data.title}</a>
+            ))}
+          </div>
+        </section>
+      )}
     </div>
 
     <aside class="content-sidebar card">
@@ -56,6 +81,10 @@ const relatedGame = games.find((game) => game.slug === log.data.relatedGame);
           <div class="mini-panel">
             <p class="eyebrow">发布时间</p>
             <p>{formatDate(log.data.pubDate)}</p>
+          </div>
+          <div class="mini-panel">
+            <p class="eyebrow">阅读时长</p>
+            <p>{readingTime}</p>
           </div>
           {log.data.status ? (
             <div class="mini-panel">
@@ -78,6 +107,8 @@ const relatedGame = games.find((game) => game.slug === log.data.relatedGame);
           <p>这篇日志主要用于沉淀阶段判断和后续方向。</p>
         )}
       </section>
+
+      <ContentToc headings={headings} />
 
       {relatedGame && (
         <section>

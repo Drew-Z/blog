@@ -1,9 +1,11 @@
 ﻿---
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import ContentToc from '../../components/ContentToc.astro';
 import GameEmbed from '../../components/GameEmbed.astro';
 import { withBase } from '../../utils/site';
-import { formatDate, gameStatusLabels } from '../../utils/site-meta';
+import { estimateReadingTime, formatDate, gameStatusLabels } from '../../utils/site-meta';
 
 export async function getStaticPaths() {
   const games = await getCollection('games');
@@ -14,13 +16,30 @@ export async function getStaticPaths() {
 }
 
 const { game } = Astro.props;
-const { Content } = await render(game);
+const { Content, headings } = await render(game);
 const allLogs = await getCollection('devlogs');
 const relatedLogs = allLogs.filter((log) => log.data.relatedGame === game.slug);
+const allGames = await getCollection('games');
+const relatedGames = allGames
+  .filter((item) => item.slug !== game.slug)
+  .map((item) => ({
+    item,
+    score: item.data.tags.filter((tag) => game.data.tags.includes(tag)).length
+  }))
+  .sort((a, b) => b.score - a.score || b.item.data.pubDate.valueOf() - a.item.data.pubDate.valueOf())
+  .slice(0, 3)
+  .map(({ item }) => item);
 const hasLinks = game.data.downloadLinks.length > 0 || Boolean(game.data.externalPage);
+const readingTime = estimateReadingTime(game.body);
 ---
 
-<BaseLayout title={`${game.data.title} | 项目案例`} description={game.data.summary}>
+<BaseLayout
+  title={`${game.data.title} | 项目案例`}
+  description={game.data.summary}
+  image={game.data.thumbnail}
+  type="article"
+>
+  <Breadcrumbs items={[{ label: '首页', href: '/' }, { label: '作品', href: '/games' }, { label: game.data.title }]} />
   <article class="content-layout">
     <div class="content-main">
       <header class="content-header card content-header--game">
@@ -112,6 +131,22 @@ const hasLinks = game.data.downloadLinks.length > 0 || Boolean(game.data.externa
           </div>
         </section>
       )}
+
+      {relatedGames.length > 0 && (
+        <section class="card">
+          <div class="section-heading">
+            <div>
+              <h2>更多项目</h2>
+              <p class="content-meta">如果你想继续看同类方向，这几项会比较顺手。</p>
+            </div>
+          </div>
+          <div class="link-list">
+            {relatedGames.map((item) => (
+              <a href={withBase(`/games/${item.slug}`)}>{item.data.title}</a>
+            ))}
+          </div>
+        </section>
+      )}
     </div>
 
     <aside class="content-sidebar card">
@@ -127,6 +162,10 @@ const hasLinks = game.data.downloadLinks.length > 0 || Boolean(game.data.externa
           <div class="mini-panel">
             <p class="eyebrow">最近更新</p>
             <p>{game.data.updatedDate ? formatDate(game.data.updatedDate) : formatDate(game.data.pubDate)}</p>
+          </div>
+          <div class="mini-panel">
+            <p class="eyebrow">阅读时长</p>
+            <p>{readingTime}</p>
           </div>
           <div class="mini-panel">
             <p class="eyebrow">阶段</p>
@@ -154,6 +193,8 @@ const hasLinks = game.data.downloadLinks.length > 0 || Boolean(game.data.externa
           </div>
         </div>
       </section>
+
+      <ContentToc headings={headings} />
 
       {game.data.contribution.length > 0 && (
         <section>

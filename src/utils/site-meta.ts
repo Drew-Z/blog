@@ -33,3 +33,18 @@ export function formatDate(date: Date): string {
     day: 'numeric'
   });
 }
+
+export function estimateReadingTime(source: string): string {
+  const plainText = source
+    .replace(/```[\s\S]*?```/g, ' ')
+    .replace(/`[^`]*`/g, ' ')
+    .replace(/!\[[^\]]*]\([^)]+\)/g, ' ')
+    .replace(/\[[^\]]*]\([^)]+\)/g, ' ')
+    .replace(/[#>*_\-\r\n]/g, ' ')
+    .replace(/\s+/g, '');
+
+  const charCount = plainText.length;
+  const minutes = Math.max(1, Math.ceil(charCount / 450));
+
+  return `${minutes} 分钟阅读`;
+}

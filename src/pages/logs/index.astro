@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import DevlogCard from '../../components/DevlogCard.astro';
 import { formatDate, siteMeta } from '../../utils/site-meta';
 
@@ -11,6 +12,7 @@ const latestLog = logs[0];
 ---
 
 <BaseLayout title={`开发日志 | ${siteMeta.name}`} description="项目开发过程、阶段结论和关键方案取舍记录。">
+  <Breadcrumbs items={[{ label: '首页', href: '/' }, { label: '日志' }]} />
   <section class="page-heading card page-heading--rich">
     <p class="eyebrow">Devlogs</p>
     <h1>开发日志</h1>

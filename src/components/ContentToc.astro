@@ -1,0 +1,30 @@
+---
+interface Heading {
+  depth: number;
+  slug: string;
+  text: string;
+}
+
+interface Props {
+  headings?: Heading[];
+  title?: string;
+}
+
+const { headings = [], title = '内容目录' } = Astro.props;
+const visibleHeadings = headings.filter((heading) => heading.depth <= 3);
+---
+
+{visibleHeadings.length > 0 && (
+  <section class="toc-card">
+    <div class="section-heading">
+      <h2>{title}</h2>
+    </div>
+    <ol class="toc-list">
+      {visibleHeadings.map((heading) => (
+        <li class:list={[`toc-depth-${heading.depth}`]}>
+          <a href={`#${heading.slug}`}>{heading.text}</a>
+        </li>
+      ))}
+    </ol>
+  </section>
+)}

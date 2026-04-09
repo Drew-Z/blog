@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import GameCard from '../../components/GameCard.astro';
 import { siteMeta } from '../../utils/site-meta';
 
@@ -11,6 +12,7 @@ const ongoingCount = games.filter((game) => game.data.status === 'ongoing').leng
 ---
 
 <BaseLayout title={`游戏作品 | ${siteMeta.name}`} description="围绕玩法验证、展示版包装和多端适配整理的项目案例。">
+  <Breadcrumbs items={[{ label: '首页', href: '/' }, { label: '作品' }]} />
   <section class="page-heading card page-heading--rich">
     <p class="eyebrow">Games</p>
     <h1>游戏作品</h1>

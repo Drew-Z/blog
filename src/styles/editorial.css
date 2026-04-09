@@ -63,6 +63,22 @@ a {
   text-decoration: none;
 }
 
+.skip-link {
+  position: absolute;
+  left: 16px;
+  top: -48px;
+  z-index: 40;
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: var(--brand);
+  color: #fff;
+  font-weight: 700;
+}
+
+.skip-link:focus {
+  top: 12px;
+}
+
 .page-shell {
   position: relative;
   z-index: 1;
@@ -77,6 +93,37 @@ a {
 .content-main {
   display: grid;
   gap: 24px;
+}
+
+.breadcrumbs {
+  margin-bottom: -8px;
+}
+
+.breadcrumbs ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 0.94rem;
+}
+
+.breadcrumbs li {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.breadcrumbs li + li::before {
+  content: '/';
+  color: rgba(39, 55, 50, 0.36);
+}
+
+.breadcrumbs a:hover {
+  color: var(--brand-strong);
 }
 
 .site-nav,
@@ -569,6 +616,32 @@ a {
   gap: 16px;
 }
 
+.toc-card {
+  display: grid;
+  gap: 16px;
+}
+
+.toc-list {
+  margin: 0;
+  padding-left: 18px;
+  display: grid;
+  gap: 10px;
+  color: var(--muted);
+}
+
+.toc-list a {
+  color: inherit;
+}
+
+.toc-list a:hover {
+  color: var(--brand-strong);
+}
+
+.toc-depth-3 {
+  margin-left: 12px;
+  font-size: 0.95rem;
+}
+
 .content-sidebar p,
 .content-sidebar li {
   overflow-wrap: anywhere;
@@ -686,6 +759,10 @@ a {
 
 .site-footer {
   margin-top: 32px;
+}
+
+.error-page {
+  text-align: left;
 }
 
 .footer-grid {

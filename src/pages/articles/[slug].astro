@@ -1,8 +1,10 @@
 ﻿---
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import ContentToc from '../../components/ContentToc.astro';
 import { withBase } from '../../utils/site';
-import { formatDate } from '../../utils/site-meta';
+import { estimateReadingTime, formatDate } from '../../utils/site-meta';
 
 export async function getStaticPaths() {
   const articles = await getCollection('articles', ({ data }) => !data.draft);
@@ -13,10 +15,28 @@ export async function getStaticPaths() {
 }
 
 const { article } = Astro.props;
-const { Content } = await render(article);
+const { Content, headings } = await render(article);
+const allArticles = await getCollection('articles', ({ data }) => !data.draft);
+const relatedArticles = allArticles
+  .filter((item) => item.id !== article.id)
+  .map((item) => ({
+    item,
+    score: item.data.tags.filter((tag) => article.data.tags.includes(tag)).length
+  }))
+  .filter(({ score }) => score > 0)
+  .sort((a, b) => b.score - a.score || b.item.data.pubDate.valueOf() - a.item.data.pubDate.valueOf())
+  .slice(0, 3)
+  .map(({ item }) => item);
+const readingTime = estimateReadingTime(article.body);
 ---
 
-<BaseLayout title={`${article.data.title} | 文章`} description={article.data.description}>
+<BaseLayout
+  title={`${article.data.title} | 文章`}
+  description={article.data.description}
+  image={article.data.coverImage}
+  type="article"
+>
+  <Breadcrumbs items={[{ label: '首页', href: '/' }, { label: '文章', href: '/articles' }, { label: article.data.title }]} />
   <article class="content-layout">
     <div class="content-main">
       <header class="content-header card content-header--article">
@@ -48,30 +68,54 @@ const { Content } = await render(article);
       <div class="prose-block prose-block--article">
         <Content />
       </div>
+
+      {relatedArticles.length > 0 && (
+        <section class="card">
+          <div class="section-heading">
+            <div>
+              <h2>相关文章</h2>
+              <p class="content-meta">这些文章和当前主题更接近，适合继续顺着往下读。</p>
+            </div>
+          </div>
+          <div class="link-list">
+            {relatedArticles.map((item) => (
+              <a href={withBase(`/articles/${item.id}`)}>{item.data.title}</a>
+            ))}
+          </div>
+        </section>
+      )}
     </div>
 
     <aside class="content-sidebar card">
-      <div class="section-heading">
-        <h2>文章信息</h2>
-      </div>
-      <div class="meta-grid">
-        <div class="mini-panel">
-          <p class="eyebrow">标签</p>
-          <div class="tag-list">
-            {article.data.tags.map((tag) => <span>{tag}</span>)}
-          </div>
+      <section>
+        <div class="section-heading">
+          <h2>文章信息</h2>
         </div>
-        {article.data.updatedDate ? (
+        <div class="meta-grid">
           <div class="mini-panel">
-            <p class="eyebrow">最近更新</p>
-            <p>{formatDate(article.data.updatedDate)}</p>
+            <p class="eyebrow">阅读时长</p>
+            <p>{readingTime}</p>
           </div>
-        ) : null}
-        <div class="mini-panel">
-          <p class="eyebrow">用途</p>
-          <p>这部分内容更偏系统设计文章、案例分析和方法论沉淀。</p>
+          <div class="mini-panel">
+            <p class="eyebrow">标签</p>
+            <div class="tag-list">
+              {article.data.tags.map((tag) => <span>{tag}</span>)}
+            </div>
+          </div>
+          {article.data.updatedDate ? (
+            <div class="mini-panel">
+              <p class="eyebrow">最近更新</p>
+              <p>{formatDate(article.data.updatedDate)}</p>
+            </div>
+          ) : null}
+          <div class="mini-panel">
+            <p class="eyebrow">用途</p>
+            <p>这部分内容更偏系统设计文章、案例分析和方法论沉淀。</p>
+          </div>
         </div>
-      </div>
+      </section>
+
+      <ContentToc headings={headings} />
     </aside>
   </article>
 </BaseLayout>
