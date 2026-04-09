@@ -94,6 +94,33 @@ const articleWorkbenchStats = await getArticleWorkbenchStats();
           <li>持续筛选零散笔记，只把真正值得公开的内容整理进主站。</li>
         </ul>
       </section>
+
+      <section class="card">
+        <div class="section-heading">
+          <h2>合作方式与联系入口</h2>
+        </div>
+        <div class="feature-grid">
+          <div class="mini-panel">
+            <p class="eyebrow">适合的合作场景</p>
+            <p>独立游戏原型、系统设计拆解、开发复盘整理、作品站搭建与内容结构收口。</p>
+          </div>
+          <div class="mini-panel">
+            <p class="eyebrow">GitHub 入口</p>
+            <p>如果你想先看公开项目、仓库动态或进一步找到个人主页，从 GitHub 入口开始最直接。</p>
+            <a class="inline-link" href={siteMeta.githubProfile} target="_blank" rel="noreferrer">打开 GitHub Profile</a>
+          </div>
+          <div class="mini-panel">
+            <p class="eyebrow">站点仓库</p>
+            <p>如果你更关心这个博客如何维护、怎么迭代、提交历史是否清晰，可以直接看仓库本体。</p>
+            <a class="inline-link" href={siteMeta.repository} target="_blank" rel="noreferrer">查看站点仓库</a>
+          </div>
+          <div class="mini-panel">
+            <p class="eyebrow">持续关注</p>
+            <p>如果你现在只是先收藏或想追踪更新，RSS 是最稳定的长期关注方式。</p>
+            <a class="inline-link" href={withBase(siteMeta.rss)}>订阅 RSS</a>
+          </div>
+        </div>
+      </section>
     </div>
 
     <aside class="content-sidebar card">
@@ -130,6 +157,7 @@ const articleWorkbenchStats = await getArticleWorkbenchStats();
           <a href={withBase('/games')}>查看游戏作品</a>
           <a href={withBase('/logs')}>查看开发日志</a>
           <a href={withBase('/articles')}>查看文章归档</a>
+          <a href={siteMeta.githubProfile} target="_blank" rel="noreferrer">打开 GitHub Profile</a>
         </div>
       </section>
     </aside>

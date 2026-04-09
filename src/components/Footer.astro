@@ -23,12 +23,12 @@ const year = new Date().getFullYear();
     </section>
 
     <section>
-      <p class="eyebrow">当前方向</p>
-      <ul class="timeline-list footer-list">
-        <li>围绕 Godot 原型做可展示的项目案例。</li>
-        <li>用开发日志沉淀关键设计判断与迭代过程。</li>
-        <li>用系统拆解文章补足方法论与表达深度。</li>
-      </ul>
+      <p class="eyebrow">联系 / 关注</p>
+      <div class="footer-nav">
+        <a href={siteMeta.githubProfile} target="_blank" rel="noreferrer">GitHub Profile</a>
+        <a href={siteMeta.repository} target="_blank" rel="noreferrer">仓库主页</a>
+        <a href={withBase(siteMeta.rss)}>RSS 订阅</a>
+      </div>
     </section>
   </div>
 

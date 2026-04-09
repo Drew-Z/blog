@@ -2,7 +2,10 @@ export const siteMeta = {
   name: 'Biau Playlab',
   title: '独立游戏原型与系统设计博客',
   description: '围绕 Godot 游戏原型、系统策划拆解与开发复盘搭建的个人作品展示博客。',
-  tagline: '独立游戏原型 / 系统设计 / 开发写作'
+  tagline: '独立游戏原型 / 系统设计 / 开发写作',
+  githubProfile: 'https://github.com/ciallo-bill',
+  repository: 'https://github.com/ciallo-bill/blog',
+  rss: '/rss.xml'
 };
 
 export const navLinks = [

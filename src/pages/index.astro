@@ -25,6 +25,35 @@ const latestArticle = articles[0];
 const spotlightGame = homeGames[0];
 const spotlightLog = homeLogs[0];
 const spotlightArticle = homeArticles[0];
+const visualCards = [
+  spotlightGame
+    ? {
+        href: `/games/${spotlightGame.slug}`,
+        image: spotlightGame.data.thumbnail,
+        label: 'Featured Project',
+        title: spotlightGame.data.title,
+        text: spotlightGame.data.summary
+      }
+    : undefined,
+  homeGames[1]
+    ? {
+        href: `/games/${homeGames[1].slug}`,
+        image: homeGames[1].data.thumbnail,
+        label: 'Second Case',
+        title: homeGames[1].data.title,
+        text: homeGames[1].data.summary
+      }
+    : undefined,
+  spotlightArticle?.data.coverImage
+    ? {
+        href: `/articles/${spotlightArticle.id}`,
+        image: spotlightArticle.data.coverImage,
+        label: 'Method Article',
+        title: spotlightArticle.data.title,
+        text: spotlightArticle.data.description
+      }
+    : undefined
+].filter(Boolean);
 const entryRoute = [
   homeGames[0] ? { label: '先看代表项目', href: `/games/${homeGames[0].slug}`, title: homeGames[0].data.title } : undefined,
   homeLogs[0] ? { label: '再看阶段日志', href: `/logs/${homeLogs[0].slug}`, title: homeLogs[0].data.title } : undefined,
@@ -54,7 +83,24 @@ const entryRoute = [
     </div>
 
     <div class="hero-panel">
-      <p class="eyebrow">Site Snapshot</p>
+      {visualCards.length > 0 && (
+        <div class="hero-visual-grid">
+          {visualCards.map((item, index) => (
+            <a
+              class:list={['hero-visual-card', index === 0 && 'hero-visual-card--primary']}
+              href={withBase(item!.href)}
+            >
+              {item!.image ? <img src={withBase(item!.image)} alt={item!.title} loading={index === 0 ? 'eager' : 'lazy'} /> : null}
+              <div class="hero-visual-copy">
+                <p class="eyebrow">{item!.label}</p>
+                <strong>{item!.title}</strong>
+                <span>{item!.text}</span>
+              </div>
+            </a>
+          ))}
+        </div>
+      )}
+
       <div class="kpi-grid">
         <div class="mini-panel">
           <strong>{games.length}</strong>
@@ -67,24 +113,6 @@ const entryRoute = [
         <div class="mini-panel">
           <strong>{articles.length}</strong>
           <p>篇公开文章</p>
-        </div>
-      </div>
-
-      <div class="mini-panel">
-        <p class="eyebrow">当前重点</p>
-        <ul class="timeline-list">
-          <li>把玩法原型收成更适合展示和投递的项目案例。</li>
-          <li>用开发日志沉淀关键设计判断，而不只是记录结果。</li>
-          <li>通过系统拆解文章补齐方法论与分析深度。</li>
-        </ul>
-      </div>
-
-      <div class="mini-panel">
-        <p class="eyebrow">最近更新</p>
-        <div class="link-list">
-          {latestLog ? <a href={withBase(`/logs/${latestLog.slug}`)}>最新日志：{latestLog.data.title}</a> : null}
-          {latestArticle ? <a href={withBase(`/articles/${latestArticle.id}`)}>最新文章：{latestArticle.data.title}</a> : null}
-          <a href={withBase('/about')}>查看站点介绍与浏览建议</a>
         </div>
       </div>
     </div>
@@ -110,6 +138,33 @@ const entryRoute = [
         <p class="eyebrow">03 深度文章</p>
         <p>最后读系统设计和游戏拆解文章，看到我如何组织分析框架、表达复杂内容以及做出判断。</p>
       </div>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="section-heading">
+      <div>
+        <h2>合作与联系</h2>
+        <p class="content-meta">如果你是来投递评估、项目合作或同行交流，这里给你一个最直接的进入方式。</p>
+      </div>
+      <a href={withBase('/about')}>查看完整说明</a>
+    </div>
+    <div class="contact-grid">
+      <a class="contact-card" href={siteMeta.githubProfile} target="_blank" rel="noreferrer">
+        <p class="eyebrow">GitHub Profile</p>
+        <strong>查看公开项目与个人入口</strong>
+        <span>适合想先确认项目背景、代码仓库和公开动态的人。</span>
+      </a>
+      <a class="contact-card" href={siteMeta.repository} target="_blank" rel="noreferrer">
+        <p class="eyebrow">Repository</p>
+        <strong>查看这个站点的仓库</strong>
+        <span>适合想直接了解博客本体、提交记录和站点演进方式的人。</span>
+      </a>
+      <a class="contact-card" href={withBase(siteMeta.rss)}>
+        <p class="eyebrow">RSS Feed</p>
+        <strong>订阅后续更新</strong>
+        <span>如果你更关注持续内容输出，可以直接走 RSS 保持跟进。</span>
+      </a>
     </div>
   </section>
 
