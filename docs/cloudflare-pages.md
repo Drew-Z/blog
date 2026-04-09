@@ -44,7 +44,7 @@
 2. 选择 `Create application`
 3. 选择 `Pages`
 4. 选择 `Import an existing Git repository`
-5. 连接 GitHub，并选择 `Drew-Z/blog`
+5. 连接 GitHub，并选择 `ciallo-bill/blog`
 6. 在构建设置里填写：
 
 - Production branch: `main`
@@ -56,6 +56,11 @@
 - `SITE_URL`
 
 如果你是正式域名部署，把它设成正式域名；如果你先用 `pages.dev`，就设成对应的 `pages.dev` 地址。
+
+如果 Cloudflare 后台里暂时看不到 `ciallo-bill/blog`，优先检查这两件事：
+
+- GitHub 上这个仓库是否已经真实创建
+- Cloudflare 连接的 GitHub 账号是否已经授权访问这个仓库
 
 ## 自定义域名建议
 
@@ -71,6 +76,7 @@ Cloudflare 官方文档当前的要点是：
 - `docs/deploy-guide.md`：多平台部署说明
 - `public/_headers`：静态资源缓存与基础安全响应头
 - 已移除 GitHub Pages 的自动部署 workflow，避免仓库 push 后再触发无用的 Actions 失败
+- 当前 Git 远程地址已切换为 `git@github.com:ciallo-bill/blog.git`
 
 ## 我对你当前项目的推荐
 
