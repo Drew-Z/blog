@@ -1,17 +1,24 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import ArchiveFilter from '../../components/ArchiveFilter.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import GameCard from '../../components/GameCard.astro';
 import { withBase } from '../../utils/site';
 import { sortEditorialEntries } from '../../utils/entries';
-import { siteMeta } from '../../utils/site-meta';
+import { gameStatusLabels, siteMeta } from '../../utils/site-meta';
 
 const games = sortEditorialEntries(await getCollection('games'));
 const featuredCount = games.filter((game) => game.data.featured).length;
 const playableCount = games.filter((game) => game.data.playableWeb || game.data.status === 'playable').length;
 const ongoingCount = games.filter((game) => game.data.status === 'ongoing').length;
 const entryGame = games[0];
+const filterGroups = [
+  { label: '重点项目', value: 'featured' },
+  { label: '持续迭代', value: 'ongoing' },
+  { label: '可玩验证', value: 'playable' },
+  { label: '展示版本', value: 'showcase' }
+];
 ---
 
 <BaseLayout title={`游戏作品 | ${siteMeta.name}`} description="围绕玩法验证、展示版包装和多端适配整理的项目案例。">
@@ -64,20 +71,34 @@ const entryGame = games[0];
     </section>
   )}
 
-  <section class="grid grid--cards-lg">
+  <ArchiveFilter
+    id="games-archive"
+    placeholder="搜索项目名称、目标、职责、平台或标签"
+    chips={filterGroups}
+    emptyMessage="没有找到匹配的项目，可以试试别的关键词或项目阶段。"
+  />
+
+  <section class="grid grid--cards-lg" data-filter-target="games-archive">
     {games.map((game) => (
-      <GameCard
-        href={`/games/${game.slug}`}
-        title={game.data.title}
-        summary={game.data.summary}
-        description={game.data.description}
-        status={game.data.status}
-        role={game.data.role}
-        platforms={game.data.platforms}
-        playableWeb={game.data.playableWeb}
-        thumbnail={game.data.thumbnail}
-        featured={game.data.featured}
-      />
+      <div
+        class="filter-item-shell"
+        data-filter-item
+        data-search={`${game.data.title} ${game.data.summary} ${game.data.description} ${game.data.role ?? ''} ${game.data.platforms.join(' ')} ${game.data.tags.join(' ')} ${gameStatusLabels[game.data.status] ?? game.data.status}`}
+        data-groups={[game.data.status, game.data.featured ? 'featured' : '', game.data.playableWeb || game.data.status === 'playable' ? 'playable' : ''].filter(Boolean).join('|')}
+      >
+        <GameCard
+          href={`/games/${game.slug}`}
+          title={game.data.title}
+          summary={game.data.summary}
+          description={game.data.description}
+          status={game.data.status}
+          role={game.data.role}
+          platforms={game.data.platforms}
+          playableWeb={game.data.playableWeb}
+          thumbnail={game.data.thumbnail}
+          featured={game.data.featured}
+        />
+      </div>
     ))}
   </section>
 </BaseLayout>

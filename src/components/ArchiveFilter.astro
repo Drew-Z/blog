@@ -1,0 +1,99 @@
+---
+interface Chip {
+  label: string;
+  value: string;
+}
+
+interface Props {
+  id: string;
+  placeholder: string;
+  chips?: Chip[];
+  emptyMessage?: string;
+}
+
+const {
+  id,
+  placeholder,
+  chips = [],
+  emptyMessage = '没有匹配到结果，可以换个关键词或筛选条件试试。'
+} = Astro.props;
+---
+
+<section class="card archive-filter" data-filter-root={id}>
+  <div class="section-heading">
+    <div>
+      <h2>快速筛选</h2>
+      <p class="content-meta">支持按关键词和常用主题快速收窄范围，适合内容逐渐变多后的浏览场景。</p>
+    </div>
+    <p class="archive-filter-count" data-filter-count>正在载入筛选结果…</p>
+  </div>
+  <div class="filter-bar">
+    <label class="filter-search">
+      <span class="eyebrow">Search</span>
+      <input type="search" placeholder={placeholder} data-filter-search />
+    </label>
+    {chips.length > 0 && (
+      <div class="filter-chip-row" role="group" aria-label="快速筛选">
+        <button class="filter-chip is-active" type="button" data-filter-chip="all">全部</button>
+        {chips.map((chip) => (
+          <button class="filter-chip" type="button" data-filter-chip={chip.value}>{chip.label}</button>
+        ))}
+      </div>
+    )}
+  </div>
+  <p class="archive-empty" hidden data-filter-empty>{emptyMessage}</p>
+</section>
+
+<script define:vars={{ id }}>
+  (() => {
+    const root = document.querySelector(`[data-filter-root="${id}"]`);
+    const list = document.querySelector(`[data-filter-target="${id}"]`);
+    if (!root || !list) return;
+
+    const input = root.querySelector('[data-filter-search]');
+    const buttons = Array.from(root.querySelectorAll('[data-filter-chip]'));
+    const countNode = root.querySelector('[data-filter-count]');
+    const emptyNode = root.querySelector('[data-filter-empty]');
+    const items = Array.from(list.querySelectorAll('[data-filter-item]'));
+    let activeChip = 'all';
+
+    const normalize = (value) => (value || '').toLowerCase();
+
+    const apply = () => {
+      const query = normalize(input instanceof HTMLInputElement ? input.value.trim() : '');
+      let visibleCount = 0;
+
+      items.forEach((item) => {
+        const search = normalize(item.getAttribute('data-search'));
+        const groups = normalize(item.getAttribute('data-groups')).split('|').filter(Boolean);
+        const matchesQuery = query === '' || search.includes(query);
+        const matchesChip = activeChip === 'all' || groups.includes(activeChip);
+        const visible = matchesQuery && matchesChip;
+        item.hidden = !visible;
+        if (visible) visibleCount += 1;
+      });
+
+      if (countNode) {
+        countNode.textContent = `当前显示 ${visibleCount} 项`;
+      }
+
+      if (emptyNode instanceof HTMLElement) {
+        emptyNode.hidden = visibleCount > 0;
+      }
+    };
+
+    if (input instanceof HTMLInputElement) {
+      input.addEventListener('input', apply);
+    }
+
+    buttons.forEach((button) => {
+      button.addEventListener('click', () => {
+        activeChip = button.getAttribute('data-filter-chip') || 'all';
+        buttons.forEach((item) => item.classList.toggle('is-active', item === button));
+        apply();
+      });
+    });
+
+    apply();
+  })();
+</script>

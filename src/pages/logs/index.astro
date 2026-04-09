@@ -1,17 +1,22 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import ArchiveFilter from '../../components/ArchiveFilter.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import DevlogCard from '../../components/DevlogCard.astro';
 import { withBase } from '../../utils/site';
 import { sortEditorialEntries } from '../../utils/entries';
-import { formatDate, siteMeta } from '../../utils/site-meta';
+import { devlogProjectLabels, formatDate, siteMeta } from '../../utils/site-meta';
 
 const logs = sortEditorialEntries(await getCollection('devlogs'));
 const featuredCount = logs.filter((log) => log.data.featured).length;
 const projectCount = new Set(logs.map((log) => log.data.project)).size;
 const latestLog = logs[0];
 const entryLog = logs[0];
+const filterProjects = Array.from(new Set(logs.map((log) => log.data.project))).map((project) => ({
+  label: devlogProjectLabels[project] ?? project,
+  value: project
+}));
 ---
 
 <BaseLayout title={`开发日志 | ${siteMeta.name}`} description="项目开发过程、阶段结论和关键方案取舍记录。">
@@ -64,17 +69,31 @@ const entryLog = logs[0];
     </section>
   )}
 
-  <section class="grid grid--cards-lg">
+  <ArchiveFilter
+    id="logs-archive"
+    placeholder="搜索日志标题、描述、标签或项目"
+    chips={filterProjects}
+    emptyMessage="没有找到匹配的日志，可以换个项目或关键词继续筛选。"
+  />
+
+  <section class="grid grid--cards-lg" data-filter-target="logs-archive">
     {logs.map((log) => (
-      <DevlogCard
-        href={`/logs/${log.slug}`}
-        title={log.data.title}
-        description={log.data.description}
-        pubDate={log.data.pubDate}
-        tags={log.data.tags}
-        project={log.data.project}
-        featured={log.data.featured}
-      />
+      <div
+        class="filter-item-shell"
+        data-filter-item
+        data-search={`${log.data.title} ${log.data.description} ${log.data.tags.join(' ')} ${devlogProjectLabels[log.data.project] ?? log.data.project}`}
+        data-groups={log.data.project}
+      >
+        <DevlogCard
+          href={`/logs/${log.slug}`}
+          title={log.data.title}
+          description={log.data.description}
+          pubDate={log.data.pubDate}
+          tags={log.data.tags}
+          project={log.data.project}
+          featured={log.data.featured}
+        />
+      </div>
     ))}
   </section>
 </BaseLayout>

@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ArticleCard from '../../components/ArticleCard.astro';
+import ArchiveFilter from '../../components/ArchiveFilter.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import { withBase } from '../../utils/site';
 import { getPublishedArticles, getPublishedArticleTagCounts } from '../../utils/content';
@@ -13,6 +14,10 @@ const tagCount = tagCounts.length;
 const latestArticle = articles[0];
 const hotTags = tagCounts.slice(0, 10);
 const entryArticle = articles[0];
+const filterTags = hotTags.slice(0, 6).map(({ tag }) => ({
+  label: tag,
+  value: slugifyTag(tag)
+}));
 ---
 
 <BaseLayout title={`文章归档 | ${siteMeta.name}`} description="系统策划拆解、游戏分析和方法沉淀文章。">
@@ -85,17 +90,31 @@ const entryArticle = articles[0];
     </section>
   )}
 
-  <section class="grid grid--cards-lg">
+  <ArchiveFilter
+    id="articles-archive"
+    placeholder="搜索文章标题、描述或标签"
+    chips={filterTags}
+    emptyMessage="没有找到匹配的文章，可以试试别的关键词或标签。"
+  />
+
+  <section class="grid grid--cards-lg" data-filter-target="articles-archive">
     {articles.map((article) => (
-      <ArticleCard
-        href={`/articles/${article.id}`}
-        title={article.data.title}
-        description={article.data.description}
-        pubDate={article.data.pubDate}
-        tags={article.data.tags}
-        coverImage={article.data.coverImage}
-        featured={article.data.featured}
-      />
+      <div
+        class="filter-item-shell"
+        data-filter-item
+        data-search={`${article.data.title} ${article.data.description} ${article.data.tags.join(' ')}`}
+        data-groups={article.data.tags.map((tag) => slugifyTag(tag)).join('|')}
+      >
+        <ArticleCard
+          href={`/articles/${article.id}`}
+          title={article.data.title}
+          description={article.data.description}
+          pubDate={article.data.pubDate}
+          tags={article.data.tags}
+          coverImage={article.data.coverImage}
+          featured={article.data.featured}
+        />
+      </div>
     ))}
   </section>
 </BaseLayout>

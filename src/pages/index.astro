@@ -7,7 +7,7 @@ import DevlogCard from '../components/DevlogCard.astro';
 import { withBase } from '../utils/site';
 import { getPublishedArticles } from '../utils/content';
 import { sortEditorialEntries } from '../utils/entries';
-import { siteMeta } from '../utils/site-meta';
+import { devlogProjectLabels, siteMeta } from '../utils/site-meta';
 
 const games = sortEditorialEntries(await getCollection('games'));
 const logs = sortEditorialEntries(await getCollection('devlogs'));
@@ -22,6 +22,9 @@ const homeLogs = featuredLogs.length > 0 ? featuredLogs : logs.slice(0, 3);
 const homeArticles = featuredArticles.length > 0 ? featuredArticles : articles.slice(0, 3);
 const latestLog = logs[0];
 const latestArticle = articles[0];
+const spotlightGame = homeGames[0];
+const spotlightLog = homeLogs[0];
+const spotlightArticle = homeArticles[0];
 const entryRoute = [
   homeGames[0] ? { label: '先看代表项目', href: `/games/${homeGames[0].slug}`, title: homeGames[0].data.title } : undefined,
   homeLogs[0] ? { label: '再看阶段日志', href: `/logs/${homeLogs[0].slug}`, title: homeLogs[0].data.title } : undefined,
@@ -125,6 +128,47 @@ const entryRoute = [
             <strong>{item!.title}</strong>
           </a>
         ))}
+      </div>
+    </section>
+  )}
+
+  {(spotlightGame || spotlightLog || spotlightArticle) && (
+    <section class="card spotlight-shell">
+      <div class="section-heading">
+        <div>
+          <h2>编辑主推</h2>
+          <p class="content-meta">把最适合作为门面、过程和方法论入口的内容单独拎出来，方便第一次访问时快速建立完整印象。</p>
+        </div>
+      </div>
+      <div class="spotlight-grid">
+        {spotlightGame && (
+          <a class="spotlight-primary" href={withBase(`/games/${spotlightGame.slug}`)}>
+            <p class="eyebrow">Featured Project</p>
+            <strong>{spotlightGame.data.title}</strong>
+            <p>{spotlightGame.data.summary}</p>
+            <div class="tag-list">
+              {spotlightGame.data.tags.slice(0, 4).map((tag) => <span>{tag}</span>)}
+            </div>
+          </a>
+        )}
+        <div class="spotlight-side">
+          {spotlightLog && (
+            <a class="editor-pick-card" href={withBase(`/logs/${spotlightLog.slug}`)}>
+              <p class="eyebrow">Process Pick</p>
+              <strong>{spotlightLog.data.title}</strong>
+              <p>{devlogProjectLabels[spotlightLog.data.project] ?? spotlightLog.data.project}</p>
+              <span>{spotlightLog.data.description}</span>
+            </a>
+          )}
+          {spotlightArticle && (
+            <a class="editor-pick-card" href={withBase(`/articles/${spotlightArticle.id}`)}>
+              <p class="eyebrow">Method Pick</p>
+              <strong>{spotlightArticle.data.title}</strong>
+              <p>{spotlightArticle.data.tags.slice(0, 3).join(' / ') || '深度文章'}</p>
+              <span>{spotlightArticle.data.description}</span>
+            </a>
+          )}
+        </div>
       </div>
     </section>
   )}
