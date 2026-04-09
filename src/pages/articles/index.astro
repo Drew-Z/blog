@@ -12,6 +12,7 @@ const featuredCount = articles.filter((article) => article.data.featured).length
 const tagCount = tagCounts.length;
 const latestArticle = articles[0];
 const hotTags = tagCounts.slice(0, 10);
+const entryArticle = articles[0];
 ---
 
 <BaseLayout title={`文章归档 | ${siteMeta.name}`} description="系统策划拆解、游戏分析和方法沉淀文章。">
@@ -46,6 +47,23 @@ const hotTags = tagCounts.slice(0, 10);
       </div>
     </div>
   </section>
+
+  {entryArticle && (
+    <section class="card">
+      <div class="section-heading">
+        <div>
+          <h2>建议起点</h2>
+          <p class="content-meta">如果你是第一次看这里，先从这篇开始，通常最容易判断我的分析框架和表达密度。</p>
+        </div>
+        <a href={withBase(`/articles/${entryArticle.id}`)}>直接阅读</a>
+      </div>
+      <div class="mini-panel">
+        <p class="eyebrow">当前优先推荐</p>
+        <strong>{entryArticle.data.title}</strong>
+        <p>{entryArticle.data.description}</p>
+      </div>
+    </section>
+  )}
 
   {hotTags.length > 0 && (
     <section class="card">

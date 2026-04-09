@@ -1,4 +1,5 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
+import { sortEditorialEntries } from './entries';
 
 export type PublicArticleEntry =
   | CollectionEntry<'publishedArticles'>
@@ -24,9 +25,7 @@ export async function getPublishedArticles(): Promise<PublicArticleEntry[]> {
     (entry) => isPublicArticle(entry) && !dedupedLegacyTitles.has(entry.data.title ?? '')
   );
 
-  return [...publishedArticles, ...workbenchPublished].sort(
-    (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
-  );
+  return sortEditorialEntries([...publishedArticles, ...workbenchPublished]);
 }
 
 export async function getPublishedArticleById(id: string): Promise<PublicArticleEntry | undefined> {

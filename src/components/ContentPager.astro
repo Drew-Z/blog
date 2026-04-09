@@ -1,0 +1,56 @@
+---
+import { withBase } from '../utils/site';
+
+interface PagerItem {
+  href: string;
+  label: string;
+  title: string;
+  description?: string;
+}
+
+interface Props {
+  newer?: PagerItem;
+  older?: PagerItem;
+}
+
+const { newer, older } = Astro.props;
+---
+
+{(newer || older) && (
+  <section class="card">
+    <div class="section-heading">
+      <div>
+        <h2>继续浏览</h2>
+        <p class="content-meta">如果你想顺着这个主题继续看，可以直接从这里跳到前后内容。</p>
+      </div>
+    </div>
+    <div class="pager-grid">
+      {newer ? (
+        <a class="pager-card" href={withBase(newer.href)}>
+          <p class="eyebrow">{newer.label}</p>
+          <strong>{newer.title}</strong>
+          {newer.description ? <span>{newer.description}</span> : null}
+        </a>
+      ) : (
+        <div class="pager-card pager-card--empty">
+          <p class="eyebrow">更新较新</p>
+          <strong>已经到当前序列最前面了</strong>
+          <span>这里没有更近的一篇，可以改看相关内容或返回归档。</span>
+        </div>
+      )}
+      {older ? (
+        <a class="pager-card" href={withBase(older.href)}>
+          <p class="eyebrow">{older.label}</p>
+          <strong>{older.title}</strong>
+          {older.description ? <span>{older.description}</span> : null}
+        </a>
+      ) : (
+        <div class="pager-card pager-card--empty">
+          <p class="eyebrow">更早内容</p>
+          <strong>已经到当前序列最末尾了</strong>
+          <span>如果你想继续浏览，可以返回列表页切到别的专题或项目。</span>
+        </div>
+      )}
+    </div>
+  </section>
+)}

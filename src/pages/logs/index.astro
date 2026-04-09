@@ -3,12 +3,15 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import DevlogCard from '../../components/DevlogCard.astro';
+import { withBase } from '../../utils/site';
+import { sortEditorialEntries } from '../../utils/entries';
 import { formatDate, siteMeta } from '../../utils/site-meta';
 
-const logs = (await getCollection('devlogs')).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const logs = sortEditorialEntries(await getCollection('devlogs'));
 const featuredCount = logs.filter((log) => log.data.featured).length;
 const projectCount = new Set(logs.map((log) => log.data.project)).size;
 const latestLog = logs[0];
+const entryLog = logs[0];
 ---
 
 <BaseLayout title={`开发日志 | ${siteMeta.name}`} description="项目开发过程、阶段结论和关键方案取舍记录。">
@@ -43,6 +46,23 @@ const latestLog = logs[0];
       </div>
     </div>
   </section>
+
+  {entryLog && (
+    <section class="card">
+      <div class="section-heading">
+        <div>
+          <h2>建议起点</h2>
+          <p class="content-meta">如果你想先看“我是怎么推进项目的”，可以从当前最适合外部阅读的一篇阶段日志开始。</p>
+        </div>
+        <a href={withBase(`/logs/${entryLog.slug}`)}>开始阅读</a>
+      </div>
+      <div class="mini-panel">
+        <p class="eyebrow">当前推荐日志</p>
+        <strong>{entryLog.data.title}</strong>
+        <p>{entryLog.data.description}</p>
+      </div>
+    </section>
+  )}
 
   <section class="grid grid--cards-lg">
     {logs.map((log) => (

@@ -2,8 +2,10 @@
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import ContentPager from '../../components/ContentPager.astro';
 import ContentToc from '../../components/ContentToc.astro';
 import { withBase } from '../../utils/site';
+import { getEntryNeighbors, sortEditorialEntries } from '../../utils/entries';
 import { devlogProjectLabels, estimateReadingTime, formatDate } from '../../utils/site-meta';
 
 export async function getStaticPaths() {
@@ -18,12 +20,12 @@ const { log } = Astro.props;
 const { Content, headings } = await render(log);
 const games = await getCollection('games');
 const relatedGame = games.find((game) => game.slug === log.data.relatedGame);
-const allLogs = await getCollection('devlogs');
+const allLogs = sortEditorialEntries(await getCollection('devlogs'));
 const relatedLogs = allLogs
   .filter((item) => item.slug !== log.slug && item.data.project === log.data.project)
-  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
   .slice(0, 3);
 const readingTime = estimateReadingTime(log.body);
+const { newer, older } = getEntryNeighbors(allLogs, (item) => item.slug === log.slug);
 ---
 
 <BaseLayout title={`${log.data.title} | 开发日志`} description={log.data.description}>
@@ -70,6 +72,29 @@ const readingTime = estimateReadingTime(log.body);
           </div>
         </section>
       )}
+
+      <ContentPager
+        newer={
+          newer
+            ? {
+                href: `/logs/${newer.slug}`,
+                label: '更新较新',
+                title: newer.data.title,
+                description: newer.data.description
+              }
+            : undefined
+        }
+        older={
+          older
+            ? {
+                href: `/logs/${older.slug}`,
+                label: '更早一篇',
+                title: older.data.title,
+                description: older.data.description
+              }
+            : undefined
+        }
+      />
     </div>
 
     <aside class="content-sidebar card">

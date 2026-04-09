@@ -2,9 +2,11 @@
 import { render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import ContentPager from '../../components/ContentPager.astro';
 import ContentToc from '../../components/ContentToc.astro';
 import { withBase } from '../../utils/site';
 import { getPublishedArticles } from '../../utils/content';
+import { getEntryNeighbors } from '../../utils/entries';
 import { estimateReadingTime, formatDate, slugifyTag } from '../../utils/site-meta';
 
 export async function getStaticPaths() {
@@ -29,6 +31,7 @@ const relatedArticles = allArticles
   .slice(0, 3)
   .map(({ item }) => item);
 const readingTime = estimateReadingTime(article.body);
+const { newer, older } = getEntryNeighbors(allArticles, (item) => item.id === article.id);
 ---
 
 <BaseLayout
@@ -87,6 +90,29 @@ const readingTime = estimateReadingTime(article.body);
           </div>
         </section>
       )}
+
+      <ContentPager
+        newer={
+          newer
+            ? {
+                href: `/articles/${newer.id}`,
+                label: '更新较新',
+                title: newer.data.title,
+                description: newer.data.description
+              }
+            : undefined
+        }
+        older={
+          older
+            ? {
+                href: `/articles/${older.id}`,
+                label: '更早一篇',
+                title: older.data.title,
+                description: older.data.description
+              }
+            : undefined
+        }
+      />
     </div>
 
     <aside class="content-sidebar card">

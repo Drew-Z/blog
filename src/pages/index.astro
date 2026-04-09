@@ -6,10 +6,11 @@ import GameCard from '../components/GameCard.astro';
 import DevlogCard from '../components/DevlogCard.astro';
 import { withBase } from '../utils/site';
 import { getPublishedArticles } from '../utils/content';
+import { sortEditorialEntries } from '../utils/entries';
 import { siteMeta } from '../utils/site-meta';
 
-const games = (await getCollection('games')).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
-const logs = (await getCollection('devlogs')).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const games = sortEditorialEntries(await getCollection('games'));
+const logs = sortEditorialEntries(await getCollection('devlogs'));
 const articles = await getPublishedArticles();
 
 const featuredGames = games.filter((item) => item.data.featured).slice(0, 3);
@@ -21,6 +22,11 @@ const homeLogs = featuredLogs.length > 0 ? featuredLogs : logs.slice(0, 3);
 const homeArticles = featuredArticles.length > 0 ? featuredArticles : articles.slice(0, 3);
 const latestLog = logs[0];
 const latestArticle = articles[0];
+const entryRoute = [
+  homeGames[0] ? { label: '先看代表项目', href: `/games/${homeGames[0].slug}`, title: homeGames[0].data.title } : undefined,
+  homeLogs[0] ? { label: '再看阶段日志', href: `/logs/${homeLogs[0].slug}`, title: homeLogs[0].data.title } : undefined,
+  homeArticles[0] ? { label: '最后读长文', href: `/articles/${homeArticles[0].id}`, title: homeArticles[0].data.title } : undefined
+].filter(Boolean);
 ---
 
 <BaseLayout title={`${siteMeta.name} | ${siteMeta.title}`} description={siteMeta.description}>
@@ -103,6 +109,25 @@ const latestArticle = articles[0];
       </div>
     </div>
   </section>
+
+  {entryRoute.length > 0 && (
+    <section class="card">
+      <div class="section-heading">
+        <div>
+          <h2>推荐起点</h2>
+          <p class="content-meta">如果你想在最短时间内建立整体印象，可以直接按这条路线往下看。</p>
+        </div>
+      </div>
+      <div class="route-grid">
+        {entryRoute.map((item) => (
+          <a class="route-card" href={withBase(item!.href)}>
+            <p class="eyebrow">{item!.label}</p>
+            <strong>{item!.title}</strong>
+          </a>
+        ))}
+      </div>
+    </section>
+  )}
 
   <section class="home-section">
     <div class="section-heading">
