@@ -39,6 +39,10 @@ npm run build
 
 如果你绑定自定义域名，通常不需要额外设置 `BASE_PATH`。
 
+更完整的 Cloudflare 配置说明见：
+
+- `docs/cloudflare-pages.md`
+
 ## GitHub Pages
 
 如果你使用自定义域名，设置：
