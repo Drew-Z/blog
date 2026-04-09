@@ -70,6 +70,7 @@ Cloudflare 官方文档当前的要点是：
 - `README.md`：本地运行与部署概览
 - `docs/deploy-guide.md`：多平台部署说明
 - `public/_headers`：静态资源缓存与基础安全响应头
+- 已移除 GitHub Pages 的自动部署 workflow，避免仓库 push 后再触发无用的 Actions 失败
 
 ## 我对你当前项目的推荐
 
@@ -78,4 +79,4 @@ Cloudflare 官方文档当前的要点是：
 1. 先直接连 Cloudflare Pages，把 `main` 跑起来
 2. 先用 `pages.dev` 看线上视觉效果
 3. 视觉没问题后再绑正式域名
-4. 如果以后你想兼顾 GitHub Pages，也已经保留了 `BASE_PATH` 支持
+4. 如果以后你又想恢复 GitHub Pages，再单独补一条 workflow 即可

@@ -43,19 +43,6 @@ npm run build
 
 - `docs/cloudflare-pages.md`
 
-## GitHub Pages
-
-如果你使用自定义域名，设置：
-
-- `SITE_URL=https://你的正式域名`
-
-如果你使用仓库子路径，例如 `https://<user>.github.io/<repo>/`，构建时需要同时设置：
-
-- `SITE_URL=https://<user>.github.io`
-- `BASE_PATH=/<repo>`
-
-站点内部链接已经支持 `BASE_PATH`，可以直接部署到 GitHub Pages。
-
 ## 国内服务器
 
 构建后把 `dist/` 上传到 Nginx 静态站目录即可。

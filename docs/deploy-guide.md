@@ -3,8 +3,7 @@
 ## 当前推荐顺序
 
 1. Cloudflare Pages
-2. GitHub Pages
-3. 国内服务器静态托管
+2. 国内服务器静态托管
 
 ## Cloudflare Pages
 
@@ -20,22 +19,6 @@
 - Build command: `npm run build`
 - Build output directory: `dist`
 - Environment variable: `SITE_URL`
-
-## GitHub Pages
-
-仓库部署有两种常见方式：
-
-### 自定义域名
-
-- `SITE_URL=https://你的域名`
-- 不需要 `BASE_PATH`
-
-### 仓库子路径
-
-示例：`https://user.github.io/blog`
-
-- `SITE_URL=https://user.github.io`
-- `BASE_PATH=/blog`
 
 ## 国内服务器
 
