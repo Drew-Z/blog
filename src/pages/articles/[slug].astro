@@ -1,0 +1,64 @@
+﻿---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const articles = await getCollection('articles', ({ data }) => !data.draft);
+  return articles.map((article) => ({
+    params: { slug: article.id },
+    props: { article }
+  }));
+}
+
+const { article } = Astro.props;
+const { Content } = await render(article);
+---
+
+<BaseLayout title={`${article.data.title} | 文章`} description={article.data.description}>
+  <article class="content-layout">
+    <div class="content-main">
+      <header class="content-header card content-header--article">
+        <div class="content-header-copy">
+          <p class="eyebrow">Article</p>
+          <h1>{article.data.title}</h1>
+          <p>{article.data.description}</p>
+          <div class="tag-list">
+            {article.data.tags.map((tag) => <span>{tag}</span>)}
+          </div>
+        </div>
+        <div class="content-meta-panel">
+          <div class="mini-panel">
+            <p class="eyebrow">发布日期</p>
+            <time datetime={article.data.pubDate.toISOString()}>{article.data.pubDate.toLocaleDateString('zh-CN')}</time>
+          </div>
+          <div class="mini-panel">
+            <p class="eyebrow">阅读定位</p>
+            <p>适合展示分析框架、推导过程和表达能力。</p>
+          </div>
+        </div>
+      </header>
+
+      <div class="prose-block prose-block--article">
+        <Content />
+      </div>
+    </div>
+
+    <aside class="content-sidebar card">
+      <div class="section-heading">
+        <h2>文章信息</h2>
+      </div>
+      <div class="meta-grid">
+        <div class="mini-panel">
+          <p class="eyebrow">标签</p>
+          <div class="tag-list">
+            {article.data.tags.map((tag) => <span>{tag}</span>)}
+          </div>
+        </div>
+        <div class="mini-panel">
+          <p class="eyebrow">用途</p>
+          <p>这部分内容更偏系统设计文章、案例分析和方法论沉淀。</p>
+        </div>
+      </div>
+    </aside>
+  </article>
+</BaseLayout>

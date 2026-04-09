@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450">
+  <rect width="800" height="450" fill="#0f1427"/>
+  <rect x="90" y="120" width="170" height="180" rx="24" fill="#7cf7d4" opacity="0.85"/>
+  <rect x="310" y="100" width="170" height="220" rx="24" fill="#8f7bff" opacity="0.72"/>
+  <rect x="530" y="150" width="170" height="150" rx="24" fill="#ff7cc6" opacity="0.68"/>
+  <text x="80" y="385" fill="#f4f7ff" font-size="32" font-family="Arial, sans-serif">Priority Split</text>
+</svg>

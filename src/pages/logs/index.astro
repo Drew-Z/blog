@@ -1,0 +1,34 @@
+﻿---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import DevlogCard from '../../components/DevlogCard.astro';
+
+const logs = (await getCollection('devlogs')).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+
+<BaseLayout title="开发日志 | Drew Playbook" description="项目开发过程、阶段结论和站点整合记录。">
+  <section class="page-heading card page-heading--rich">
+    <p class="eyebrow">Devlogs</p>
+    <h1>开发日志</h1>
+    <p>这里不是流水账，而是把 README、任务板和路线图重新整理成对外也能读懂的项目过程记录。</p>
+    <div class="tag-list">
+      <span>{logs.length} 篇日志</span>
+      <span>项目过程优先</span>
+      <span>便于后续继续累计</span>
+    </div>
+  </section>
+
+  <section class="grid grid--cards-lg">
+    {logs.map((log) => (
+      <DevlogCard
+        href={`/logs/${log.slug}`}
+        title={log.data.title}
+        description={log.data.description}
+        pubDate={log.data.pubDate}
+        tags={log.data.tags}
+        project={log.data.project}
+        featured={log.data.featured}
+      />
+    ))}
+  </section>
+</BaseLayout>

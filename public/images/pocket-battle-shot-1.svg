@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450">
+  <rect width="800" height="450" fill="#140f1e"/>
+  <rect x="110" y="120" width="120" height="180" rx="20" fill="#7cf7d4" opacity="0.85"/>
+  <rect x="310" y="90" width="120" height="240" rx="20" fill="#8f7bff" opacity="0.8"/>
+  <rect x="510" y="150" width="120" height="150" rx="20" fill="#ffb86b" opacity="0.82"/>
+  <text x="60" y="72" fill="#f4f7ff" font-size="32" font-family="Arial, sans-serif">Combat Rhythm</text>
+</svg>

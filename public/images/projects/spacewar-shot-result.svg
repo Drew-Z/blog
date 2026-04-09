@@ -1,0 +1,12 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675">
+  <rect width="1200" height="675" fill="#101620"/>
+  <rect x="240" y="80" width="720" height="515" rx="32" fill="#172033" stroke="#30415f"/>
+  <text x="500" y="170" fill="#f8fbff" font-family="Segoe UI Variable, Microsoft YaHei UI, sans-serif" font-size="56" font-weight="700">Run Result</text>
+  <rect x="310" y="230" width="580" height="92" rx="20" fill="#24324d"/>
+  <rect x="310" y="350" width="270" height="120" rx="20" fill="#1f2a42"/>
+  <rect x="620" y="350" width="270" height="120" rx="20" fill="#1f2a42"/>
+  <text x="360" y="286" fill="#ffd166" font-family="Segoe UI Variable, Microsoft YaHei UI, sans-serif" font-size="34" font-weight="700">Kills: 18</text>
+  <text x="630" y="286" fill="#4ecdc4" font-family="Segoe UI Variable, Microsoft YaHei UI, sans-serif" font-size="34" font-weight="700">Showcase Build</text>
+  <text x="360" y="420" fill="#f8fbff" font-family="Segoe UI Variable, Microsoft YaHei UI, sans-serif" font-size="26">Restart</text>
+  <text x="660" y="420" fill="#f8fbff" font-family="Segoe UI Variable, Microsoft YaHei UI, sans-serif" font-size="26">Return to Menu</text>
+</svg>

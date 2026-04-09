@@ -1,0 +1,42 @@
+﻿---
+import { withBase } from '../utils/site';
+
+interface Props {
+  href: string;
+  title: string;
+  description: string;
+  pubDate: Date;
+  tags?: string[];
+  coverImage?: string;
+  featured?: boolean;
+}
+
+const { href, title, description, pubDate, tags = [], coverImage, featured = false } = Astro.props;
+---
+
+<article class="card article-card article-card--rich">
+  <a class="card-media" href={withBase(href)}>
+    {coverImage ? (
+      <img src={withBase(coverImage)} alt={title} loading="lazy" />
+    ) : (
+      <div class="card-media-placeholder card-media-placeholder--article">
+        <p class="eyebrow">Article</p>
+        <strong>{title}</strong>
+      </div>
+    )}
+  </a>
+  <div class="card-body">
+    <div class="meta-row meta-row--top">
+      <p class="eyebrow">Article</p>
+      {featured ? <span class="status-pill status-pill--active">推荐</span> : null}
+    </div>
+    <h3><a href={withBase(href)}>{title}</a></h3>
+    <p>{description}</p>
+    <div class="meta-row">
+      <time datetime={pubDate.toISOString()}>{pubDate.toLocaleDateString('zh-CN')}</time>
+      <div class="tag-list">
+        {tags.map((tag) => <span>{tag}</span>)}
+      </div>
+    </div>
+  </div>
+</article>

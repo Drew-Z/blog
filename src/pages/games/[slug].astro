@@ -1,0 +1,199 @@
+﻿---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import GameEmbed from '../../components/GameEmbed.astro';
+import { withBase } from '../../utils/site';
+
+const statusLabel: Record<string, string> = {
+  prototype: '原型中',
+  playable: '可玩原型',
+  showcase: '展示版',
+  ongoing: '持续迭代中'
+};
+
+export async function getStaticPaths() {
+  const games = await getCollection('games');
+  return games.map((game) => ({
+    params: { slug: game.slug },
+    props: { game }
+  }));
+}
+
+const { game } = Astro.props;
+const { Content } = await render(game);
+const allLogs = await getCollection('devlogs');
+const relatedLogs = allLogs.filter((log) => log.data.relatedGame === game.slug);
+const hasLinks = game.data.downloadLinks.length > 0 || Boolean(game.data.externalPage);
+---
+
+<BaseLayout title={`${game.data.title} | 游戏案例`} description={game.data.summary}>
+  <article class="content-layout">
+    <div class="content-main">
+      <header class="content-header card content-header--game">
+        <div class="content-header-copy">
+          <p class="eyebrow">Game Case</p>
+          <h1>{game.data.title}</h1>
+          <p>{game.data.summary}</p>
+          <div class="tag-list">
+            {game.data.tags.map((tag) => <span>{tag}</span>)}
+          </div>
+        </div>
+
+        {game.data.thumbnail ? (
+          <div class="content-header-visual">
+            <img src={withBase(game.data.thumbnail)} alt={game.data.title} loading="eager" />
+          </div>
+        ) : null}
+      </header>
+
+      <section class="card game-highlight-band">
+        <div class="mini-panel">
+          <p class="eyebrow">项目目标</p>
+          <p>{game.data.challenge ?? game.data.description}</p>
+        </div>
+        <div class="mini-panel">
+          <p class="eyebrow">核心机制</p>
+          <p>{game.data.mechanic ?? game.data.summary}</p>
+        </div>
+        <div class="mini-panel">
+          <p class="eyebrow">我的职责</p>
+          <p>{game.data.role ?? '待补充'}</p>
+        </div>
+        <div class="mini-panel">
+          <p class="eyebrow">当前结论</p>
+          <p>{game.data.outcome ?? '项目仍在迭代中，阶段结论会继续通过开发日志沉淀。'}</p>
+        </div>
+      </section>
+
+      {relatedLogs.length > 0 && (
+        <section class="card">
+          <div class="section-heading">
+            <div>
+              <h2>关联开发日志</h2>
+              <p class="content-meta">这些日志更适合拿来解释项目是怎么一步步收口的。</p>
+            </div>
+          </div>
+          <div class="link-list link-list--stacked">
+            {relatedLogs.map((log) => (
+              <a href={withBase(`/logs/${log.slug}`)}>{log.data.title}</a>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {game.data.playableWeb ? (
+        <GameEmbed title={game.data.title} embedUrl={game.data.embedUrl} />
+      ) : (
+        <section class="card game-fallback-note">
+          <div class="section-heading">
+            <h2>当前展示方式</h2>
+          </div>
+          <p>这个项目当前以案例页、截图和开发日志为主。后续如果补到稳定的 Web 导出或下载包，再把体验入口挂进来。</p>
+        </section>
+      )}
+
+      <section class="prose-block prose-block--game">
+        <Content />
+      </section>
+
+      {game.data.screenshots.length > 0 && (
+        <section class="card">
+          <div class="section-heading">
+            <div>
+              <h2>关键画面</h2>
+              <p class="content-meta">这里优先展示对理解项目最有帮助的界面和回归画面。</p>
+            </div>
+          </div>
+          <div class="screenshot-grid screenshot-grid--rich">
+            {game.data.screenshots.map((shot, index) => (
+              <figure class="screenshot-card screenshot-card--image">
+                <img src={withBase(shot.src)} alt={`${game.data.title} 截图 ${index + 1}`} loading="lazy" />
+                <figcaption>
+                  <p class="eyebrow">Scene {index + 1}</p>
+                  <strong>{shot.title}</strong>
+                  {shot.note ? <span>{shot.note}</span> : null}
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+        </section>
+      )}
+    </div>
+
+    <aside class="content-sidebar card">
+      <section>
+        <div class="section-heading">
+          <h2>项目速览</h2>
+        </div>
+        <div class="meta-grid">
+          <div class="mini-panel">
+            <p class="eyebrow">阶段</p>
+            <p>{statusLabel[game.data.status] ?? game.data.status}</p>
+          </div>
+          <div class="mini-panel">
+            <p class="eyebrow">引擎</p>
+            <p>{game.data.engine}</p>
+          </div>
+          <div class="mini-panel">
+            <p class="eyebrow">团队规模</p>
+            <p>{game.data.teamSize ?? '单人'}</p>
+          </div>
+          <div class="mini-panel">
+            <p class="eyebrow">平台</p>
+            <p>{game.data.platforms.join(' / ')}</p>
+          </div>
+          <div class="mini-panel">
+            <p class="eyebrow">仓库路径</p>
+            <p>{game.data.repoPath ?? '未提供'}</p>
+          </div>
+          <div class="mini-panel">
+            <p class="eyebrow">当前分支</p>
+            <p>{game.data.currentBranch ?? '未提供'}</p>
+          </div>
+        </div>
+      </section>
+
+      {game.data.contribution.length > 0 && (
+        <section>
+          <div class="section-heading">
+            <h2>主要工作</h2>
+          </div>
+          <ul class="timeline-list">
+            {game.data.contribution.map((item) => <li>{item}</li>)}
+          </ul>
+        </section>
+      )}
+
+      {game.data.nextStep.length > 0 && (
+        <section>
+          <div class="section-heading">
+            <h2>下一步</h2>
+          </div>
+          <ul class="timeline-list">
+            {game.data.nextStep.map((item) => <li>{item}</li>)}
+          </ul>
+        </section>
+      )}
+
+      {hasLinks && (
+        <section>
+          <div class="section-heading">
+            <h2>体验入口</h2>
+          </div>
+          {game.data.downloadLinks.length > 0 && (
+            <div class="download-list download-list--stacked">
+              {game.data.downloadLinks.map((link) => (
+                <a href={link.url} target="_blank" rel="noreferrer">{link.label}</a>
+              ))}
+            </div>
+          )}
+          {game.data.externalPage && (
+            <div class="link-list link-list--stacked">
+              <a href={game.data.externalPage} target="_blank" rel="noreferrer">查看外部项目页</a>
+            </div>
+          )}
+        </section>
+      )}
+    </aside>
+  </article>
+</BaseLayout>

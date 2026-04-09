@@ -1,0 +1,89 @@
+﻿---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="关于站点 | Drew Playbook" description="站点的整合方式、技术选择和后续规划。">
+  <section class="page-heading card page-heading--rich">
+    <p class="eyebrow">About</p>
+    <h1>这是一个先展示作品、再承接文章和笔记的个人站点。</h1>
+    <p>
+      新站点放在 `D:\workspace4Codex\blog`，定位不是纯博客，也不是纯笔记库，而是一个把 Godot 游戏项目、开发过程文档和长文章统一组织起来的展示站。
+    </p>
+  </section>
+
+  <section class="section-banner">
+    <div class="section-heading">
+      <h2>当前整合来源</h2>
+    </div>
+    <div class="feature-grid">
+      <div class="mini-panel">
+        <p class="eyebrow">游戏项目</p>
+        <p>`game-first-tetris` 和 `game-next-spacewar` 作为独立仓库继续开发，站点负责统一展示和讲故事。</p>
+      </div>
+      <div class="mini-panel">
+        <p class="eyebrow">原 Astro 博客</p>
+        <p>公开文章内容直接保留到 `articles` 集合，继续充当长篇分析与作品文章的承载层。</p>
+      </div>
+      <div class="mini-panel">
+        <p class="eyebrow">原 Quartz 博客</p>
+        <p>有效 Markdown 数量不多，所以没有再保留独立子站，而是直接迁进主站文章体系。</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="content-layout card-stack">
+    <div class="content-main">
+      <section class="card">
+        <div class="section-heading">
+          <h2>为什么选这个技术方案</h2>
+        </div>
+        <div class="feature-grid">
+          <div class="mini-panel">
+            <p class="eyebrow">Astro</p>
+            <p>适合内容站和作品站混合场景，页面结构清晰，静态构建稳定，后续要补组件也不会太重。</p>
+          </div>
+          <div class="mini-panel">
+            <p class="eyebrow">Content Collections</p>
+            <p>让游戏、开发日志、文章这三类内容拥有各自的数据结构，维护时比散装 Markdown 更稳。</p>
+          </div>
+          <div class="mini-panel">
+            <p class="eyebrow">静态部署</p>
+            <p>站点没有运行时后端，适合多平台部署，也方便后续挂国内 CDN 或静态资源缓存。</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="section-heading">
+          <h2>后续最值得补的内容</h2>
+        </div>
+        <ul class="timeline-list">
+          <li>为两个游戏补更完整的录屏、GIF 或 Web 导出版本。</li>
+          <li>给每个项目补“版本时间线”和“里程碑卡片”，让外部访客更容易看懂进展。</li>
+          <li>逐步把零散笔记筛选后迁入文章体系，而不是继续维持多个入口。</li>
+          <li>根据最终域名决定是否拆成主站 + notes 子路径。</li>
+        </ul>
+      </section>
+    </div>
+
+    <aside class="content-sidebar card">
+      <div class="section-heading">
+        <h2>部署兼容</h2>
+      </div>
+      <div class="meta-grid">
+        <div class="mini-panel">
+          <p class="eyebrow">Cloudflare Pages</p>
+          <p>最适合这类静态展示站，构建简单，全球访问体验更稳。</p>
+        </div>
+        <div class="mini-panel">
+          <p class="eyebrow">GitHub Pages</p>
+          <p>适合作为免费稳定的公开托管入口，但自定义构建链和缓存能力相对弱一些。</p>
+        </div>
+        <div class="mini-panel">
+          <p class="eyebrow">国内服务器</p>
+          <p>如果你希望国内访问更稳，可以直接上传 `dist` 到 Nginx 静态站，再配自己的域名。</p>
+        </div>
+      </div>
+    </aside>
+  </section>
+</BaseLayout>

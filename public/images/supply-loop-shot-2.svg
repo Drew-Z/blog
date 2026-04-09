@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450">
+  <rect width="800" height="450" fill="#10172e"/>
+  <circle cx="210" cy="225" r="95" fill="#7cf7d4" opacity="0.78"/>
+  <rect x="340" y="110" width="120" height="230" rx="20" fill="#8f7bff" opacity="0.78"/>
+  <rect x="500" y="145" width="120" height="160" rx="20" fill="#7cf7d4" opacity="0.55"/>
+  <rect x="650" y="125" width="70" height="200" rx="18" fill="#ffb86b" opacity="0.82"/>
+  <text x="70" y="72" fill="#f4f7ff" font-size="32" font-family="Arial, sans-serif">Upgrade vs Orders</text>
+</svg>

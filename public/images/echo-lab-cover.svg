@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450">
+  <defs>
+    <linearGradient id="g" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#7cf7d4"/>
+      <stop offset="100%" stop-color="#8f7bff"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="450" fill="#0c1021"/>
+  <circle cx="250" cy="225" r="120" fill="none" stroke="url(#g)" stroke-width="10" opacity="0.9"/>
+  <circle cx="250" cy="225" r="70" fill="none" stroke="url(#g)" stroke-width="8" opacity="0.7"/>
+  <rect x="410" y="120" width="180" height="210" rx="18" fill="#161d38" stroke="#7cf7d4" opacity="0.95"/>
+  <text x="410" y="375" fill="#f4f7ff" font-size="34" font-family="Arial, sans-serif">Echo Lab</text>
+</svg>

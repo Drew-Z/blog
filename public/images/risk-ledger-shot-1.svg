@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450">
+  <rect width="800" height="450" fill="#11162b"/>
+  <path d="M110 250 L220 170 L330 230 L450 140 L580 210 L690 135" fill="none" stroke="#7cf7d4" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" opacity="0.75"/>
+  <rect x="175" y="135" width="90" height="60" rx="16" fill="#8f7bff" opacity="0.82"/>
+  <rect x="410" y="105" width="90" height="60" rx="16" fill="#ffb86b" opacity="0.82"/>
+  <text x="70" y="72" fill="#f4f7ff" font-size="32" font-family="Arial, sans-serif">Route Pressure</text>
+</svg>

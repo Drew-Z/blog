@@ -1,0 +1,24 @@
+﻿---
+import { withBase } from '../utils/site';
+
+interface Props {
+  title: string;
+  embedUrl?: string;
+}
+
+const { title, embedUrl } = Astro.props;
+---
+
+<section class="game-embed card">
+  <div class="section-heading">
+    <h2>在线试玩</h2>
+    {embedUrl && (
+      <a href={withBase(embedUrl)} target="_blank" rel="noreferrer">新标签打开</a>
+    )}
+  </div>
+  {embedUrl ? (
+    <iframe src={withBase(embedUrl)} title={`${title} 在线试玩`} loading="lazy"></iframe>
+  ) : (
+    <p>当前还没有可以直接嵌入的 Web 版本。</p>
+  )}
+</section>

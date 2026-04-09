@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450">
+  <rect width="800" height="450" fill="#10162c"/>
+  <rect x="110" y="120" width="130" height="190" rx="22" fill="#8f7bff" opacity="0.82"/>
+  <rect x="280" y="120" width="130" height="190" rx="22" fill="#7cf7d4" opacity="0.72"/>
+  <rect x="450" y="120" width="130" height="190" rx="22" fill="#ffb86b" opacity="0.75"/>
+  <rect x="620" y="150" width="70" height="130" rx="18" fill="#ff7cc6" opacity="0.8"/>
+  <text x="70" y="72" fill="#f4f7ff" font-size="32" font-family="Arial, sans-serif">Build Selection</text>
+</svg>

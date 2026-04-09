@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450">
+  <rect width="800" height="450" fill="#090d19"/>
+  <path d="M90 340 L240 190 L360 260 L520 120 L690 280" fill="none" stroke="#8f7bff" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="240" cy="190" r="30" fill="#7cf7d4"/>
+  <circle cx="520" cy="120" r="26" fill="#7cf7d4"/>
+  <text x="56" y="72" fill="#f4f7ff" font-size="32" font-family="Arial, sans-serif">Path Guessing</text>
+</svg>

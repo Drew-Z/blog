@@ -1,0 +1,37 @@
+﻿---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import GameCard from '../../components/GameCard.astro';
+
+const games = (await getCollection('games')).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+
+<BaseLayout title="游戏作品 | Drew Playbook" description="整合后的游戏项目展示页。">
+  <section class="page-heading card page-heading--rich">
+    <p class="eyebrow">Games</p>
+    <h1>游戏作品</h1>
+    <p>这里集中展示当前最值得对外说明的 Godot 项目，强调项目定位、验证目标、阶段状态和下一步计划。</p>
+    <div class="tag-list">
+      <span>{games.length} 个项目</span>
+      <span>案例页优先</span>
+      <span>后续可补 Web 试玩</span>
+    </div>
+  </section>
+
+  <section class="grid grid--cards-lg">
+    {games.map((game) => (
+      <GameCard
+        href={`/games/${game.slug}`}
+        title={game.data.title}
+        summary={game.data.summary}
+        description={game.data.description}
+        status={game.data.status}
+        role={game.data.role}
+        platforms={game.data.platforms}
+        playableWeb={game.data.playableWeb}
+        thumbnail={game.data.thumbnail}
+        featured={game.data.featured}
+      />
+    ))}
+  </section>
+</BaseLayout>

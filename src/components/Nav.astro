@@ -1,0 +1,26 @@
+﻿---
+import { withBase } from '../utils/site';
+
+const links = [
+  { href: '/', label: '首页' },
+  { href: '/games', label: '游戏作品' },
+  { href: '/logs', label: '开发日志' },
+  { href: '/articles', label: '文章归档' },
+  { href: '/about', label: '关于站点' }
+];
+---
+
+<nav class="site-nav">
+  <a class="brand" href={withBase('/')}>
+    <span class="brand-mark">D</span>
+    <span class="brand-copy">
+      <strong>Drew Playbook</strong>
+      <small>Game Projects + Design Writing</small>
+    </span>
+  </a>
+  <div class="nav-links">
+    {links.map((link) => (
+      <a href={withBase(link.href)}>{link.label}</a>
+    ))}
+  </div>
+</nav>

@@ -1,0 +1,183 @@
+﻿---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ArticleCard from '../components/ArticleCard.astro';
+import GameCard from '../components/GameCard.astro';
+import DevlogCard from '../components/DevlogCard.astro';
+import { withBase } from '../utils/site';
+
+const games = (await getCollection('games')).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const logs = (await getCollection('devlogs')).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const articles = (await getCollection('articles', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+
+const featuredGames = games.filter((item) => item.data.featured).slice(0, 3);
+const featuredLogs = logs.filter((item) => item.data.featured).slice(0, 3);
+const featuredArticles = articles.filter((item) => item.data.featured).slice(0, 3);
+---
+
+<BaseLayout title="Drew Playbook | 游戏作品与博客整合站" description="一个整合 Godot 游戏作品、开发日志、系统设计文章和旧博客内容的个人展示站。">
+  <section class="hero hero--home">
+    <div class="hero-copy">
+      <p class="eyebrow">Unified Portfolio</p>
+      <h1>把游戏项目、博客文章和过程文档收成一个能直接展示的站点。</h1>
+      <p>
+        这不是单纯的博客首页，而是一个围绕真实项目搭出来的作品入口：前面先看游戏案例，接着看开发日志，最后再进入更长篇的系统设计文章和旧博客内容。
+      </p>
+      <div class="button-row">
+        <a class="button" href={withBase('/games')}>先看游戏作品</a>
+        <a class="button button--ghost" href={withBase('/logs')}>看开发日志</a>
+      </div>
+      <div class="tag-list">
+        <span>Godot 4</span>
+        <span>Astro</span>
+        <span>作品展示</span>
+        <span>开发复盘</span>
+      </div>
+    </div>
+
+    <div class="hero-panel">
+      <p class="eyebrow">Site Snapshot</p>
+      <div class="kpi-grid">
+        <div class="mini-panel">
+          <strong>{games.length}</strong>
+          <p>个已整合游戏案例</p>
+        </div>
+        <div class="mini-panel">
+          <strong>{logs.length}</strong>
+          <p>篇开发日志</p>
+        </div>
+        <div class="mini-panel">
+          <strong>{articles.length}</strong>
+          <p>篇公开文章</p>
+        </div>
+      </div>
+      <p>
+        当前版本优先统一入口和信息结构，先把两个 Godot 项目、原有 Astro 文章和 Quartz 的有效内容都纳进来，后面再补在线试玩、下载页和更细的项目时间线。
+      </p>
+    </div>
+  </section>
+
+  <section class="section-banner">
+    <div class="section-heading">
+      <div>
+        <h2>这个站点现在怎么组织</h2>
+        <p class="content-meta">让访客先看成品，再顺着过程往下读。</p>
+      </div>
+    </div>
+    <div class="feature-grid">
+      <div class="mini-panel">
+        <p class="eyebrow">01 游戏作品</p>
+        <p>每个项目都是一个完整案例页，包含定位、阶段状态、关键截图、职责和下一步计划。</p>
+      </div>
+      <div class="mini-panel">
+        <p class="eyebrow">02 开发日志</p>
+        <p>把 README、任务板、路线图和分支阶段结论重新整理成外部也能读懂的过程记录。</p>
+      </div>
+      <div class="mini-panel">
+        <p class="eyebrow">03 文章归档</p>
+        <p>保留原博客里的长文章，同时把 Quartz 里真正有价值的内容迁进同一个文章入口。</p>
+      </div>
+      <div class="mini-panel">
+        <p class="eyebrow">04 部署友好</p>
+        <p>整个站点是标准静态站，后续可以无缝挂 Cloudflare Pages、GitHub Pages 或国内服务器。</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="home-section">
+    <div class="section-heading">
+      <div>
+        <h2>重点游戏项目</h2>
+        <p class="content-meta">先把你最希望别人看到的两款作品摆在首页首屏之后。</p>
+      </div>
+      <a href={withBase('/games')}>查看全部</a>
+    </div>
+    <div class="grid grid--cards-lg">
+      {featuredGames.map((game) => (
+        <GameCard
+          href={`/games/${game.slug}`}
+          title={game.data.title}
+          summary={game.data.summary}
+          description={game.data.description}
+          status={game.data.status}
+          role={game.data.role}
+          platforms={game.data.platforms}
+          playableWeb={game.data.playableWeb}
+          thumbnail={game.data.thumbnail}
+          featured={game.data.featured}
+        />
+      ))}
+    </div>
+  </section>
+
+  <section class="home-section">
+    <div class="section-heading">
+      <div>
+        <h2>最近开发日志</h2>
+        <p class="content-meta">这部分负责把“我做了什么”和“为什么这么做”讲清楚。</p>
+      </div>
+      <a href={withBase('/logs')}>进入日志页</a>
+    </div>
+    <div class="grid grid--cards-lg">
+      {featuredLogs.map((log) => (
+        <DevlogCard
+          href={`/logs/${log.slug}`}
+          title={log.data.title}
+          description={log.data.description}
+          pubDate={log.data.pubDate}
+          tags={log.data.tags}
+          project={log.data.project}
+          featured={log.data.featured}
+        />
+      ))}
+    </div>
+  </section>
+
+  <section class="home-section">
+    <div class="section-heading">
+      <div>
+        <h2>精选文章</h2>
+        <p class="content-meta">长文章保留你原来博客的优势，也补进了 Quartz 的实用内容。</p>
+      </div>
+      <a href={withBase('/articles')}>查看归档</a>
+    </div>
+    <div class="grid grid--cards-lg">
+      {featuredArticles.map((article) => (
+        <ArticleCard
+          href={`/articles/${article.id}`}
+          title={article.data.title}
+          description={article.data.description}
+          pubDate={article.data.pubDate}
+          tags={article.data.tags}
+          coverImage={article.data.coverImage}
+          featured={article.data.featured}
+        />
+      ))}
+    </div>
+  </section>
+
+  <section class="section-banner">
+    <div class="section-heading">
+      <div>
+        <h2>为什么现在适合先做 Astro 主站</h2>
+        <p class="content-meta">这版不是知识库优先，而是展示优先。</p>
+      </div>
+    </div>
+    <div class="feature-grid">
+      <div class="mini-panel">
+        <p class="eyebrow">主站职责清楚</p>
+        <p>Astro 很适合做内容型作品站，首页、项目页、日志页和文章页都能保持统一风格。</p>
+      </div>
+      <div class="mini-panel">
+        <p class="eyebrow">内容迁移成本低</p>
+        <p>你原来的 Astro 文章可以直接保留，Quartz 的少量有效内容也可以逐步迁入，不用一次性大搬家。</p>
+      </div>
+      <div class="mini-panel">
+        <p class="eyebrow">部署选择多</p>
+        <p>站点最终产物是静态文件，你可以按访问人群选择 Cloudflare、GitHub，或者部署到国内机器反代。</p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

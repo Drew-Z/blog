@@ -1,0 +1,21 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-label="Game Next Spacewar cover">
+  <defs>
+    <linearGradient id="space" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#090b12"/>
+      <stop offset="55%" stop-color="#14213d"/>
+      <stop offset="100%" stop-color="#f46036"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="675" fill="url(#space)"/>
+  <g fill="#ffffff" opacity="0.15">
+    <circle cx="180" cy="130" r="4"/>
+    <circle cx="260" cy="220" r="6"/>
+    <circle cx="980" cy="140" r="5"/>
+    <circle cx="840" cy="260" r="4"/>
+    <circle cx="1070" cy="340" r="3"/>
+  </g>
+  <path d="M840 170 L920 330 L840 300 L760 330 Z" fill="#ffd166" opacity="0.9"/>
+  <path d="M360 230 L440 420 L360 380 L280 420 Z" fill="#4ecdc4" opacity="0.78"/>
+  <text x="110" y="470" fill="#f8fbff" font-family="Segoe UI Variable, Microsoft YaHei UI, sans-serif" font-size="64" font-weight="700">Game Next Spacewar</text>
+  <text x="110" y="535" fill="#d7e0ed" font-family="Segoe UI Variable, Microsoft YaHei UI, sans-serif" font-size="28">从单关射击原型推进到可对外演示的展示版 build</text>
+</svg>

@@ -1,0 +1,35 @@
+﻿---
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const {
+  title,
+  description = '整合 Godot 游戏作品、开发日志、系统设计文章与博客笔记的个人站点。'
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#121826" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <div class="page-shell">
+      <Nav />
+      <main class="page-main">
+        <slot />
+      </main>
+      <Footer />
+    </div>
+  </body>
+</html>

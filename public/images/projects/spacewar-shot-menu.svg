@@ -1,0 +1,13 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675">
+  <rect width="1200" height="675" fill="#0d1321"/>
+  <rect x="80" y="70" width="1040" height="535" rx="30" fill="#172033" stroke="#2f405e"/>
+  <text x="130" y="170" fill="#f8fbff" font-family="Segoe UI Variable, Microsoft YaHei UI, sans-serif" font-size="56" font-weight="700">Main Menu</text>
+  <rect x="130" y="240" width="320" height="64" rx="20" fill="#ffd166"/>
+  <rect x="130" y="324" width="320" height="64" rx="20" fill="#24324d" stroke="#41597f"/>
+  <rect x="130" y="408" width="320" height="64" rx="20" fill="#24324d" stroke="#41597f"/>
+  <text x="190" y="283" fill="#101620" font-family="Segoe UI Variable, Microsoft YaHei UI, sans-serif" font-size="28" font-weight="700">Start Game</text>
+  <text x="208" y="367" fill="#f8fbff" font-family="Segoe UI Variable, Microsoft YaHei UI, sans-serif" font-size="28">Settings</text>
+  <text x="194" y="451" fill="#f8fbff" font-family="Segoe UI Variable, Microsoft YaHei UI, sans-serif" font-size="28">About / Help</text>
+  <text x="640" y="250" fill="#d7e0ed" font-family="Segoe UI Variable, Microsoft YaHei UI, sans-serif" font-size="28">展示版已经具备主菜单、设置、帮助说明和进入单局的完整入口。</text>
+  <text x="640" y="310" fill="#8ea1bb" font-family="Segoe UI Variable, Microsoft YaHei UI, sans-serif" font-size="22">这一层让项目从“开发态场景”升级成“可对外演示的版本”。</text>
+</svg>

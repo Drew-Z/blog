@@ -1,0 +1,14 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675">
+  <defs>
+    <linearGradient id="wsl" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="45%" stop-color="#1d4ed8"/>
+      <stop offset="100%" stop-color="#16a34a"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="675" fill="url(#wsl)"/>
+  <rect x="110" y="120" width="980" height="430" rx="28" fill="rgba(10,16,28,0.38)" stroke="rgba(255,255,255,0.16)"/>
+  <text x="160" y="250" fill="#f8fbff" font-family="Segoe UI Variable, Microsoft YaHei UI, sans-serif" font-size="58" font-weight="700">WSL2 Ubuntu 24.04</text>
+  <text x="160" y="320" fill="#d7e0ed" font-family="Segoe UI Variable, Microsoft YaHei UI, sans-serif" font-size="30">重装、调优、Docker、VS Code 与环境快照</text>
+  <text x="160" y="410" fill="#d7e0ed" font-family="Segoe UI Variable, Microsoft YaHei UI, sans-serif" font-size="26">Migrated from Quartz into the unified article archive</text>
+</svg>

@@ -1,0 +1,79 @@
+﻿---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { withBase } from '../../utils/site';
+
+const projectLabel: Record<string, string> = {
+  'game-first-tetris': 'Game First Tetris',
+  'game-next-spacewar': 'Game Next Spacewar',
+  'blog-platform': 'Blog Platform'
+};
+
+export async function getStaticPaths() {
+  const logs = await getCollection('devlogs');
+  return logs.map((log) => ({
+    params: { slug: log.slug },
+    props: { log }
+  }));
+}
+
+const { log } = Astro.props;
+const { Content } = await render(log);
+const games = await getCollection('games');
+const relatedGame = games.find((game) => game.slug === log.data.relatedGame);
+---
+
+<BaseLayout title={`${log.data.title} | 开发日志`} description={log.data.description}>
+  <article class="content-layout">
+    <div class="content-main">
+      <header class="content-header card content-header--article">
+        <div class="content-header-copy">
+          <p class="eyebrow">Devlog</p>
+          <h1>{log.data.title}</h1>
+          <p>{log.data.description}</p>
+          <div class="tag-list">
+            {log.data.tags.map((tag) => <span>{tag}</span>)}
+          </div>
+        </div>
+        <div class="content-meta-panel">
+          <div class="mini-panel">
+            <p class="eyebrow">发布日期</p>
+            <time datetime={log.data.pubDate.toISOString()}>{log.data.pubDate.toLocaleDateString('zh-CN')}</time>
+          </div>
+          <div class="mini-panel">
+            <p class="eyebrow">所属项目</p>
+            <p>{projectLabel[log.data.project] ?? log.data.project}</p>
+          </div>
+        </div>
+      </header>
+
+      <div class="prose-block prose-block--article">
+        <Content />
+      </div>
+    </div>
+
+    <aside class="content-sidebar card">
+      <div class="section-heading">
+        <h2>日志摘要</h2>
+      </div>
+      {log.data.highlights.length > 0 ? (
+        <ul class="timeline-list">
+          {log.data.highlights.map((item) => <li>{item}</li>)}
+        </ul>
+      ) : (
+        <p>这篇日志主要用于沉淀阶段判断和后续方向。</p>
+      )}
+
+      {relatedGame && (
+        <section>
+          <div class="section-heading">
+            <h2>关联案例</h2>
+          </div>
+          <div class="link-list link-list--stacked">
+            <a href={withBase(`/games/${relatedGame.slug}`)}>{relatedGame.data.title}</a>
+          </div>
+        </section>
+      )}
+    </aside>
+  </article>
+</BaseLayout>

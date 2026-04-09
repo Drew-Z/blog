@@ -1,0 +1,69 @@
+﻿---
+import { withBase } from '../utils/site';
+
+interface Props {
+  href: string;
+  title: string;
+  summary: string;
+  description: string;
+  status: string;
+  role?: string;
+  platforms?: string[];
+  playableWeb?: boolean;
+  thumbnail?: string;
+  featured?: boolean;
+}
+
+const {
+  href,
+  title,
+  summary,
+  description,
+  status,
+  role,
+  platforms = [],
+  playableWeb = false,
+  thumbnail,
+  featured = false
+} = Astro.props;
+---
+
+<article class="card game-card game-card--rich">
+  <a class="card-media" href={withBase(href)}>
+    {thumbnail ? (
+      <img src={withBase(thumbnail)} alt={title} loading="lazy" />
+    ) : (
+      <div class="card-media-placeholder card-media-placeholder--game">
+        <p class="eyebrow">Game</p>
+        <strong>{title}</strong>
+      </div>
+    )}
+  </a>
+  <div class="card-body">
+    <div class="game-card-top">
+      <p class="eyebrow">Game Case</p>
+      <div class="tag-list">
+        {featured ? <span class="status-pill status-pill--active">重点项目</span> : null}
+        <span class:list={["status-pill", playableWeb && 'status-pill--active']}>{playableWeb ? '可在线试玩' : '案例展示中'}</span>
+      </div>
+    </div>
+    <h3><a href={withBase(href)}>{title}</a></h3>
+    <p>{summary}</p>
+
+    <div class="game-card-case-grid">
+      <div class="mini-panel">
+        <p class="eyebrow">验证目标</p>
+        <p>{description}</p>
+      </div>
+      <div class="mini-panel">
+        <p class="eyebrow">我的职责</p>
+        <p>{role ?? '待补充'}</p>
+      </div>
+    </div>
+
+    <div class="meta-stack">
+      <span>阶段：{status}</span>
+      <span>平台：{platforms.join(' / ') || '待补充'}</span>
+    </div>
+  </div>
+</article>

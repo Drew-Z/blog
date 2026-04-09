@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450">
+  <rect width="800" height="450" fill="#10162d"/>
+  <rect x="110" y="120" width="120" height="190" rx="20" fill="#7cf7d4" opacity="0.82"/>
+  <rect x="270" y="150" width="120" height="160" rx="20" fill="#4fd1b5" opacity="0.65"/>
+  <rect x="430" y="90" width="120" height="220" rx="20" fill="#8f7bff" opacity="0.78"/>
+  <rect x="590" y="130" width="90" height="180" rx="18" fill="#ffb86b" opacity="0.78"/>
+  <text x="70" y="70" fill="#f4f7ff" font-size="34" font-family="Arial, sans-serif">Supply Loop</text>
+</svg>
