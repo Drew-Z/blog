@@ -7,7 +7,7 @@ import DevlogCard from '../components/DevlogCard.astro';
 import { withBase } from '../utils/site';
 import { getPublishedArticles } from '../utils/content';
 import { sortEditorialEntries } from '../utils/entries';
-import { devlogProjectLabels, siteMeta } from '../utils/site-meta';
+import { devlogProjectLabels, profileFocusAreas, siteMeta } from '../utils/site-meta';
 
 const games = sortEditorialEntries(await getCollection('games'));
 const logs = sortEditorialEntries(await getCollection('devlogs'));
@@ -144,6 +144,26 @@ const entryRoute = [
   <section class="card">
     <div class="section-heading">
       <div>
+        <h2>个人定位</h2>
+        <p class="content-meta">如果你想快速判断我更偏哪一类工作，可以先看这三个重点方向。</p>
+      </div>
+      <a href={withBase('/about')}>查看详细说明</a>
+    </div>
+    <div class="positioning-grid">
+      {profileFocusAreas.map((item) => (
+        <article class="positioning-card">
+          <p class="eyebrow">Focus</p>
+          <strong>{item.title}</strong>
+          <span class="positioning-ratio">{item.ratio}</span>
+          <p>{item.summary}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="section-heading">
+      <div>
         <h2>合作与联系</h2>
         <p class="content-meta">如果你是来投递评估、项目合作或同行交流，这里给你一个最直接的进入方式。</p>
       </div>
@@ -249,6 +269,8 @@ const entryRoute = [
           playableWeb={game.data.playableWeb}
           thumbnail={game.data.thumbnail}
           featured={game.data.featured}
+          screenshotCount={game.data.screenshots.length}
+          engine={game.data.engine}
         />
       ))}
     </div>

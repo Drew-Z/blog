@@ -4,7 +4,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import { withBase } from '../utils/site';
 import { getArticleWorkbenchStats, getPublishedArticles } from '../utils/content';
-import { siteMeta } from '../utils/site-meta';
+import { profileFocusAreas, siteMeta } from '../utils/site-meta';
 
 const games = await getCollection('games');
 const logs = await getCollection('devlogs');
@@ -75,6 +75,22 @@ const articleWorkbenchStats = await getArticleWorkbenchStats();
 
       <section class="card">
         <div class="section-heading">
+          <h2>更明确的能力定位</h2>
+        </div>
+        <div class="positioning-grid">
+          {profileFocusAreas.map((item) => (
+            <article class="positioning-card">
+              <p class="eyebrow">Focus</p>
+              <strong>{item.title}</strong>
+              <span class="positioning-ratio">{item.ratio}</span>
+              <p>{item.summary}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="section-heading">
           <h2>建议浏览顺序</h2>
         </div>
         <ol class="timeline-list">
@@ -103,6 +119,10 @@ const articleWorkbenchStats = await getArticleWorkbenchStats();
           <div class="mini-panel">
             <p class="eyebrow">适合的合作场景</p>
             <p>独立游戏原型、系统设计拆解、开发复盘整理、作品站搭建与内容结构收口。</p>
+          </div>
+          <div class="mini-panel">
+            <p class="eyebrow">适合的角色判断</p>
+            <p>更适合偏原型策划、系统设计、内容结构化表达，以及把项目收成可展示版本的工作。</p>
           </div>
           <div class="mini-panel">
             <p class="eyebrow">GitHub 入口</p>

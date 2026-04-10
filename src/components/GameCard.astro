@@ -13,6 +13,8 @@ interface Props {
   playableWeb?: boolean;
   thumbnail?: string;
   featured?: boolean;
+  screenshotCount?: number;
+  engine?: string;
 }
 
 const {
@@ -25,14 +27,28 @@ const {
   platforms = [],
   playableWeb = false,
   thumbnail,
-  featured = false
+  featured = false,
+  screenshotCount = 0,
+  engine
 } = Astro.props;
 ---
 
 <article class="card game-card game-card--rich">
   <a class="card-media" href={withBase(href)}>
     {thumbnail ? (
-      <img src={withBase(thumbnail)} alt={title} loading="lazy" />
+      <>
+        <img src={withBase(thumbnail)} alt={title} loading="lazy" />
+        <div class="card-media-overlay card-media-overlay--game">
+          <div class="tag-list">
+            {featured ? <span class="status-pill status-pill--active">重点项目</span> : null}
+            <span class:list={["status-pill", playableWeb && 'status-pill--active']}>{playableWeb ? '可在线试玩' : '案例展示中'}</span>
+          </div>
+          <div class="card-media-meta">
+            <strong>{title}</strong>
+            <span>{engine ?? '游戏项目'} / {screenshotCount} 张画面</span>
+          </div>
+        </div>
+      </>
     ) : (
       <div class="card-media-placeholder card-media-placeholder--game">
         <p class="eyebrow">Game</p>
@@ -43,10 +59,7 @@ const {
   <div class="card-body">
     <div class="game-card-top">
       <p class="eyebrow">Project Case</p>
-      <div class="tag-list">
-        {featured ? <span class="status-pill status-pill--active">重点项目</span> : null}
-        <span class:list={["status-pill", playableWeb && 'status-pill--active']}>{playableWeb ? '可在线试玩' : '案例展示中'}</span>
-      </div>
+      <span class="status-pill">{gameStatusLabels[status] ?? status}</span>
     </div>
     <h3><a href={withBase(href)}>{title}</a></h3>
     <p>{summary}</p>

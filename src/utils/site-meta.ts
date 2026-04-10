@@ -29,6 +29,24 @@ export const devlogProjectLabels: Record<string, string> = {
   'blog-platform': 'Blog Platform'
 };
 
+export const profileFocusAreas = [
+  {
+    title: '原型策划与玩法验证',
+    ratio: '40%',
+    summary: '把核心循环尽快做成可操作原型，再围绕反馈、可读性和阶段目标逐步收成可展示案例。'
+  },
+  {
+    title: '系统拆解与表达组织',
+    ratio: '35%',
+    summary: '把复杂系统拆成可复用的分析结构，用文章和案例说明判断过程，而不是只给结论。'
+  },
+  {
+    title: '项目收口与展示包装',
+    ratio: '25%',
+    summary: '把日志、里程碑、截图和浏览路径整理清楚，让外部第一次打开时就能快速建立理解。'
+  }
+] as const;
+
 export function formatDate(date: Date): string {
   return date.toLocaleDateString('zh-CN', {
     year: 'numeric',

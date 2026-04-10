@@ -13,6 +13,18 @@ const featuredCount = games.filter((game) => game.data.featured).length;
 const playableCount = games.filter((game) => game.data.playableWeb || game.data.status === 'playable').length;
 const ongoingCount = games.filter((game) => game.data.status === 'ongoing').length;
 const entryGame = games[0];
+const galleryShots = games
+  .flatMap((game) =>
+    game.data.screenshots.slice(0, 2).map((shot, index) => ({
+      href: `/games/${game.slug}`,
+      title: shot.title,
+      note: shot.note ?? game.data.summary,
+      src: shot.src,
+      gameTitle: game.data.title,
+      label: `Scene ${index + 1}`
+    }))
+  )
+  .slice(0, 4);
 const filterGroups = [
   { label: '重点项目', value: 'featured' },
   { label: '持续迭代', value: 'ongoing' },
@@ -71,6 +83,29 @@ const filterGroups = [
     </section>
   )}
 
+  {galleryShots.length > 0 && (
+    <section class="card">
+      <div class="section-heading">
+        <div>
+          <h2>真实画面预览</h2>
+          <p class="content-meta">统一把项目里的真实截图拿出来做第一轮预览，比只看封面更容易判断项目是否已经进入可展示状态。</p>
+        </div>
+      </div>
+      <div class="project-gallery-grid">
+        {galleryShots.map((shot) => (
+          <a class="project-gallery-card" href={withBase(shot.href)}>
+            <img src={withBase(shot.src)} alt={`${shot.gameTitle} ${shot.title}`} loading="lazy" />
+            <div class="project-gallery-copy">
+              <p class="eyebrow">{shot.gameTitle}</p>
+              <strong>{shot.title}</strong>
+              <span>{shot.note}</span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </section>
+  )}
+
   <ArchiveFilter
     id="games-archive"
     placeholder="搜索项目名称、目标、职责、平台或标签"
@@ -97,6 +132,8 @@ const filterGroups = [
           playableWeb={game.data.playableWeb}
           thumbnail={game.data.thumbnail}
           featured={game.data.featured}
+          screenshotCount={game.data.screenshots.length}
+          engine={game.data.engine}
         />
       </div>
     ))}
