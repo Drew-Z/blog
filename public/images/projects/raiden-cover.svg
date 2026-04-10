@@ -1,0 +1,23 @@
+<svg width="1200" height="720" viewBox="0 0 1200 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="720" fill="#110F1B"/>
+  <rect x="40" y="40" width="1120" height="640" rx="40" fill="url(#paint0_linear)"/>
+  <path d="M602 96L736 308L602 624L468 308L602 96Z" fill="#F9F7FF"/>
+  <path d="M602 160L672 320L602 540L532 320L602 160Z" fill="#7E6BFF"/>
+  <path d="M854 184L950 264L868 452L790 384L854 184Z" fill="#FF8D6F" fill-opacity="0.88"/>
+  <path d="M350 194L272 276L340 448L420 368L350 194Z" fill="#4AB7FF" fill-opacity="0.88"/>
+  <text x="92" y="154" fill="#F2EFFF" font-family="Georgia, 'Times New Roman', serif" font-size="36" font-weight="700">ARCADE VERTICAL SHOOTER</text>
+  <text x="92" y="274" fill="#FFFFFF" font-family="Georgia, 'Times New Roman', serif" font-size="92" font-weight="700">RAIDEN PROTOTYPE</text>
+  <text x="92" y="344" fill="#D6D2F1" font-family="'Segoe UI', sans-serif" font-size="32">Enemy formations, bomb economy, and short-run intensity.</text>
+  <rect x="92" y="426" width="214" height="56" rx="28" fill="#7E6BFF" fill-opacity="0.16"/>
+  <text x="126" y="462" fill="#E6E0FF" font-family="'Segoe UI', sans-serif" font-size="26" font-weight="700">VERTICAL STAGE</text>
+  <rect x="322" y="426" width="210" height="56" rx="28" fill="#4AB7FF" fill-opacity="0.16"/>
+  <text x="356" y="462" fill="#E2F5FF" font-family="'Segoe UI', sans-serif" font-size="26" font-weight="700">BOMB ECONOMY</text>
+  <rect x="548" y="426" width="222" height="56" rx="28" fill="#FF8D6F" fill-opacity="0.16"/>
+  <text x="582" y="462" fill="#FFE6DD" font-family="'Segoe UI', sans-serif" font-size="26" font-weight="700">ENEMY PATTERNS</text>
+  <defs>
+    <linearGradient id="paint0_linear" x1="74" y1="56" x2="1110" y2="668" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#312062"/>
+      <stop offset="1" stop-color="#160F24"/>
+    </linearGradient>
+  </defs>
+</svg>

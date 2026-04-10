@@ -1,0 +1,16 @@
+<svg width="1200" height="720" viewBox="0 0 1200 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="720" fill="#100C1A"/>
+  <rect x="96" y="70" width="1008" height="580" rx="32" fill="#211635"/>
+  <text x="132" y="154" fill="#FFFFFF" font-family="Georgia, 'Times New Roman', serif" font-size="54" font-weight="700">STAGE RESULT</text>
+  <rect x="132" y="198" width="288" height="188" rx="24" fill="#2B1E46"/>
+  <rect x="456" y="198" width="288" height="188" rx="24" fill="#2B1E46"/>
+  <rect x="780" y="198" width="288" height="188" rx="24" fill="#2B1E46"/>
+  <text x="170" y="254" fill="#D7D0FF" font-family="'Segoe UI', sans-serif" font-size="28" font-weight="700">SCORE</text>
+  <text x="494" y="254" fill="#D7D0FF" font-family="'Segoe UI', sans-serif" font-size="28" font-weight="700">KILL RATE</text>
+  <text x="818" y="254" fill="#D7D0FF" font-family="'Segoe UI', sans-serif" font-size="28" font-weight="700">POWER PATH</text>
+  <text x="170" y="334" fill="#FFFFFF" font-family="Georgia, 'Times New Roman', serif" font-size="62" font-weight="700">428,500</text>
+  <text x="534" y="334" fill="#FFFFFF" font-family="Georgia, 'Times New Roman', serif" font-size="62" font-weight="700">87%</text>
+  <text x="828" y="334" fill="#FFFFFF" font-family="Georgia, 'Times New Roman', serif" font-size="62" font-weight="700">A - C - B</text>
+  <rect x="132" y="428" width="936" height="164" rx="24" fill="#2B1E46"/>
+  <text x="170" y="484" fill="#F2EFFF" font-family="'Segoe UI', sans-serif" font-size="28" font-weight="700">The run summary should make a short arcade session feel memorable and reviewable.</text>
+</svg>

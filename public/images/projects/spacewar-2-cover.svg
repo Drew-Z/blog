@@ -1,0 +1,25 @@
+<svg width="1200" height="720" viewBox="0 0 1200 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="720" fill="#09111A"/>
+  <rect x="44" y="44" width="1112" height="632" rx="38" fill="url(#paint0_linear)"/>
+  <circle cx="942" cy="146" r="126" fill="#8ED8FF" fill-opacity="0.16"/>
+  <circle cx="214" cy="566" r="168" fill="#2DF0C8" fill-opacity="0.14"/>
+  <path d="M660 132L936 276L660 588L388 276L660 132Z" fill="#102A3C" fill-opacity="0.8" stroke="#85D9FF" stroke-width="4"/>
+  <path d="M606 266L742 332L606 466L480 332L606 266Z" fill="#F0F7FF"/>
+  <path d="M716 286L860 330L738 456L660 414L716 286Z" fill="#41D8C8"/>
+  <path d="M488 292L384 352L482 446L566 402L488 292Z" fill="#2C8FBF"/>
+  <text x="96" y="164" fill="#C8F3FF" font-family="Georgia, 'Times New Roman', serif" font-size="34" font-weight="700">SEQUEL PROTOTYPE</text>
+  <text x="96" y="272" fill="#FFFFFF" font-family="Georgia, 'Times New Roman', serif" font-size="92" font-weight="700">SPACEWAR II</text>
+  <text x="96" y="340" fill="#B7CCDA" font-family="'Segoe UI', sans-serif" font-size="32">Dual weapons, wave pressure, and intermission upgrades.</text>
+  <rect x="96" y="430" width="214" height="56" rx="28" fill="#41D8C8" fill-opacity="0.16"/>
+  <text x="130" y="466" fill="#A7FFF0" font-family="'Segoe UI', sans-serif" font-size="26" font-weight="700">WAVE COMBAT</text>
+  <rect x="326" y="430" width="224" height="56" rx="28" fill="#8ED8FF" fill-opacity="0.16"/>
+  <text x="360" y="466" fill="#D7F6FF" font-family="'Segoe UI', sans-serif" font-size="26" font-weight="700">WEAPON SWITCH</text>
+  <rect x="566" y="430" width="252" height="56" rx="28" fill="#FFFFFF" fill-opacity="0.12"/>
+  <text x="600" y="466" fill="#F4FBFF" font-family="'Segoe UI', sans-serif" font-size="26" font-weight="700">INTERMISSION LOOP</text>
+  <defs>
+    <linearGradient id="paint0_linear" x1="88" y1="80" x2="1080" y2="652" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#123453"/>
+      <stop offset="1" stop-color="#0A1723"/>
+    </linearGradient>
+  </defs>
+</svg>

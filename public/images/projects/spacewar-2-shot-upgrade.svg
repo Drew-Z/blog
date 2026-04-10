@@ -1,0 +1,15 @@
+<svg width="1200" height="720" viewBox="0 0 1200 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="720" fill="#0B121B"/>
+  <rect x="56" y="72" width="1088" height="576" rx="28" fill="#132434"/>
+  <text x="92" y="134" fill="#E5F8FF" font-family="Georgia, 'Times New Roman', serif" font-size="44" font-weight="700">INTERMISSION UPGRADE</text>
+  <rect x="92" y="176" width="316" height="420" rx="24" fill="#1A3144"/>
+  <rect x="442" y="176" width="316" height="420" rx="24" fill="#1A3144"/>
+  <rect x="792" y="176" width="316" height="420" rx="24" fill="#1A3144"/>
+  <rect x="120" y="226" width="260" height="22" rx="11" fill="#41D8C8" fill-opacity="0.22"/>
+  <rect x="470" y="226" width="260" height="22" rx="11" fill="#8ED8FF" fill-opacity="0.22"/>
+  <rect x="820" y="226" width="260" height="22" rx="11" fill="#FFD27D" fill-opacity="0.22"/>
+  <text x="122" y="286" fill="#DDF6FF" font-family="'Segoe UI', sans-serif" font-size="28" font-weight="700">Rapid Cooling</text>
+  <text x="472" y="286" fill="#DDF6FF" font-family="'Segoe UI', sans-serif" font-size="28" font-weight="700">Shock Payload</text>
+  <text x="822" y="286" fill="#DDF6FF" font-family="'Segoe UI', sans-serif" font-size="28" font-weight="700">Risk Contract</text>
+  <text x="94" y="644" fill="#AEC4D3" font-family="'Segoe UI', sans-serif" font-size="24">Choose a power, read the next wave risk, and decide whether to keep pushing.</text>
+</svg>
