@@ -24,7 +24,9 @@ const imageUrl = image
   ? Astro.site
     ? new URL(withBase(image), Astro.site).toString()
     : withBase(image)
-  : undefined;
+  : Astro.site
+    ? new URL(withBase(siteMeta.shareImage), Astro.site).toString()
+    : withBase(siteMeta.shareImage);
 ---
 
 <!doctype html>
@@ -34,19 +36,22 @@ const imageUrl = image
     <meta name="viewport" content="width=device-width" />
     <meta name="description" content={description} />
     <meta name="theme-color" content="#f4ede1" />
+    <meta property="og:locale" content="zh_CN" />
     <meta property="og:site_name" content={siteMeta.name} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content={type} />
     <meta property="og:url" content={canonical} />
-    {imageUrl && <meta property="og:image" content={imageUrl} />}
+    <meta property="og:image" content={imageUrl} />
     <meta name="twitter:card" content={imageUrl ? 'summary_large_image' : 'summary'} />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    {imageUrl && <meta name="twitter:image" content={imageUrl} />}
+    <meta name="twitter:image" content={imageUrl} />
     <meta name="generator" content={Astro.generator} />
     <link rel="canonical" href={canonical} />
     <link rel="alternate" type="application/rss+xml" title={`${siteMeta.name} RSS`} href={withBase('/rss.xml')} />
+    <link rel="icon" type="image/svg+xml" href={withBase(siteMeta.favicon)} />
+    <link rel="apple-touch-icon" href={withBase(siteMeta.favicon)} />
     <title>{title}</title>
   </head>
   <body>

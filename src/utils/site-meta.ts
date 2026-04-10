@@ -3,9 +3,14 @@ export const siteMeta = {
   title: '独立游戏原型与系统设计博客',
   description: '围绕 Godot 游戏原型、系统策划拆解与开发复盘搭建的个人作品展示博客。',
   tagline: '独立游戏原型 / 系统设计 / 开发写作',
+  englishTitle: 'Indie Game Prototypes, Systems Design, and Dev Writing',
+  englishDescription:
+    'A portfolio blog focused on Godot prototypes, systems analysis, and development write-ups, built to show both what was made and how the decisions were formed.',
   githubProfile: 'https://github.com/ciallo-bill',
   repository: 'https://github.com/ciallo-bill/blog',
-  rss: '/rss.xml'
+  rss: '/rss.xml',
+  shareImage: '/images/share-cover.svg',
+  favicon: '/favicon.svg'
 };
 
 export const navLinks = [
