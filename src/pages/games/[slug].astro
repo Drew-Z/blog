@@ -255,7 +255,7 @@ const readingTime = estimateReadingTime(game.body);
           {game.data.downloadLinks.length > 0 && (
             <div class="download-list download-list--stacked">
               {game.data.downloadLinks.map((link) => (
-                <a href={link.url} target="_blank" rel="noreferrer">{link.label}</a>
+                <a href={withBase(link.url)} target="_blank" rel="noreferrer">{link.label}</a>
               ))}
             </div>
           )}

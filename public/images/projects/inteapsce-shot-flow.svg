@@ -1,0 +1,20 @@
+<svg width="1200" height="720" viewBox="0 0 1200 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="720" fill="#08120F"/>
+  <text x="84" y="106" fill="#E8FFF4" font-family="'Segoe UI', sans-serif" font-size="42" font-weight="700">SESSION FLOW</text>
+  <text x="84" y="156" fill="#9FCBB6" font-family="'Segoe UI', sans-serif" font-size="25">首页 -&gt; 战斗 -&gt; 升级 -&gt; 结算 -&gt; 成长 -&gt; 下一局</text>
+  <g font-family="'Segoe UI', sans-serif" font-weight="700" font-size="30">
+    <rect x="84" y="250" width="150" height="96" rx="28" fill="#12382B" stroke="#21D07A"/>
+    <text x="122" y="310" fill="#E8FFF4">首页</text>
+    <rect x="280" y="250" width="150" height="96" rx="28" fill="#12382B" stroke="#21D07A"/>
+    <text x="318" y="310" fill="#E8FFF4">战斗</text>
+    <rect x="476" y="250" width="150" height="96" rx="28" fill="#12382B" stroke="#21D07A"/>
+    <text x="514" y="310" fill="#E8FFF4">升级</text>
+    <rect x="672" y="250" width="150" height="96" rx="28" fill="#12382B" stroke="#FFCE5C"/>
+    <text x="710" y="310" fill="#FFF0C8">结算</text>
+    <rect x="868" y="250" width="150" height="96" rx="28" fill="#12382B" stroke="#7CE7FF"/>
+    <text x="906" y="310" fill="#DDF9FF">成长</text>
+  </g>
+  <path d="M238 298H272M434 298H468M630 298H664M826 298H860" stroke="#DFFFF0" stroke-width="6" stroke-linecap="round"/>
+  <path d="M944 350C922 472 790 560 606 560C422 560 288 494 210 386" stroke="#7CE7FF" stroke-width="8" stroke-linecap="round" stroke-dasharray="16 18"/>
+  <text x="84" y="626" fill="#C4E7D4" font-family="'Segoe UI', sans-serif" font-size="28">当前目标：让玩家能自然进入下一局，而不是停在开发工作台。</text>
+</svg>

@@ -1,0 +1,25 @@
+<svg width="1200" height="720" viewBox="0 0 1200 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="720" fill="#07120F"/>
+  <rect x="48" y="40" width="1104" height="640" rx="44" fill="url(#bg)"/>
+  <circle cx="876" cy="210" r="164" fill="#53F4A7" fill-opacity="0.18"/>
+  <circle cx="320" cy="520" r="220" fill="#FFCE5C" fill-opacity="0.12"/>
+  <path d="M602 118L682 268L602 582L522 268L602 118Z" fill="#E9FFF5"/>
+  <path d="M602 188L642 288L602 486L562 288L602 188Z" fill="#21D07A"/>
+  <path d="M742 260C796 302 826 360 832 434" stroke="#FFCE5C" stroke-width="22" stroke-linecap="round"/>
+  <path d="M462 260C408 302 378 360 372 434" stroke="#7CE7FF" stroke-width="22" stroke-linecap="round"/>
+  <text x="94" y="148" fill="#DFFFF0" font-family="Georgia, 'Times New Roman', serif" font-size="38" font-weight="700">VERTICAL AUTO SHOOTER ROGUELITE</text>
+  <text x="94" y="276" fill="#FFFFFF" font-family="Georgia, 'Times New Roman', serif" font-size="104" font-weight="700">inteapsce</text>
+  <text x="98" y="348" fill="#C4E7D4" font-family="'Segoe UI', sans-serif" font-size="32">Weapon tree, meta growth, and mobile-first playtest flow.</text>
+  <rect x="98" y="432" width="198" height="58" rx="29" fill="#21D07A" fill-opacity="0.16"/>
+  <text x="132" y="469" fill="#DFFFF0" font-family="'Segoe UI', sans-serif" font-size="25" font-weight="700">WEAPON TREE</text>
+  <rect x="316" y="432" width="184" height="58" rx="29" fill="#FFCE5C" fill-opacity="0.16"/>
+  <text x="350" y="469" fill="#FFF0C8" font-family="'Segoe UI', sans-serif" font-size="25" font-weight="700">META LOOP</text>
+  <rect x="520" y="432" width="176" height="58" rx="29" fill="#7CE7FF" fill-opacity="0.14"/>
+  <text x="554" y="469" fill="#DDF9FF" font-family="'Segoe UI', sans-serif" font-size="25" font-weight="700">WEB DEMO</text>
+  <defs>
+    <linearGradient id="bg" x1="54" y1="52" x2="1136" y2="666" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0D2F25"/>
+      <stop offset="1" stop-color="#07100E"/>
+    </linearGradient>
+  </defs>
+</svg>

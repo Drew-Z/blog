@@ -1,0 +1,20 @@
+<svg width="1200" height="720" viewBox="0 0 1200 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="720" fill="#09140F"/>
+  <text x="86" y="104" fill="#E8FFF4" font-family="'Segoe UI', sans-serif" font-size="42" font-weight="700">WEAPON TREE V1</text>
+  <text x="86" y="154" fill="#A8D5BE" font-family="'Segoe UI', sans-serif" font-size="25">结构冻结后，重点转向路线可读性和平衡验证。</text>
+  <circle cx="600" cy="188" r="54" fill="#21D07A"/>
+  <circle cx="396" cy="360" r="50" fill="#7CE7FF"/>
+  <circle cx="600" cy="360" r="50" fill="#FFCE5C"/>
+  <circle cx="804" cy="360" r="50" fill="#7CE7FF"/>
+  <circle cx="292" cy="540" r="46" fill="#12382B" stroke="#7CE7FF" stroke-width="5"/>
+  <circle cx="500" cy="540" r="46" fill="#12382B" stroke="#21D07A" stroke-width="5"/>
+  <circle cx="700" cy="540" r="46" fill="#12382B" stroke="#21D07A" stroke-width="5"/>
+  <circle cx="908" cy="540" r="46" fill="#12382B" stroke="#7CE7FF" stroke-width="5"/>
+  <path d="M562 226L430 324M638 226L770 324M600 242V310M374 406L314 500M426 406L482 500M774 406L718 500M826 406L884 500M600 410V494" stroke="#DFFFF0" stroke-width="7" stroke-linecap="round"/>
+  <g fill="#07120F" font-family="'Segoe UI', sans-serif" font-size="24" font-weight="700" text-anchor="middle">
+    <text x="600" y="197">CORE</text>
+    <text x="396" y="369">ARC</text>
+    <text x="600" y="369">BURST</text>
+    <text x="804" y="369">BEAM</text>
+  </g>
+</svg>

@@ -1,100 +1,116 @@
 ---
 title: Raiden Prototype
-description: 围绕纵版卷轴射击的敌群编排、屏幕阅读性和短局爽感，验证一个更偏街机节奏的雷电式项目能否快速收成展示案例。
-summary: 一个以纵向卷轴射击为核心的雷电风格原型项目，重点测试编队敌群、火力升级、炸弹资源和短局节奏是否能形成清晰又有冲击力的关卡体验。
+description: 以纵版街机射击为核心，验证双关章节、敌群编排、火力成长、炸弹资源、Boss 收束和 Demo 试玩包装是否能形成稳定展示候选版。
+summary: 一个基于 Godot 4.6.1 的纵版射击展示原型，当前已推进到 RC-0.4，推荐入口为 Chapter Run，具备双关流程、章节继承、结尾演出、公开 Demo 包和 Web 试玩入口。
 pubDate: 2026-04-10
-updatedDate: 2026-04-10
-status: prototype
-featured: false
+updatedDate: 2026-04-21
+status: playable
+featured: true
 tags:
   - Godot 4
   - Vertical Shooter
   - Raiden-like
   - Arcade Prototype
-  - Enemy Patterns
+  - Web Demo
 engine: Godot 4.6.1
 platforms:
+  - Web 试玩
   - Windows
-  - 竖屏布局验证
+  - 竖屏布局
 thumbnail: /images/projects/raiden-cover.svg
 screenshots:
   - src: /images/projects/raiden-shot-stage.svg
-    title: 纵版主战场同时呈现敌群编队和安全走位区
-    note: 这个画面重点是阅读性，而不是单纯把弹幕堆满整屏。
+    title: 双关章节把 Stage 01 与 Stage 02 串成完整 Demo 路线
+    note: 项目重点不再只是单关爽感，而是验证章节继承、过场和结尾是否能撑起展示版体验。
   - src: /images/projects/raiden-shot-boss.svg
-    title: 小型 boss 段落把武器升级和炸弹资源一起拉进决策
-    note: 雷电式项目的爽点来自压力和解法并存，所以资源显示必须足够直接。
+    title: Boss 与风暴机关共同压缩安全区域
+    note: 第二关 Storm Front 已接入风暴十字封线、overdrive 和最后安全窗口预警。
   - src: /images/projects/raiden-shot-result.svg
-    title: 结果页单独总结得分、击破率和火力路径
-    note: 这样做是为了让短局体验也能留下清晰的阶段反馈，而不是结束后什么都不说。
-playableWeb: false
-role: 街机节奏原型 / 关卡信息组织 / 战斗反馈验证 / 展示内容整理
+    title: 结果页、章节总评和 Outro 承接短局反馈
+    note: 短局街机项目需要在结束后解释发生了什么，并给出下一步试玩动机。
+playableWeb: true
+embedUrl: /play/raiden/index.html
+downloadLinks:
+  - label: Windows RC-0.4 展示包下载
+    url: /downloads/raiden-prototype-showcase-rc-0.4.zip
+  - label: Web 试玩版（新标签打开）
+    url: /play/raiden/index.html
+role: 街机节奏原型 / 双关章节流程 / Boss 与资源反馈 / Demo 发布包装
 teamSize: 单人
-challenge: 把雷电式卷轴射击做得既有街机爽感、又能让外部第一次看时读得懂，而不是只剩一屏热闹的敌弹和特效。
-mechanic: 纵版卷轴推进 + 编队敌群入场 + 火力升级 + 炸弹清屏 + 短局结果结算
+challenge: 把雷电式纵版射击做得既有短局街机爽感，又能让外部玩家第一次打开时理解入口、目标、章节推进和当前版本定位。
+mechanic: 纵版卷轴推进 + 自动持续射击 + 火力成长 + 炸弹清屏 + 双关章节继承 + Storm Front 环境压迫 + Boss 终盘收束
 milestones:
   - date: 2026-03-22
     title: 纵版卷轴和基础敌群框架建立
-    summary: 先把纵向推进、玩家火力和基础编队入场做起来，确认雷电式节奏能成立。
-  - date: 2026-04-01
-    title: 武器升级与炸弹资源进入同一反馈回路
-    summary: 开始验证爽感不只是火力更大，而是资源分配是否能让短局体验更有层次。
+    summary: 先把玩家移动、自动射击、受伤死亡、掉落升级和基础敌群节奏跑通。
   - date: 2026-04-10
-    title: 结果页和 boss 段落形成展示节点
-    summary: 项目开始具备“打完一局以后也能讲清楚发生了什么”的展示条件。
+    title: 双关垂直切片形成展示候选
+    summary: Stage 01、Stage 02、ChapterBriefing、ChapterEnding 和 ChapterOutro 串成完整章节体验。
+  - date: 2026-04-21
+    title: RC-0.4 发布包与 Web 试玩接入作品站
+    summary: 将本地 dist 展示包提取为下载入口，并用 Godot Web 导出补上在线试玩。
 devlogSlugs: []
 contribution:
-  - 制定纵版卷轴射击的最小可行关卡结构
-  - 组织敌群入场、火力升级和炸弹资源的反馈层
-  - 把结果页从可有可无的信息面板提升为正式展示节点
-  - 按作品站标准补全封面、截图和项目说明
-outcome: 当前项目更像一个街机节奏验证样本，适合展示我如何处理短局爽感、战场阅读性和项目包装这三件事。
+  - 完成 Stage 01 // Scramble 与 Stage 02 // Storm Front 的双关展示路线
+  - 组织火力成长、炸弹资源、敌群编排、Boss 相位和风暴机关的反馈层
+  - 补齐 ChapterBriefing、ChapterEnding、ChapterOutro、结果页和重开流程
+  - 准备公开 Demo 包、试玩说明、已知问题和素材授权检查清单
+outcome: 当前项目已经从“纵版射击原型”推进到稳定展示候选版，能展示短局街机射击的战场阅读、资源决策、章节包装和发布收口能力。
 nextStep:
-  - 补充更多真实关卡截图，替换当前概念图和占位画面
-  - 继续打磨敌群编排，避免前中期节奏过平
-  - 评估是否加入第二武器路线或更鲜明的关卡主题
+  - 做一轮外部人工试玩，确认双关节奏和首屏理解成本
+  - 精简 Web 包资源，避免公开试玩首次加载过重
+  - 继续替换正式资源，并维护素材授权清单
 ---
 
 ## 项目概览
 
-`Raiden Prototype` 想解决的问题很直接：
+`Raiden Prototype` 是一个纵版射击展示原型，目标是验证短局街机射击能不能在较小范围内形成完整 Demo。
 
-- 雷电式射击的爽感来自哪里
-- 如何在短局里同时保留压迫感和可读性
-- 怎么把这种项目收成一个外部看得懂的案例页
+它现在的推荐入口是 `Chapter Run`，完整路线为：
 
-## 为什么这个项目适合放进作品站
+1. 从主菜单进入 `Stage 01` 或 `Chapter Run`
+2. 在短局战斗中通过击破敌人获取火力升级
+3. 在高压波次和 Boss 段落中使用炸弹维持节奏
+4. 通关 `Stage 01` 后进入结果页和 `ChapterBriefing`
+5. 继承生命、炸弹、火力进入 `Stage 02`
+6. 通关双关后进入 `ChapterEnding -> ChapterOutro`
 
-因为它和前面的太空射击系列不太一样。
+## 当前可玩内容
 
-如果说 `Spacewar` 更偏展示版外壳和迭代结构，那么这个项目更偏：
+项目当前版本标识为 `RC-0.4`，定位是稳定展示候选版。
 
-- 纯粹的战场阅读性
-- 编队敌群带来的节奏变化
-- 街机短局的即时反馈
+已经完成的关键内容包括：
 
-放在一起以后，能让作品站里的射击项目层次更完整。
+- 主菜单，可选择 `Stage 01`、`Stage 02` 和 `Chapter Run`
+- 玩家移动、自动持续射击、受伤、死亡
+- 敌群编排、掉落升级、火力成长、炸弹清屏
+- 两个可打通关卡：`Stage 01 // Scramble` 与 `Stage 02 // Storm Front`
+- 第一关到第二关的章节继承
+- `ChapterBriefing`、`ChapterEnding`、`ChapterOutro`
+- 第二关风暴十字封线、Boss overdrive、最后安全窗口和终盘破口
+- HUD、结果页、章节总评和重开流程
 
-## 当前最关键的验证点
+## 试玩说明
 
-### 1. 敌群编排是否真的带来节奏
+在线试玩已经嵌入本页。因为 Web 版本包含 Godot 运行时和音频资源，首次加载会稍慢一点。
 
-不是敌人越多越好，而是入场方式、速度差和停留时间是否能制造清晰的处理顺序。
+基础操作：
 
-### 2. 火力升级与炸弹资源是否形成取舍
+- 移动：`WASD` / 方向键
+- 炸弹：`Space` / `Shift` / `X`
+- 射击：自动持续开火
+- 继续 / 确认：`Enter`
+- 重开：`R`
+- 返回：`Esc`
 
-如果两者只是一起变强，那项目很快会失去判断空间。我要验证的是“什么时候留、什么时候交”。
+## 为什么适合放进作品站
 
-### 3. 结果页是否让短局更有回味
+这个项目和横向 `Space War` 形成互补。
 
-街机项目常常结束得很快，所以每一局结束后的反馈更重要。它会决定项目能不能被记住。
+`Space War` 更强调经典手机游戏复刻和完整发布收口；`Raiden Prototype` 更强调街机短局爽感、纵向战场阅读、资源决策和章节包装。两者放在一起，可以更清楚展示射击项目在不同方向上的设计取舍。
 
 ## 当前阶段判断
 
-这个项目现在最适合作为“街机式战斗节奏原型”展示。
+它已经具备稳定展示候选版的形态，但还没有到商业成品。
 
-它还不够长，也不够完整，但已经能说明三件事：
-
-- 我会怎么处理高压战场里的阅读性
-- 我如何给短局项目补清晰反馈
-- 我怎么把一个偏爽感的项目也整理成可讲述的案例
+下一步最重要的不是继续横向堆新系统，而是外部试玩、首屏体验、资源授权和发布包装这几件事。换句话说，它现在最适合被当作“公开 Demo 准备阶段”的案例来看。

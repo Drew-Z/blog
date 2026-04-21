@@ -1,0 +1,18 @@
+<svg width="1200" height="720" viewBox="0 0 1200 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="720" fill="#08120F"/>
+  <rect x="96" y="96" width="1008" height="528" rx="42" fill="#102A22" stroke="#21D07A" stroke-opacity="0.55"/>
+  <text x="148" y="172" fill="#E8FFF4" font-family="'Segoe UI', sans-serif" font-size="42" font-weight="700">META GROWTH</text>
+  <text x="148" y="222" fill="#A8D5BE" font-family="'Segoe UI', sans-serif" font-size="25">局外成长负责把一局战斗后的反馈接回下一局。</text>
+  <g font-family="'Segoe UI', sans-serif">
+    <rect x="148" y="306" width="250" height="190" rx="28" fill="#08120F" stroke="#FFCE5C"/>
+    <text x="180" y="366" fill="#FFF0C8" font-size="30" font-weight="700">结算反馈</text>
+    <text x="180" y="416" fill="#C4E7D4" font-size="23">资源、成绩、失败原因</text>
+    <rect x="474" y="306" width="250" height="190" rx="28" fill="#08120F" stroke="#21D07A"/>
+    <text x="506" y="366" fill="#DFFFF0" font-size="30" font-weight="700">成长选择</text>
+    <text x="506" y="416" fill="#C4E7D4" font-size="23">属性、武器、路线偏好</text>
+    <rect x="800" y="306" width="250" height="190" rx="28" fill="#08120F" stroke="#7CE7FF"/>
+    <text x="832" y="366" fill="#DDF9FF" font-size="30" font-weight="700">下一局入口</text>
+    <text x="832" y="416" fill="#C4E7D4" font-size="23">带着变化重新开局</text>
+  </g>
+  <path d="M404 402H466M730 402H792" stroke="#E8FFF4" stroke-width="7" stroke-linecap="round"/>
+</svg>
