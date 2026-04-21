@@ -1,5 +1,5 @@
 ---
-title: inteapsce
+title: intespace
 description: 一个竖屏自动射击 Roguelite 项目，围绕武器树构筑、局内推进、局外成长和手机优先体验做统一试玩前的流程收口。
 summary: 一个基于 Godot 4.6.1 的竖屏自动射击 Roguelite，当前武器系统 v1 已冻结结构，局外成长和玩家主菜单已经落地，正在推进完整 session 的试玩准备。
 pubDate: 2026-04-21
@@ -35,7 +35,7 @@ downloadLinks:
     url: /play/inteapsce/index.html
 role: Roguelite 系统方向 / 武器树结构冻结 / 完整流程收口 / 试玩准备整理
 teamSize: 单人
-workspacePath: D:\workspace4Codex\inteapsce
+workspacePath: D:\workspace4Codex\intespace
 currentPhase: 武器系统 v1 冻结后 / 统一试玩前完整流程收口
 progressSummary:
   - 武器系统 v1 已完成结构冻结，后续优先看路线可读性和平衡验证。
@@ -84,7 +84,7 @@ nextStep:
 
 ## 项目概览
 
-`inteapsce` 是一个竖屏自动射击 Roguelite 项目。
+`intespace` 是一个竖屏自动射击 Roguelite 项目。
 
 当前产品定位很清楚：
 
@@ -127,6 +127,6 @@ nextStep:
 
 ## 当前阶段判断
 
-`inteapsce` 当前最适合作为“统一试玩前的 Roguelite 系统收口案例”展示。
+`intespace` 当前最适合作为“统一试玩前的 Roguelite 系统收口案例”展示。
 
 它的下一步不是急着变大，而是先让完整流程变顺，让玩家第一次打开时知道自己为什么进入战斗、怎样成长、打完以后下一步该做什么。
