@@ -7,7 +7,7 @@ import DevlogCard from '../components/DevlogCard.astro';
 import { withBase } from '../utils/site';
 import { getPublishedArticles } from '../utils/content';
 import { sortEditorialEntries } from '../utils/entries';
-import { devlogProjectLabels, profileFocusAreas, siteMeta } from '../utils/site-meta';
+import { devlogProjectLabels, gameStatusLabels, profileFocusAreas, siteMeta } from '../utils/site-meta';
 
 const games = sortEditorialEntries(await getCollection('games'));
 const logs = sortEditorialEntries(await getCollection('devlogs'));
@@ -20,40 +20,13 @@ const featuredArticles = articles.filter((item) => item.data.featured).slice(0, 
 const homeGames = featuredGames.length > 0 ? featuredGames : games.slice(0, 3);
 const homeLogs = featuredLogs.length > 0 ? featuredLogs : logs.slice(0, 3);
 const homeArticles = featuredArticles.length > 0 ? featuredArticles : articles.slice(0, 3);
-const latestLog = logs[0];
-const latestArticle = articles[0];
+
 const spotlightGame = homeGames[0];
 const spotlightLog = homeLogs[0];
 const spotlightArticle = homeArticles[0];
-const visualCards = [
-  spotlightGame
-    ? {
-        href: `/games/${spotlightGame.slug}`,
-        image: spotlightGame.data.thumbnail,
-        label: 'Featured Project',
-        title: spotlightGame.data.title,
-        text: spotlightGame.data.summary
-      }
-    : undefined,
-  homeGames[1]
-    ? {
-        href: `/games/${homeGames[1].slug}`,
-        image: homeGames[1].data.thumbnail,
-        label: 'Second Case',
-        title: homeGames[1].data.title,
-        text: homeGames[1].data.summary
-      }
-    : undefined,
-  spotlightArticle?.data.coverImage
-    ? {
-        href: `/articles/${spotlightArticle.id}`,
-        image: spotlightArticle.data.coverImage,
-        label: 'Method Article',
-        title: spotlightArticle.data.title,
-        text: spotlightArticle.data.description
-      }
-    : undefined
-].filter(Boolean);
+const playableCount = games.filter((item) => item.data.playableWeb).length;
+const downloadableCount = games.filter((item) => item.data.downloadLinks.length > 0).length;
+const trackedProjects = games.slice(0, 5);
 const entryRoute = [
   homeGames[0] ? { label: '先看代表项目', href: `/games/${homeGames[0].slug}`, title: homeGames[0].data.title } : undefined,
   homeLogs[0] ? { label: '再看阶段日志', href: `/logs/${homeLogs[0].slug}`, title: homeLogs[0].data.title } : undefined,
@@ -65,56 +38,84 @@ const entryRoute = [
   <section class="hero hero--home">
     <div class="hero-copy">
       <p class="eyebrow">Portfolio Blog</p>
-      <h1>用游戏原型、系统拆解和开发日志，展示一个项目从想法到落地的全过程。</h1>
+      <h1>把游戏原型、阶段决策、目录结构和展示收口放在同一个作品站里。</h1>
       <p>
         {siteMeta.description}
-        这里既有能直接浏览的项目案例，也有记录设计判断和迭代过程的日志与长文，更适合招聘、合作和同行交流时快速建立理解。
+        这里不只展示“做了什么”，也会同步“现在做到哪里、目录怎么组织、下一步准备怎么推进”，更适合招聘评估、合作沟通和阶段复盘时快速建立理解。
       </p>
       <div class="button-row">
-        <a class="button" href={withBase('/games')}>查看作品案例</a>
-        <a class="button button--ghost" href={withBase('/articles')}>阅读精选文章</a>
+        <a class="button" href={withBase('/games')}>查看项目案例</a>
+        <a class="button button--ghost" href={withBase('/logs')}>浏览开发日志</a>
       </div>
       <div class="tag-list">
         <span>Godot 原型</span>
         <span>系统策划</span>
-        <span>玩法验证</span>
-        <span>开发复盘</span>
+        <span>进度同步</span>
+        <span>Web 试玩</span>
       </div>
     </div>
 
     <div class="hero-panel">
-      {visualCards.length > 0 && (
-        <div class="hero-visual-grid">
-          {visualCards.map((item, index) => (
-            <a
-              class:list={['hero-visual-card', index === 0 && 'hero-visual-card--primary']}
-              href={withBase(item!.href)}
-            >
-              {item!.image ? <img src={withBase(item!.image)} alt={item!.title} loading={index === 0 ? 'eager' : 'lazy'} /> : null}
-              <div class="hero-visual-copy">
-                <p class="eyebrow">{item!.label}</p>
-                <strong>{item!.title}</strong>
-                <span>{item!.text}</span>
-              </div>
-            </a>
-          ))}
-        </div>
-      )}
-
       <div class="kpi-grid">
         <div class="mini-panel">
           <strong>{games.length}</strong>
           <p>个项目案例</p>
         </div>
         <div class="mini-panel">
-          <strong>{logs.length}</strong>
-          <p>篇开发日志</p>
+          <strong>{playableCount}</strong>
+          <p>个在线试玩入口</p>
         </div>
         <div class="mini-panel">
-          <strong>{articles.length}</strong>
-          <p>篇公开文章</p>
+          <strong>{downloadableCount}</strong>
+          <p>个下载体验入口</p>
         </div>
       </div>
+
+      {spotlightGame && (
+        <a class="hero-spotlight-card" href={withBase(`/games/${spotlightGame.slug}`)}>
+          <p class="eyebrow">当前门面项目</p>
+          <strong>{spotlightGame.data.title}</strong>
+          <span>{spotlightGame.data.summary}</span>
+          <div class="tag-list">
+            <span>{spotlightGame.data.currentPhase ?? gameStatusLabels[spotlightGame.data.status]}</span>
+            <span>{spotlightGame.data.playableWeb ? '可在线试玩' : '案例展示'}</span>
+          </div>
+        </a>
+      )}
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="section-heading">
+      <div>
+        <h2>五个项目总览</h2>
+        <p class="content-meta">把当前阶段、入口形式和下一步意图统一压成一屏，方便先看全局再深入单个项目。</p>
+      </div>
+      <a href={withBase('/games')}>进入作品页</a>
+    </div>
+    <div class="project-matrix">
+      {trackedProjects.map((game) => (
+        <a class="project-status-card" href={withBase(`/games/${game.slug}`)}>
+          <div class="project-status-head">
+            <strong>{game.data.title}</strong>
+            <span class:list={['status-pill', game.data.playableWeb && 'status-pill--active']}>
+              {game.data.playableWeb ? '可试玩' : gameStatusLabels[game.data.status]}
+            </span>
+          </div>
+          <p>{game.data.currentPhase ?? game.data.summary}</p>
+          <div class="meta-stack">
+            <span>平台：{game.data.platforms.join(' / ') || '待补充'}</span>
+            <span>
+              入口：
+              {game.data.playableWeb
+                ? ' 在线试玩'
+                : game.data.downloadLinks.length > 0
+                  ? ' 下载 / 外链体验'
+                  : ' 案例页阅读'}
+            </span>
+          </div>
+        </a>
+      ))}
     </div>
   </section>
 
@@ -122,21 +123,21 @@ const entryRoute = [
     <div class="section-heading">
       <div>
         <h2>第一次来，建议这样浏览</h2>
-        <p class="content-meta">先看代表作，再看过程，最后读方法论，理解效率最高。</p>
+        <p class="content-meta">先看项目，再看过程，最后看方法论，理解效率最高。</p>
       </div>
     </div>
     <div class="feature-grid">
       <div class="mini-panel">
-        <p class="eyebrow">01 作品案例</p>
-        <p>先看游戏项目页，快速了解我在做什么、项目到了什么阶段，以及核心能力落在什么地方。</p>
+        <p class="eyebrow">01 项目案例</p>
+        <p>先看作品页，快速知道项目类型、当前阶段、目录结构、试玩入口和核心职责。</p>
       </div>
       <div class="mini-panel">
         <p class="eyebrow">02 开发日志</p>
-        <p>再看阶段日志，理解这些项目是如何收口、为什么这么做，以及中间有哪些判断与取舍。</p>
+        <p>再看阶段日志，理解这些项目是怎么一步步收口、为什么这样做、做了哪些取舍。</p>
       </div>
       <div class="mini-panel">
         <p class="eyebrow">03 深度文章</p>
-        <p>最后读系统设计和游戏拆解文章，看到我如何组织分析框架、表达复杂内容以及做出判断。</p>
+        <p>最后读系统设计和游戏拆解文章，看分析框架、表达组织和判断方式。</p>
       </div>
     </div>
   </section>
@@ -158,57 +159,6 @@ const entryRoute = [
           <p>{item.summary}</p>
         </article>
       ))}
-    </div>
-  </section>
-
-  <section class="card bilingual-card">
-    <div class="section-heading">
-      <div>
-        <h2>English Summary</h2>
-        <p class="content-meta">A compact overview for portfolio sharing, cross-team handoff, or readers who prefer English first.</p>
-      </div>
-    </div>
-    <p class="bilingual-lead">{siteMeta.englishDescription}</p>
-    <div class="feature-grid">
-      <div class="mini-panel">
-        <p class="eyebrow">What You’ll Find</p>
-        <p>Game project cases, development logs, and long-form systems analysis collected in one portfolio blog.</p>
-      </div>
-      <div class="mini-panel">
-        <p class="eyebrow">Best Fit</p>
-        <p>Prototype design, systems thinking, structured writing, and packaging projects into showcase-ready case studies.</p>
-      </div>
-      <div class="mini-panel">
-        <p class="eyebrow">Suggested Route</p>
-        <p>Start from a featured project, continue with a devlog, then move to a systems article for methodology and communication style.</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="card">
-    <div class="section-heading">
-      <div>
-        <h2>合作与联系</h2>
-        <p class="content-meta">如果你是来投递评估、项目合作或同行交流，这里给你一个最直接的进入方式。</p>
-      </div>
-      <a href={withBase('/about')}>查看完整说明</a>
-    </div>
-    <div class="contact-grid">
-      <a class="contact-card" href={siteMeta.githubProfile} target="_blank" rel="noreferrer">
-        <p class="eyebrow">GitHub Profile</p>
-        <strong>查看公开项目与个人入口</strong>
-        <span>适合想先确认项目背景、代码仓库和公开动态的人。</span>
-      </a>
-      <a class="contact-card" href={siteMeta.repository} target="_blank" rel="noreferrer">
-        <p class="eyebrow">Repository</p>
-        <strong>查看这个站点的仓库</strong>
-        <span>适合想直接了解博客本体、提交记录和站点演进方式的人。</span>
-      </a>
-      <a class="contact-card" href={withBase(siteMeta.rss)}>
-        <p class="eyebrow">RSS Feed</p>
-        <strong>订阅后续更新</strong>
-        <span>如果你更关注持续内容输出，可以直接走 RSS 保持跟进。</span>
-      </a>
     </div>
   </section>
 
@@ -236,7 +186,7 @@ const entryRoute = [
       <div class="section-heading">
         <div>
           <h2>编辑主推</h2>
-          <p class="content-meta">把最适合作为门面、过程和方法论入口的内容单独拎出来，方便第一次访问时快速建立完整印象。</p>
+          <p class="content-meta">把最适合作为门面、过程入口和方法论入口的内容单独拎出来，方便第一次访问时快速建立完整印象。</p>
         </div>
       </div>
       <div class="spotlight-grid">
@@ -263,7 +213,7 @@ const entryRoute = [
             <a class="editor-pick-card" href={withBase(`/articles/${spotlightArticle.id}`)}>
               <p class="eyebrow">Method Pick</p>
               <strong>{spotlightArticle.data.title}</strong>
-              <p>{spotlightArticle.data.tags.slice(0, 3).join(' / ') || '深度文章'}</p>
+              <p>{spotlightArticle.data.tags.slice(0, 3).join(' / ') || '系统分析'}</p>
               <span>{spotlightArticle.data.description}</span>
             </a>
           )}
@@ -272,13 +222,13 @@ const entryRoute = [
     </section>
   )}
 
-  <section class="home-section">
+  <section class="card">
     <div class="section-heading">
       <div>
-        <h2>精选作品</h2>
-        <p class="content-meta">围绕玩法验证、展示版包装与多端适配整理的代表项目。</p>
+        <h2>近期作品</h2>
+        <p class="content-meta">优先展示当前最值得先看的项目案例。</p>
       </div>
-      <a href={withBase('/games')}>查看全部</a>
+      <a href={withBase('/games')}>查看全部项目</a>
     </div>
     <div class="grid grid--cards-lg">
       {homeGames.map((game) => (
@@ -295,18 +245,19 @@ const entryRoute = [
           featured={game.data.featured}
           screenshotCount={game.data.screenshots.length}
           engine={game.data.engine}
+          currentPhase={game.data.currentPhase}
         />
       ))}
     </div>
   </section>
 
-  <section class="home-section">
+  <section class="card">
     <div class="section-heading">
       <div>
-        <h2>最新开发日志</h2>
-        <p class="content-meta">记录阶段推进、方案取舍与版本收口，让项目过程也能被外部看懂。</p>
+        <h2>近期日志</h2>
+        <p class="content-meta">这些内容更适合解释项目是怎么一步步推进成现在这个样子的。</p>
       </div>
-      <a href={withBase('/logs')}>进入日志页</a>
+      <a href={withBase('/logs')}>查看全部日志</a>
     </div>
     <div class="grid grid--cards-lg">
       {homeLogs.map((log) => (
@@ -316,20 +267,20 @@ const entryRoute = [
           description={log.data.description}
           pubDate={log.data.pubDate}
           tags={log.data.tags}
-          project={log.data.project}
+          project={devlogProjectLabels[log.data.project] ?? log.data.project}
           featured={log.data.featured}
         />
       ))}
     </div>
   </section>
 
-  <section class="home-section">
+  <section class="card">
     <div class="section-heading">
       <div>
         <h2>精选文章</h2>
-        <p class="content-meta">以系统策划拆解、游戏分析和方法沉淀为主的长篇内容。</p>
+        <p class="content-meta">如果你更关心分析框架、表达方式和系统判断，可以从这里进入。</p>
       </div>
-      <a href={withBase('/articles')}>查看归档</a>
+      <a href={withBase('/articles')}>查看全部文章</a>
     </div>
     <div class="grid grid--cards-lg">
       {homeArticles.map((article) => (
@@ -346,26 +297,26 @@ const entryRoute = [
     </div>
   </section>
 
-  <section class="section-banner">
+  <section class="card bilingual-card">
     <div class="section-heading">
       <div>
-        <h2>这个站更适合用于什么场景</h2>
-        <p class="content-meta">不只是写博客，而是为投递、合作和同行交流准备的统一入口。</p>
+        <h2>English Summary</h2>
+        <p class="content-meta">A compact overview for portfolio sharing, cross-team handoff, or readers who prefer English first.</p>
       </div>
-      <a href={withBase('/about')}>查看关于页</a>
     </div>
+    <p class="bilingual-lead">{siteMeta.englishDescription}</p>
     <div class="feature-grid">
       <div class="mini-panel">
-        <p class="eyebrow">招聘 / 面试</p>
-        <p>可以先看代表作，再补一篇日志和一篇文章，快速判断我在项目、复盘和表达上的完整度。</p>
+        <p class="eyebrow">What You’ll Find</p>
+        <p>Playable game cases, development logs, and long-form systems writing collected in one portfolio blog.</p>
       </div>
       <div class="mini-panel">
-        <p class="eyebrow">合作沟通</p>
-        <p>项目案例讲成果，日志讲过程，长文讲方法，能更完整地承接“你具体是怎么做事的”这个问题。</p>
+        <p class="eyebrow">Best Fit</p>
+        <p>Prototype design, systems thinking, structured writing, and packaging projects into showcase-ready case studies.</p>
       </div>
       <div class="mini-panel">
-        <p class="eyebrow">同行交流</p>
-        <p>如果你更关心系统设计、内容组织或原型收口方式，文章和日志会比单纯的作品截图更有信息量。</p>
+        <p class="eyebrow">Suggested Route</p>
+        <p>Start from a featured project, continue with a devlog, then move to a systems article for methodology and communication style.</p>
       </div>
     </div>
   </section>

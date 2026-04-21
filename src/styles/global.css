@@ -308,6 +308,82 @@ a {
   background: rgba(255, 255, 255, 0.035);
 }
 
+.hero-spotlight-card,
+.project-status-card,
+.route-card,
+.spotlight-primary,
+.editor-pick-card,
+.positioning-card,
+.contact-card {
+  display: grid;
+  gap: 12px;
+  padding: 18px;
+  border-radius: 22px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.hero-spotlight-card {
+  background:
+    linear-gradient(140deg, rgba(255, 209, 102, 0.16), rgba(78, 205, 196, 0.1)),
+    rgba(255, 255, 255, 0.04);
+}
+
+.project-matrix,
+.route-grid,
+.positioning-grid,
+.contact-grid,
+.spotlight-grid {
+  display: grid;
+  gap: 16px;
+}
+
+.project-matrix {
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.project-status-card p,
+.hero-spotlight-card span,
+.route-card span,
+.editor-pick-card span,
+.spotlight-primary p,
+.positioning-card p,
+.contact-card span {
+  color: var(--muted);
+}
+
+.project-status-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.route-grid,
+.positioning-grid,
+.contact-grid {
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.spotlight-grid {
+  grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.8fr);
+}
+
+.spotlight-side {
+  display: grid;
+  gap: 16px;
+}
+
+.positioning-ratio {
+  display: inline-flex;
+  width: fit-content;
+  padding: 6px 10px;
+  border-radius: 999px;
+  color: var(--brand);
+  border: 1px solid rgba(255, 209, 102, 0.24);
+  background: rgba(255, 209, 102, 0.08);
+}
+
 .mini-panel strong {
   font-size: 1.7rem;
   line-height: 1;
@@ -543,7 +619,8 @@ a {
   .hero,
   .content-layout,
   .content-header--article,
-  .content-header--game {
+  .content-header--game,
+  .spotlight-grid {
     grid-template-columns: 1fr;
   }
 
@@ -559,7 +636,8 @@ a {
 
   .site-nav,
   .section-heading,
-  .meta-row {
+  .meta-row,
+  .project-status-head {
     flex-direction: column;
     align-items: flex-start;
   }

@@ -38,7 +38,7 @@ const filterGroups = [
   <section class="page-heading card page-heading--rich">
     <p class="eyebrow">Games</p>
     <h1>游戏作品</h1>
-    <p>这里收录围绕玩法验证、展示版收口和多端适配整理的项目案例。每个项目页都会说明目标、阶段、职责、关键画面、下载入口和在线试玩方式。</p>
+    <p>这里收录围绕玩法验证、展示版收口和多端适配整理的项目案例。每个项目页都会同步当前阶段、目录聚焦、关键文档、下载入口和在线试玩方式。</p>
   </section>
 
   <section class="section-banner">
@@ -134,6 +134,7 @@ const filterGroups = [
           featured={game.data.featured}
           screenshotCount={game.data.screenshots.length}
           engine={game.data.engine}
+          currentPhase={game.data.currentPhase}
         />
       </div>
     ))}

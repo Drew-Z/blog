@@ -37,6 +37,31 @@ downloadLinks:
 externalPage: https://github.com/Drew-Z/space-impact
 role: 复刻方向定义 / Godot 实现 / 关卡与 Boss 收口 / 发布与展示整理
 teamSize: 单人
+workspacePath: D:\workspace4Codex\space war
+currentBranch: main
+currentPhase: 完整可玩 / 可展示 / 发布后维护
+progressSummary:
+  - 经典 Nokia 3310《Space Impact》初代体验已经完成可玩闭环，并收成正式发布版本。
+  - Windows 发布页、GitHub Release 和 Web 试玩入口都已经接通，适合直接对外展示。
+  - 当前重点转向维护、试玩反馈和展示资料补齐，而不是继续大规模扩系统。
+keyDocs:
+  - label: 项目说明
+    path: README.md
+  - label: 最终总结
+    path: docs/16_final_summary.md
+  - label: v1.1.1 发布说明
+    path: docs/17_release_notes_v1.1.1.md
+  - label: 项目索引
+    path: PROJECT_INDEX.md
+directoryMap:
+  - label: docs/
+    summary: 设计、技术、测试、发布说明和 postmortem。
+  - label: scenes/
+    summary: 主菜单、战斗、HUD、结果页和实体场景。
+  - label: scripts/
+    summary: 战斗逻辑、数据定义、自动加载与 UI 脚本。
+  - label: release/
+    summary: 正式分发包与版本目录。
 challenge: 在不把项目扩成现代原创横版射击的前提下，尽量保留《Space Impact》初代最有辨识度的手机游戏体验，并把它做成完整可展示版本。
 mechanic: 横向自动卷轴 + 5 个 Sector + 最终 Boss + 13 级武器成长 + 拾取强化 + 暂停 / 结算 / 高分回路
 milestones:

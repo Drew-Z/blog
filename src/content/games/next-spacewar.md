@@ -3,7 +3,7 @@ title: Game Next Spacewar
 description: 验证一款本地展示版 2D Space Shooter 如何从基础关卡闭环逐步长成一个能对外展示、能讲清楚版本定位的可试玩项目。
 summary: 一个使用 Godot 开发的本地展示版太空射击项目，当前已经形成主菜单、设置、About / Help、暂停、独立结果页和会话总结这些完整展示外壳。
 pubDate: 2026-04-09
-updatedDate: 2026-04-09
+updatedDate: 2026-04-21
 status: showcase
 featured: true
 tags:
@@ -26,10 +26,33 @@ screenshots:
 playableWeb: false
 role: 玩法原型设计 / 功能阶段推进 / 展示版外壳收口
 teamSize: 单人
+workspacePath: D:\workspace4Codex\game-next-spacewar
+currentBranch: feature/stage-22-release-readiness-and-export-metadata
+currentPhase: 展示版收尾 / release readiness / review 资料准备
+progressSummary:
+  - 主菜单、设置、About / Help、暂停返回已经形成稳定展示入口。
+  - 首局按键提示、独立结果页和会话总结已经把单关 MVP 收成可讲清楚定位的展示版。
+  - 当前工作更偏向 review / PR / 素材包装，而不是继续横向扩充关卡内容。
+keyDocs:
+  - label: 项目说明
+    path: README.md
+  - label: 路线图
+    path: docs/roadmap.md
+  - label: 当前任务板
+    path: docs/task-board.md
+  - label: 项目索引
+    path: PROJECT_INDEX.md
+directoryMap:
+  - label: docs/
+    summary: 路线图、规则、任务板和测试清单。
+  - label: scenes/
+    summary: 主菜单、战斗、设置、Help、结果页等 Godot 场景。
+  - label: scripts/
+    summary: 游戏主流程、UI、设置与结果总结相关逻辑。
+  - label: assets/
+    summary: 展示版所需的资源文件。
 challenge: 把一个基础 2D 射击闭环收成真正可展示的 build，而不是停留在“能打能输能重开”的开发态。
 mechanic: 2D 单关空战 + 主菜单 / 设置 / About / Help + 暂停与返回 + 独立结果页 + 会话总结
-repoPath: D:\workspace4Codex\game-next-spacewar
-currentBranch: feature/stage-20-session-summary-and-polish
 milestones:
   - date: 2026-03-25
     title: 单关空战闭环完成

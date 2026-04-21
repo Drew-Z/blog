@@ -3,7 +3,7 @@ title: Game First Tetris
 description: 验证经典俄罗斯方块主循环、Rogue 实验层和移动端触控方案能否在同一个 Godot 项目里长期共存并继续迭代。
 summary: 一个基于 Godot 4 的俄罗斯方块原型项目，已经形成经典模式、Rogue 实验线、多端适配与触屏输入准备这几条并行脉络。
 pubDate: 2026-04-09
-updatedDate: 2026-04-09
+updatedDate: 2026-04-21
 status: ongoing
 featured: true
 tags:
@@ -31,10 +31,33 @@ screenshots:
 playableWeb: false
 role: 系统设计 / 原型实现 / 输入结构整理 / 多端 UI 收口
 teamSize: 单人
+workspacePath: D:\workspace4Codex\game-first-tetris
+currentBranch: feature/mobile-touch-controls-next
+currentPhase: 移动端触控深化 / 多端可读性继续收口
+progressSummary:
+  - 经典模式已经稳定，可作为长期主线继续承接实验。
+  - Rogue 模式保留在低侵入范围内，用三轮固定选择和最小局间带入验证中程目标感。
+  - 触屏输入桥接层与第一版正式触屏控件原型已经打通，当前重点是超窄尺寸下的真实可玩性。
+keyDocs:
+  - label: 当前路线图
+    path: docs/roadmap.md
+  - label: 当前任务板
+    path: docs/task-board.md
+  - label: 测试清单
+    path: docs/test-checklist.md
+  - label: 项目索引
+    path: PROJECT_INDEX.md
+directoryMap:
+  - label: docs/
+    summary: 路线图、任务板、规则、架构说明和测试清单。
+  - label: scenes/
+    summary: 主菜单、游戏主场景、Help、触屏控件等场景资源。
+  - label: scripts/
+    summary: 经典模式、Rogue 逻辑、输入桥接层和 UI 脚本。
+  - label: artifacts/
+    summary: 本地截图回归、运行日志和临时验证产物，不进入版本库。
 challenge: 在不破坏经典玩法稳定性的前提下，把 Rogue 原型、多端布局和移动端触控承接进同一条产品线。
 mechanic: 经典消行闭环 + Rogue 三轮固定选择 + 局间带入 + 响应式 HUD + 触屏桥接层
-repoPath: D:\workspace4Codex\game-first-tetris
-currentBranch: feature/mobile-touch-controls-next
 milestones:
   - date: 2026-03-30
     title: 经典模式与 Rogue 试验线并行落地

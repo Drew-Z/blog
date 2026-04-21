@@ -68,6 +68,22 @@ const games = defineCollection({
     externalPage: z.string().optional(),
     role: z.string().optional(),
     teamSize: z.string().optional(),
+    workspacePath: z.string().optional(),
+    currentBranch: z.string().optional(),
+    currentPhase: z.string().optional(),
+    progressSummary: z.array(z.string()).default([]),
+    keyDocs: z.array(
+      z.object({
+        label: z.string(),
+        path: z.string()
+      })
+    ).default([]),
+    directoryMap: z.array(
+      z.object({
+        label: z.string(),
+        summary: z.string()
+      })
+    ).default([]),
     challenge: z.string().optional(),
     mechanic: z.string().optional(),
     contribution: z.array(z.string()).default([]),

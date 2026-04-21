@@ -35,6 +35,13 @@ const relatedGames = allGames
   .slice(0, 3)
   .map(({ item }) => item);
 const hasLinks = game.data.downloadLinks.length > 0 || Boolean(game.data.externalPage);
+const hasSyncDetails =
+  Boolean(game.data.currentPhase) ||
+  Boolean(game.data.currentBranch) ||
+  Boolean(game.data.workspacePath) ||
+  game.data.progressSummary.length > 0 ||
+  game.data.keyDocs.length > 0 ||
+  game.data.directoryMap.length > 0;
 const readingTime = estimateReadingTime(game.body);
 ---
 
@@ -220,10 +227,61 @@ const readingTime = estimateReadingTime(game.body);
             <p class="eyebrow">体验方式</p>
             <p>{game.data.playableWeb ? '可在线试玩' : hasLinks ? '可通过外链或下载体验' : '案例页展示'}</p>
           </div>
+          {game.data.currentPhase && (
+            <div class="mini-panel">
+              <p class="eyebrow">当前阶段</p>
+              <p>{game.data.currentPhase}</p>
+            </div>
+          )}
+          {game.data.currentBranch && (
+            <div class="mini-panel">
+              <p class="eyebrow">当前分支</p>
+              <p>{game.data.currentBranch}</p>
+            </div>
+          )}
         </div>
       </section>
 
       <ContentToc headings={headings} />
+
+      {hasSyncDetails && (
+        <section>
+          <div class="section-heading">
+            <h2>开发同步</h2>
+          </div>
+          {game.data.workspacePath && (
+            <div class="mini-panel">
+              <p class="eyebrow">工作目录</p>
+              <p><code>{game.data.workspacePath}</code></p>
+            </div>
+          )}
+          {game.data.progressSummary.length > 0 && (
+            <ul class="timeline-list">
+              {game.data.progressSummary.map((item) => <li>{item}</li>)}
+            </ul>
+          )}
+          {game.data.directoryMap.length > 0 && (
+            <div class="meta-grid">
+              {game.data.directoryMap.map((item) => (
+                <div class="mini-panel">
+                  <p class="eyebrow">{item.label}</p>
+                  <p>{item.summary}</p>
+                </div>
+              ))}
+            </div>
+          )}
+          {game.data.keyDocs.length > 0 && (
+            <div class="link-list link-list--stacked">
+              {game.data.keyDocs.map((doc) => (
+                <div class="mini-panel">
+                  <p class="eyebrow">{doc.label}</p>
+                  <p><code>{doc.path}</code></p>
+                </div>
+              ))}
+            </div>
+          )}
+        </section>
+      )}
 
       {game.data.contribution.length > 0 && (
         <section>

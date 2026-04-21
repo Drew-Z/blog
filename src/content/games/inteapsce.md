@@ -35,6 +35,28 @@ downloadLinks:
     url: /play/inteapsce/index.html
 role: Roguelite 系统方向 / 武器树结构冻结 / 完整流程收口 / 试玩准备整理
 teamSize: 单人
+workspacePath: D:\workspace4Codex\inteapsce
+currentPhase: 武器系统 v1 冻结后 / 统一试玩前完整流程收口
+progressSummary:
+  - 武器系统 v1 已完成结构冻结，后续优先看路线可读性和平衡验证。
+  - 局外成长系统和玩家主菜单已经落地，项目开始围绕完整 session 而不是单个系统运转。
+  - 当前主线是把首页、战斗、升级、结算、成长和下一局收成统一试玩入口。
+keyDocs:
+  - label: 项目说明
+    path: README.md
+  - label: 系统方向路线图
+    path: docs/11_system_direction_roadmap.md
+  - label: 当前阶段导航
+    path: docs/15_current_stage_navigation.md
+  - label: 项目索引
+    path: PROJECT_INDEX.md
+directoryMap:
+  - label: docs/
+    summary: 产品定义、阶段计划、冻结审核、当前阶段导航和统一试玩准备文档。
+  - label: scenes/
+    summary: 主菜单、战斗、HUD、升级面板和实体场景。
+  - label: scripts/
+    summary: 自动射击战斗、武器树、成长流程和 UI 逻辑。
 challenge: 在手机优先的竖屏框架里，把自动射击、局内升级、武器路线和局外成长组织成一个能被统一试玩验证的完整 session。
 mechanic: 竖屏自动射击 + 武器树路线构筑 + 局内升级 + 结算反馈 + 局外成长 + 下一局循环
 milestones:
