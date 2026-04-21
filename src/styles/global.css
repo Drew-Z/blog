@@ -565,6 +565,19 @@ a {
   background: rgba(255, 255, 255, 0.035);
 }
 
+.link-list .mini-panel a {
+  display: grid;
+  gap: 6px;
+}
+
+.link-list .mini-panel a strong {
+  color: var(--text);
+}
+
+.link-list .mini-panel a span {
+  color: var(--muted);
+}
+
 .inline-link {
   display: inline-flex;
   align-items: center;

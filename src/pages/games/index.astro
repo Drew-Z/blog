@@ -29,7 +29,12 @@ const filterGroups = [
   { label: '重点项目', value: 'featured' },
   { label: '持续迭代', value: 'ongoing' },
   { label: '可玩验证', value: 'playable' },
-  { label: '展示版本', value: 'showcase' }
+  { label: '展示版本', value: 'showcase' },
+  { label: 'Godot', value: 'godot' },
+  { label: '射击项目', value: 'shooter' },
+  { label: 'Roguelite', value: 'roguelite' },
+  { label: '移动导向', value: 'mobile' },
+  { label: '正式发布', value: 'released' }
 ];
 ---
 
@@ -129,7 +134,16 @@ const filterGroups = [
         class="filter-item-shell"
         data-filter-item
         data-search={`${game.data.title} ${game.data.summary} ${game.data.description} ${game.data.role ?? ''} ${game.data.platforms.join(' ')} ${game.data.tags.join(' ')} ${gameStatusLabels[game.data.status] ?? game.data.status}`}
-        data-groups={[game.data.status, game.data.featured ? 'featured' : '', game.data.playableWeb || game.data.status === 'playable' ? 'playable' : ''].filter(Boolean).join('|')}
+        data-groups={[
+          game.data.status,
+          game.data.featured ? 'featured' : '',
+          game.data.playableWeb || game.data.status === 'playable' ? 'playable' : '',
+          /godot/i.test(game.data.engine) ? 'godot' : '',
+          game.data.tags.some((tag) => /shooter|space impact|raiden|auto shooter/i.test(tag)) ? 'shooter' : '',
+          game.data.tags.some((tag) => /roguelite/i.test(tag)) ? 'roguelite' : '',
+          [...game.data.platforms, ...game.data.tags].some((value) => /手机|移动|touch|mobile/i.test(value)) ? 'mobile' : '',
+          game.data.downloadLinks.length > 0 ? 'released' : ''
+        ].filter(Boolean).join('|')}
       >
         <GameCard
           href={`/games/${game.id}`}

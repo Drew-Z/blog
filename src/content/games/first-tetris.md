@@ -29,6 +29,7 @@ screenshots:
     title: Help 面板已经被纳入多端适配回归，不再是边角功能
     note: 这一点对展示型项目很重要，因为它意味着项目开始考虑“第一次打开的人能不能看懂”。
 playableWeb: false
+repoUrl: https://github.com/Drew-Z/game-first-tetris
 role: 系统设计 / 原型实现 / 输入结构整理 / 多端 UI 收口
 teamSize: 单人
 workspacePath: D:\workspace4Codex\game-first-tetris

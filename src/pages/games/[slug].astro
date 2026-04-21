@@ -35,6 +35,14 @@ const relatedGames = allGames
   .slice(0, 3)
   .map(({ item }) => item);
 const hasLinks = game.data.downloadLinks.length > 0 || Boolean(game.data.externalPage);
+const repoFileBase =
+  game.data.repoUrl && game.data.currentBranch
+    ? `${game.data.repoUrl.replace(/\/$/, '')}/blob/${game.data.currentBranch}`
+    : undefined;
+const keyDocsWithLinks = game.data.keyDocs.map((doc) => ({
+  ...doc,
+  href: repoFileBase ? `${repoFileBase}/${doc.path.replace(/^\/+/, '')}` : undefined
+}));
 const hasSyncDetails =
   Boolean(game.data.currentPhase) ||
   Boolean(game.data.currentBranch) ||
@@ -286,10 +294,17 @@ const readingTime = estimateReadingTime(game.body);
           )}
           {game.data.keyDocs.length > 0 && (
             <div class="link-list link-list--stacked">
-              {game.data.keyDocs.map((doc) => (
+              {keyDocsWithLinks.map((doc) => (
                 <div class="mini-panel">
                   <p class="eyebrow">{doc.label}</p>
-                  <p><code>{doc.path}</code></p>
+                  {doc.href ? (
+                    <a href={doc.href} target="_blank" rel="noreferrer">
+                      <strong>打开仓库文档</strong>
+                      <span><code>{doc.path}</code></span>
+                    </a>
+                  ) : (
+                    <p><code>{doc.path}</code></p>
+                  )}
                 </div>
               ))}
             </div>
@@ -334,6 +349,11 @@ const readingTime = estimateReadingTime(game.body);
           {game.data.externalPage && (
             <div class="link-list link-list--stacked">
               <a href={game.data.externalPage} target="_blank" rel="noreferrer">查看外部项目页</a>
+            </div>
+          )}
+          {!game.data.externalPage && game.data.repoUrl && (
+            <div class="link-list link-list--stacked">
+              <a href={game.data.repoUrl} target="_blank" rel="noreferrer">查看代码仓库</a>
             </div>
           )}
         </section>

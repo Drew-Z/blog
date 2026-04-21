@@ -35,6 +35,7 @@ downloadLinks:
   - label: Web 试玩版（新标签打开）
     url: /play/space-war/index.html
 externalPage: https://github.com/Drew-Z/space-impact
+repoUrl: https://github.com/Drew-Z/space-impact
 role: 复刻方向定义 / Godot 实现 / 关卡与 Boss 收口 / 发布与展示整理
 teamSize: 单人
 workspacePath: D:\workspace4Codex\space war

@@ -24,6 +24,7 @@ screenshots:
     title: 单局结束后进入独立结果页，而不是停留在战斗场景里
     note: 结果页承担了展示版状态提示、本局结果和下一步操作说明。
 playableWeb: false
+repoUrl: https://github.com/Drew-Z/game-next-spacewar
 role: 玩法原型设计 / 功能阶段推进 / 展示版外壳收口
 teamSize: 单人
 workspacePath: D:\workspace4Codex\game-next-spacewar

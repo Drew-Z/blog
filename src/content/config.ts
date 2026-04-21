@@ -71,6 +71,7 @@ const games = defineCollection({
       })
     ).default([]),
     externalPage: z.string().optional(),
+    repoUrl: z.string().optional(),
     role: z.string().optional(),
     teamSize: z.string().optional(),
     workspacePath: z.string().optional(),

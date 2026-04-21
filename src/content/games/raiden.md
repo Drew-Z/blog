@@ -30,6 +30,7 @@ screenshots:
     note: 短局街机项目需要在结束后解释发生了什么，并给出下一步试玩动机。
 playableWeb: true
 embedUrl: /play/raiden/index.html
+repoUrl: https://github.com/Drew-Z/raiden-prototype
 downloadLinks:
   - label: Windows RC-0.4 展示包下载
     url: /downloads/raiden-prototype-showcase-rc-0.4.zip

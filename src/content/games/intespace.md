@@ -30,6 +30,7 @@ screenshots:
     note: 项目开始从战斗工作台转向“玩家能按正常流程进入下一局”的产品形态。
 playableWeb: true
 embedUrl: /play/intespace/index.html
+repoUrl: https://github.com/Drew-Z/intespace
 downloadLinks:
   - label: Web 试玩版（新标签打开）
     url: /play/intespace/index.html
