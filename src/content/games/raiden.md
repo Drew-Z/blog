@@ -38,11 +38,13 @@ downloadLinks:
 role: 街机节奏原型 / 双关章节流程 / Boss 与资源反馈 / Demo 发布包装
 teamSize: 单人
 workspacePath: D:\workspace4Codex\raiden prototype
+currentBranch: .publish-final/main -> origin/main
 currentPhase: RC-0.4 稳定展示候选 / 公开 Demo 准备
 progressSummary:
   - 双关垂直切片已经完成展示候选收口，推荐从 Chapter Run 进入完整流程。
   - Stage 02 的风暴机关、Boss overdrive、最后安全窗口和 ChapterEnding / Outro 已经串成完整高潮。
   - 当前重点是外部试玩、公开 Demo 包、素材授权和首屏表现，而不是继续默认扩系统。
+  - 实际远端同步仓库是 `D:\workspace4Codex\raiden prototype\.publish-final`，根目录主要作为开发工作目录存在。
 keyDocs:
   - label: 项目说明
     path: README.md
@@ -61,6 +63,8 @@ directoryMap:
     summary: 玩家、敌人、Boss、章节流程、HUD、结果页和环境机关逻辑。
   - label: dist/
     summary: 当前展示包、试玩包和公开 Demo 候选产物。
+  - label: .publish-final/
+    summary: 实际同步到 GitHub 的发布仓库，当前 `main` 已连接 `origin/main`。
 challenge: 把雷电式纵版射击做得既有短局街机爽感，又能让外部玩家第一次打开时理解入口、目标、章节推进和当前版本定位。
 mechanic: 纵版卷轴推进 + 自动持续射击 + 火力成长 + 炸弹清屏 + 双关章节继承 + Storm Front 环境压迫 + Boss 终盘收束
 milestones:
