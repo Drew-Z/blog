@@ -32,8 +32,8 @@ playableWeb: true
 embedUrl: /play/raiden/index.html
 repoUrl: https://github.com/Drew-Z/raiden-prototype
 downloadLinks:
-  - label: GitHub 仓库（Windows 包整理中）
-    url: https://github.com/Drew-Z/raiden-prototype
+  - label: Windows RC-0.4 预发布下载
+    url: https://github.com/Drew-Z/raiden-prototype/releases/tag/v0.4.0-rc.4
   - label: Web 试玩版（新标签打开）
     url: /play/raiden/index.html
 role: 街机节奏原型 / 双关章节流程 / Boss 与资源反馈 / Demo 发布包装
