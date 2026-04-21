@@ -54,6 +54,28 @@
 
 - `SITE_URL=https://blog.playlab.eu.cc`
 
+## GitHub Actions 自动发布方案
+
+如果你发现“Git 已经推到 `main`，但线上站点没有更新”，推荐直接启用仓库内置的自动发布 workflow：
+
+- 文件：`.github/workflows/deploy-cloudflare-pages.yml`
+- 触发方式：push 到 `main` 或手动 `workflow_dispatch`
+- 发布方式：GitHub Actions 本地构建后，调用 `wrangler pages deploy dist`
+
+这个 workflow 需要三项 GitHub 仓库配置：
+
+- Secret：`CLOUDFLARE_API_TOKEN`
+- Secret：`CLOUDFLARE_ACCOUNT_ID`
+- Variable：`CLOUDFLARE_PAGES_PROJECT`
+
+其中：
+
+- `CLOUDFLARE_API_TOKEN` 需要具备 Pages 项目部署权限
+- `CLOUDFLARE_ACCOUNT_ID` 来自 Cloudflare 账号主页
+- `CLOUDFLARE_PAGES_PROJECT` 填 Cloudflare Pages 里的项目名，不是域名
+
+如果这三项缺少任意一项，workflow 不会真正发布，但会在 GitHub Actions summary 里提示缺什么。
+
 如果你以后切换域名，再把这里替换成新的正式域名即可。
 
 如果 Cloudflare 后台里暂时看不到 `ciallo-bill/blog`，优先检查这两件事：
