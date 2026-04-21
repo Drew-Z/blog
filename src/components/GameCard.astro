@@ -66,6 +66,12 @@ const {
     <h3><a href={withBase(href)}>{title}</a></h3>
     <p>{summary}</p>
 
+    <div class="game-card-signals">
+      <span class="badge">{engine ?? 'Godot 项目'}</span>
+      <span class="badge">{screenshotCount} 张关键画面</span>
+      <span class="badge">{playableWeb ? 'Web 可试玩' : '案例阅读'}</span>
+    </div>
+
     <div class="game-card-case-grid">
       <div class="mini-panel">
         <p class="eyebrow">验证目标</p>
@@ -82,6 +88,9 @@ const {
       {currentPhase ? <span>当前阶段：{currentPhase}</span> : null}
       <span>平台：{platforms.join(' / ') || '待补充'}</span>
     </div>
-    <a class="inline-link" href={withBase(href)}>查看项目详情</a>
+    <div class="game-card-foot">
+      <span class="game-card-track">{playableWeb ? '可直接试玩，也适合当作品集入口' : '当前以案例和截图展示为主'}</span>
+      <a class="inline-link" href={withBase(href)}>查看项目详情</a>
+    </div>
   </div>
 </article>

@@ -67,7 +67,7 @@ const filterGroups = [
   </section>
 
   {entryGame && (
-    <section class="card">
+    <section class="card games-entry-card">
       <div class="section-heading">
         <div>
           <h2>建议先看</h2>
@@ -75,10 +75,20 @@ const filterGroups = [
         </div>
         <a href={withBase(`/games/${entryGame.id}`)}>进入案例</a>
       </div>
-      <div class="mini-panel">
-        <p class="eyebrow">当前推荐项目</p>
-        <strong>{entryGame.data.title}</strong>
-        <p>{entryGame.data.summary}</p>
+      <div class="games-entry-grid">
+        <div class="mini-panel">
+          <p class="eyebrow">当前推荐项目</p>
+          <strong>{entryGame.data.title}</strong>
+          <p>{entryGame.data.summary}</p>
+        </div>
+        <div class="mini-panel">
+          <p class="eyebrow">当前阶段</p>
+          <p>{entryGame.data.currentPhase ?? gameStatusLabels[entryGame.data.status] ?? entryGame.data.status}</p>
+        </div>
+        <div class="mini-panel">
+          <p class="eyebrow">体验方式</p>
+          <p>{entryGame.data.playableWeb ? '可在线试玩，并带下载或案例入口' : '当前以案例归档和阶段说明为主'}</p>
+        </div>
       </div>
     </section>
   )}

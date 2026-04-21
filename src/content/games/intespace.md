@@ -29,10 +29,10 @@ screenshots:
     title: 局外成长和玩家主菜单已经落地
     note: 项目开始从战斗工作台转向“玩家能按正常流程进入下一局”的产品形态。
 playableWeb: true
-embedUrl: /play/inteapsce/index.html
+embedUrl: /play/intespace/index.html
 downloadLinks:
   - label: Web 试玩版（新标签打开）
-    url: /play/inteapsce/index.html
+    url: /play/intespace/index.html
 role: Roguelite 系统方向 / 武器树结构冻结 / 完整流程收口 / 试玩准备整理
 teamSize: 单人
 workspacePath: D:\workspace4Codex\intespace

@@ -8,7 +8,7 @@
   <path d="M742 260C796 302 826 360 832 434" stroke="#FFCE5C" stroke-width="22" stroke-linecap="round"/>
   <path d="M462 260C408 302 378 360 372 434" stroke="#7CE7FF" stroke-width="22" stroke-linecap="round"/>
   <text x="94" y="148" fill="#DFFFF0" font-family="Georgia, 'Times New Roman', serif" font-size="38" font-weight="700">VERTICAL AUTO SHOOTER ROGUELITE</text>
-  <text x="94" y="276" fill="#FFFFFF" font-family="Georgia, 'Times New Roman', serif" font-size="104" font-weight="700">inteapsce</text>
+  <text x="94" y="276" fill="#FFFFFF" font-family="Georgia, 'Times New Roman', serif" font-size="104" font-weight="700">intespace</text>
   <text x="98" y="348" fill="#C4E7D4" font-family="'Segoe UI', sans-serif" font-size="32">Weapon tree, meta growth, and mobile-first playtest flow.</text>
   <rect x="98" y="432" width="198" height="58" rx="29" fill="#21D07A" fill-opacity="0.16"/>
   <text x="132" y="469" fill="#DFFFF0" font-family="'Segoe UI', sans-serif" font-size="25" font-weight="700">WEAPON TREE</text>
