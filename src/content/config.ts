@@ -38,6 +38,11 @@ const articleWorkbench = defineCollection({
 });
 
 const games = defineCollection({
+  loader: glob({
+    pattern: '**/*.md',
+    base: './src/content/games',
+    generateId: ({ entry }) => entry.replace(/\.md$/, '')
+  }),
   schema: z.object({
     title: z.string(),
     summary: z.string(),
@@ -69,8 +74,10 @@ const games = defineCollection({
     role: z.string().optional(),
     teamSize: z.string().optional(),
     workspacePath: z.string().optional(),
+    syncRepoPath: z.string().optional(),
     currentBranch: z.string().optional(),
     currentPhase: z.string().optional(),
+    syncNote: z.string().optional(),
     progressSummary: z.array(z.string()).default([]),
     keyDocs: z.array(
       z.object({
@@ -101,6 +108,11 @@ const games = defineCollection({
 });
 
 const devlogs = defineCollection({
+  loader: glob({
+    pattern: '**/*.md',
+    base: './src/content/devlogs',
+    generateId: ({ entry }) => entry.replace(/\.md$/, '')
+  }),
   schema: z.object({
     title: z.string(),
     description: z.string(),

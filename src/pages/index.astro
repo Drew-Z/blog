@@ -28,8 +28,8 @@ const playableCount = games.filter((item) => item.data.playableWeb).length;
 const downloadableCount = games.filter((item) => item.data.downloadLinks.length > 0).length;
 const trackedProjects = games.slice(0, 5);
 const entryRoute = [
-  homeGames[0] ? { label: '先看代表项目', href: `/games/${homeGames[0].slug}`, title: homeGames[0].data.title } : undefined,
-  homeLogs[0] ? { label: '再看阶段日志', href: `/logs/${homeLogs[0].slug}`, title: homeLogs[0].data.title } : undefined,
+  homeGames[0] ? { label: '先看代表项目', href: `/games/${homeGames[0].id}`, title: homeGames[0].data.title } : undefined,
+  homeLogs[0] ? { label: '再看阶段日志', href: `/logs/${homeLogs[0].id}`, title: homeLogs[0].data.title } : undefined,
   homeArticles[0] ? { label: '最后读长文', href: `/articles/${homeArticles[0].id}`, title: homeArticles[0].data.title } : undefined
 ].filter(Boolean);
 ---
@@ -72,7 +72,7 @@ const entryRoute = [
       </div>
 
       {spotlightGame && (
-        <a class="hero-spotlight-card" href={withBase(`/games/${spotlightGame.slug}`)}>
+        <a class="hero-spotlight-card" href={withBase(`/games/${spotlightGame.id}`)}>
           <p class="eyebrow">当前门面项目</p>
           <strong>{spotlightGame.data.title}</strong>
           <span>{spotlightGame.data.summary}</span>
@@ -95,7 +95,7 @@ const entryRoute = [
     </div>
     <div class="project-matrix">
       {trackedProjects.map((game) => (
-        <a class="project-status-card" href={withBase(`/games/${game.slug}`)}>
+        <a class="project-status-card" href={withBase(`/games/${game.id}`)}>
           <div class="project-status-head">
             <strong>{game.data.title}</strong>
             <span class:list={['status-pill', game.data.playableWeb && 'status-pill--active']}>
@@ -191,7 +191,7 @@ const entryRoute = [
       </div>
       <div class="spotlight-grid">
         {spotlightGame && (
-          <a class="spotlight-primary" href={withBase(`/games/${spotlightGame.slug}`)}>
+          <a class="spotlight-primary" href={withBase(`/games/${spotlightGame.id}`)}>
             <p class="eyebrow">Featured Project</p>
             <strong>{spotlightGame.data.title}</strong>
             <p>{spotlightGame.data.summary}</p>
@@ -202,7 +202,7 @@ const entryRoute = [
         )}
         <div class="spotlight-side">
           {spotlightLog && (
-            <a class="editor-pick-card" href={withBase(`/logs/${spotlightLog.slug}`)}>
+            <a class="editor-pick-card" href={withBase(`/logs/${spotlightLog.id}`)}>
               <p class="eyebrow">Process Pick</p>
               <strong>{spotlightLog.data.title}</strong>
               <p>{devlogProjectLabels[spotlightLog.data.project] ?? spotlightLog.data.project}</p>
@@ -233,7 +233,7 @@ const entryRoute = [
     <div class="grid grid--cards-lg">
       {homeGames.map((game) => (
         <GameCard
-          href={`/games/${game.slug}`}
+          href={`/games/${game.id}`}
           title={game.data.title}
           summary={game.data.summary}
           description={game.data.description}
@@ -262,7 +262,7 @@ const entryRoute = [
     <div class="grid grid--cards-lg">
       {homeLogs.map((log) => (
         <DevlogCard
-          href={`/logs/${log.slug}`}
+          href={`/logs/${log.id}`}
           title={log.data.title}
           description={log.data.description}
           pubDate={log.data.pubDate}

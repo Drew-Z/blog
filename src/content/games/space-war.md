@@ -38,8 +38,10 @@ externalPage: https://github.com/Drew-Z/space-impact
 role: 复刻方向定义 / Godot 实现 / 关卡与 Boss 收口 / 发布与展示整理
 teamSize: 单人
 workspacePath: D:\workspace4Codex\space war
+syncRepoPath: D:\workspace4Codex\space war
 currentBranch: main
 currentPhase: 完整可玩 / 可展示 / 发布后维护
+syncNote: 开发目录与同步仓库一致，当前主分支已连接 origin/main，并通过 GitHub Release 对外分发。
 progressSummary:
   - 经典 Nokia 3310《Space Impact》初代体验已经完成可玩闭环，并收成正式发布版本。
   - Windows 发布页、GitHub Release 和 Web 试玩入口都已经接通，适合直接对外展示。

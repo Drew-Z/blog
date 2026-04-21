@@ -10,7 +10,7 @@ import { estimateReadingTime, formatDate, gameStatusLabels } from '../../utils/s
 export async function getStaticPaths() {
   const games = await getCollection('games');
   return games.map((game) => ({
-    params: { slug: game.slug },
+    params: { slug: game.id },
     props: { game }
   }));
 }
@@ -21,12 +21,12 @@ const allLogs = await getCollection('devlogs');
 const relatedLogs =
   game.data.devlogSlugs.length > 0
     ? game.data.devlogSlugs
-        .map((slug) => allLogs.find((log) => log.slug === slug))
+        .map((slug) => allLogs.find((log) => log.id === slug))
         .filter((log): log is (typeof allLogs)[number] => Boolean(log))
-    : allLogs.filter((log) => log.data.relatedGame === game.slug);
+    : allLogs.filter((log) => log.data.relatedGame === game.id);
 const allGames = await getCollection('games');
 const relatedGames = allGames
-  .filter((item) => item.slug !== game.slug)
+  .filter((item) => item.id !== game.id)
   .map((item) => ({
     item,
     score: item.data.tags.filter((tag) => game.data.tags.includes(tag)).length
@@ -39,6 +39,8 @@ const hasSyncDetails =
   Boolean(game.data.currentPhase) ||
   Boolean(game.data.currentBranch) ||
   Boolean(game.data.workspacePath) ||
+  Boolean(game.data.syncRepoPath) ||
+  Boolean(game.data.syncNote) ||
   game.data.progressSummary.length > 0 ||
   game.data.keyDocs.length > 0 ||
   game.data.directoryMap.length > 0;
@@ -119,8 +121,8 @@ const readingTime = estimateReadingTime(game.body);
             </div>
           </div>
           <div class="link-list link-list--stacked">
-            {relatedLogs.map((log) => (
-              <a href={withBase(`/logs/${log.slug}`)}>{log.data.title}</a>
+              {relatedLogs.map((log) => (
+              <a href={withBase(`/logs/${log.id}`)}>{log.data.title}</a>
             ))}
           </div>
         </section>
@@ -174,7 +176,7 @@ const readingTime = estimateReadingTime(game.body);
           </div>
           <div class="link-list">
             {relatedGames.map((item) => (
-              <a href={withBase(`/games/${item.slug}`)}>{item.data.title}</a>
+              <a href={withBase(`/games/${item.id}`)}>{item.data.title}</a>
             ))}
           </div>
         </section>
@@ -235,7 +237,7 @@ const readingTime = estimateReadingTime(game.body);
           )}
           {game.data.currentBranch && (
             <div class="mini-panel">
-              <p class="eyebrow">当前分支</p>
+              <p class="eyebrow">同步分支</p>
               <p>{game.data.currentBranch}</p>
             </div>
           )}
@@ -251,8 +253,20 @@ const readingTime = estimateReadingTime(game.body);
           </div>
           {game.data.workspacePath && (
             <div class="mini-panel">
-              <p class="eyebrow">工作目录</p>
+              <p class="eyebrow">开发目录</p>
               <p><code>{game.data.workspacePath}</code></p>
+            </div>
+          )}
+          {game.data.syncRepoPath && game.data.syncRepoPath !== game.data.workspacePath && (
+            <div class="mini-panel">
+              <p class="eyebrow">同步仓库</p>
+              <p><code>{game.data.syncRepoPath}</code></p>
+            </div>
+          )}
+          {game.data.syncNote && (
+            <div class="mini-panel">
+              <p class="eyebrow">同步说明</p>
+              <p>{game.data.syncNote}</p>
             </div>
           )}
           {game.data.progressSummary.length > 0 && (

@@ -59,7 +59,7 @@ const filterProjects = Array.from(new Set(logs.map((log) => log.data.project))).
           <h2>建议起点</h2>
           <p class="content-meta">如果你想先看“我是怎么推进项目的”，可以从当前最适合外部阅读的一篇阶段日志开始。</p>
         </div>
-        <a href={withBase(`/logs/${entryLog.slug}`)}>开始阅读</a>
+        <a href={withBase(`/logs/${entryLog.id}`)}>开始阅读</a>
       </div>
       <div class="mini-panel">
         <p class="eyebrow">当前推荐日志</p>
@@ -85,7 +85,7 @@ const filterProjects = Array.from(new Set(logs.map((log) => log.data.project))).
         data-groups={log.data.project}
       >
         <DevlogCard
-          href={`/logs/${log.slug}`}
+          href={`/logs/${log.id}`}
           title={log.data.title}
           description={log.data.description}
           pubDate={log.data.pubDate}

@@ -37,11 +37,11 @@ export const GET: APIRoute = async ({ site }) => {
     { path: '/articles' },
     { path: '/articles/tags' },
     ...games.map((game) => ({
-      path: `/games/${game.slug}`,
+      path: `/games/${game.id}`,
       lastmod: game.data.updatedDate ?? game.data.pubDate
     })),
     ...logs.map((log) => ({
-      path: `/logs/${log.slug}`,
+      path: `/logs/${log.id}`,
       lastmod: log.data.updatedDate ?? log.data.pubDate
     })),
     ...articles.map((article) => ({

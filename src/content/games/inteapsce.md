@@ -36,7 +36,10 @@ downloadLinks:
 role: Roguelite 系统方向 / 武器树结构冻结 / 完整流程收口 / 试玩准备整理
 teamSize: 单人
 workspacePath: D:\workspace4Codex\intespace
+syncRepoPath: D:\workspace4Codex\intespace
+currentBranch: main
 currentPhase: 武器系统 v1 冻结后 / 统一试玩前完整流程收口
+syncNote: 开发目录与同步仓库一致，仓库已初始化并完成首个 main 分支远端同步。
 progressSummary:
   - 武器系统 v1 已完成结构冻结，后续优先看路线可读性和平衡验证。
   - 局外成长系统和玩家主菜单已经落地，项目开始围绕完整 session 而不是单个系统运转。

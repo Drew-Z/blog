@@ -38,13 +38,15 @@ downloadLinks:
 role: 街机节奏原型 / 双关章节流程 / Boss 与资源反馈 / Demo 发布包装
 teamSize: 单人
 workspacePath: D:\workspace4Codex\raiden prototype
-currentBranch: .publish-final/main -> origin/main
+syncRepoPath: D:\workspace4Codex\raiden prototype\.publish-final
+currentBranch: main
 currentPhase: RC-0.4 稳定展示候选 / 公开 Demo 准备
+syncNote: 根目录主要作为开发工作目录使用，实际对外同步和发布记录以 .publish-final/main -> origin/main 为准。
 progressSummary:
   - 双关垂直切片已经完成展示候选收口，推荐从 Chapter Run 进入完整流程。
   - Stage 02 的风暴机关、Boss overdrive、最后安全窗口和 ChapterEnding / Outro 已经串成完整高潮。
   - 当前重点是外部试玩、公开 Demo 包、素材授权和首屏表现，而不是继续默认扩系统。
-  - 实际远端同步仓库是 `D:\workspace4Codex\raiden prototype\.publish-final`，根目录主要作为开发工作目录存在。
+  - 根目录继续承担开发工作目录角色，实际 GitHub 同步仓库为 `.publish-final`。
 keyDocs:
   - label: 项目说明
     path: README.md

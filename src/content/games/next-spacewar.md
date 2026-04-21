@@ -27,8 +27,10 @@ playableWeb: false
 role: 玩法原型设计 / 功能阶段推进 / 展示版外壳收口
 teamSize: 单人
 workspacePath: D:\workspace4Codex\game-next-spacewar
+syncRepoPath: D:\workspace4Codex\game-next-spacewar
 currentBranch: feature/stage-22-release-readiness-and-export-metadata
 currentPhase: 展示版收尾 / release readiness / review 资料准备
+syncNote: 开发目录与同步仓库一致，当前阶段分支已经推送并建立上游跟踪。
 progressSummary:
   - 主菜单、设置、About / Help、暂停返回已经形成稳定展示入口。
   - 首局按键提示、独立结果页和会话总结已经把单关 MVP 收成可讲清楚定位的展示版。

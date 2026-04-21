@@ -11,7 +11,7 @@ import { devlogProjectLabels, estimateReadingTime, formatDate } from '../../util
 export async function getStaticPaths() {
   const logs = await getCollection('devlogs');
   return logs.map((log) => ({
-    params: { slug: log.slug },
+    params: { slug: log.id },
     props: { log }
   }));
 }
@@ -19,13 +19,13 @@ export async function getStaticPaths() {
 const { log } = Astro.props;
 const { Content, headings } = await render(log);
 const games = await getCollection('games');
-const relatedGame = games.find((game) => game.slug === log.data.relatedGame);
+const relatedGame = games.find((game) => game.id === log.data.relatedGame);
 const allLogs = sortEditorialEntries(await getCollection('devlogs'));
 const relatedLogs = allLogs
-  .filter((item) => item.slug !== log.slug && item.data.project === log.data.project)
+  .filter((item) => item.id !== log.id && item.data.project === log.data.project)
   .slice(0, 3);
 const readingTime = estimateReadingTime(log.body);
-const { newer, older } = getEntryNeighbors(allLogs, (item) => item.slug === log.slug);
+const { newer, older } = getEntryNeighbors(allLogs, (item) => item.id === log.id);
 ---
 
 <BaseLayout title={`${log.data.title} | 开发日志`} description={log.data.description}>
@@ -67,7 +67,7 @@ const { newer, older } = getEntryNeighbors(allLogs, (item) => item.slug === log.
           </div>
           <div class="link-list">
             {relatedLogs.map((item) => (
-              <a href={withBase(`/logs/${item.slug}`)}>{item.data.title}</a>
+              <a href={withBase(`/logs/${item.id}`)}>{item.data.title}</a>
             ))}
           </div>
         </section>
@@ -77,7 +77,7 @@ const { newer, older } = getEntryNeighbors(allLogs, (item) => item.slug === log.
         newer={
           newer
             ? {
-                href: `/logs/${newer.slug}`,
+                href: `/logs/${newer.id}`,
                 label: '更新较新',
                 title: newer.data.title,
                 description: newer.data.description
@@ -87,7 +87,7 @@ const { newer, older } = getEntryNeighbors(allLogs, (item) => item.slug === log.
         older={
           older
             ? {
-                href: `/logs/${older.slug}`,
+                href: `/logs/${older.id}`,
                 label: '更早一篇',
                 title: older.data.title,
                 description: older.data.description
@@ -141,7 +141,7 @@ const { newer, older } = getEntryNeighbors(allLogs, (item) => item.slug === log.
             <h2>关联案例</h2>
           </div>
           <div class="link-list link-list--stacked">
-            <a href={withBase(`/games/${relatedGame.slug}`)}>{relatedGame.data.title}</a>
+            <a href={withBase(`/games/${relatedGame.id}`)}>{relatedGame.data.title}</a>
           </div>
         </section>
       )}

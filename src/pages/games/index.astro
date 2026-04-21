@@ -16,7 +16,7 @@ const entryGame = games[0];
 const galleryShots = games
   .flatMap((game) =>
     game.data.screenshots.slice(0, 2).map((shot, index) => ({
-      href: `/games/${game.slug}`,
+      href: `/games/${game.id}`,
       title: shot.title,
       note: shot.note ?? game.data.summary,
       src: shot.src,
@@ -73,7 +73,7 @@ const filterGroups = [
           <h2>建议先看</h2>
           <p class="content-meta">如果你只打算先看一个项目，优先从当前最适合作为门面的案例开始。</p>
         </div>
-        <a href={withBase(`/games/${entryGame.slug}`)}>进入案例</a>
+        <a href={withBase(`/games/${entryGame.id}`)}>进入案例</a>
       </div>
       <div class="mini-panel">
         <p class="eyebrow">当前推荐项目</p>
@@ -122,7 +122,7 @@ const filterGroups = [
         data-groups={[game.data.status, game.data.featured ? 'featured' : '', game.data.playableWeb || game.data.status === 'playable' ? 'playable' : ''].filter(Boolean).join('|')}
       >
         <GameCard
-          href={`/games/${game.slug}`}
+          href={`/games/${game.id}`}
           title={game.data.title}
           summary={game.data.summary}
           description={game.data.description}
