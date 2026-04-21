@@ -40,8 +40,7 @@ const articleWorkbench = defineCollection({
 const games = defineCollection({
   loader: glob({
     pattern: '**/*.md',
-    base: './src/content/games',
-    generateId: ({ entry }) => entry.replace(/\.md$/, '')
+    base: './src/content/games'
   }),
   schema: z.object({
     title: z.string(),

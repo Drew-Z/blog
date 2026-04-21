@@ -17,13 +17,16 @@ const { title, embedUrl } = Astro.props;
     )}
   </div>
   {embedUrl ? (
-    <iframe
-      src={withBase(embedUrl)}
-      title={`${title} 在线试玩`}
-      loading="lazy"
-      allow="autoplay; fullscreen; gamepad"
-      allowfullscreen
-    ></iframe>
+    <>
+      <p class="content-meta">试玩资源由独立静态存储提供。首次进入需要下载 Godot Web 运行时和项目资源，进度较慢时更推荐用新标签页打开等待加载完成。</p>
+      <iframe
+        src={withBase(embedUrl)}
+        title={`${title} 在线试玩`}
+        loading="lazy"
+        allow="autoplay; fullscreen; gamepad"
+        allowfullscreen
+      ></iframe>
+    </>
   ) : (
     <p>当前还没有可以直接嵌入的 Web 版本。</p>
   )}

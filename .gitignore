@@ -9,3 +9,5 @@ Thumbs.db
 !.env.example
 AGENTS.md
 tmp/
+deploy/r2-play/
+public/play/

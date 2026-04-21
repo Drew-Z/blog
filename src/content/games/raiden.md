@@ -29,13 +29,13 @@ screenshots:
     title: 结果页、章节总评和 Outro 承接短局反馈
     note: 短局街机项目需要在结束后解释发生了什么，并给出下一步试玩动机。
 playableWeb: true
-embedUrl: /play/raiden/index.html
+embedUrl: https://play.playlab.eu.cc/raiden/index.html
 repoUrl: https://github.com/Drew-Z/raiden-prototype
 downloadLinks:
   - label: Windows RC-0.4 预发布下载
     url: https://github.com/Drew-Z/raiden-prototype/releases/tag/v0.4.0-rc.4
   - label: Web 试玩版（新标签打开）
-    url: /play/raiden/index.html
+    url: https://play.playlab.eu.cc/raiden/index.html
 role: 街机节奏原型 / 双关章节流程 / Boss 与资源反馈 / Demo 发布包装
 teamSize: 单人
 workspacePath: D:\workspace4Codex\raiden prototype
@@ -78,8 +78,8 @@ milestones:
     title: 双关垂直切片形成展示候选
     summary: Stage 01、Stage 02、ChapterBriefing、ChapterEnding 和 ChapterOutro 串成完整章节体验。
   - date: 2026-04-21
-    title: RC-0.4 发布包与 Web 试玩接入作品站
-    summary: 将本地 dist 展示包提取为下载入口，并用 Godot Web 导出补上在线试玩。
+    title: RC-0.4 发布包与独立试玩域名接通
+    summary: 将 Windows 预发布包挂到 GitHub Release，并把 Godot Web 导出迁移到独立试玩域名，避免作品站构建被大文件阻塞。
 devlogSlugs: []
 contribution:
   - 完成 Stage 01 // Scramble 与 Stage 02 // Storm Front 的双关展示路线
@@ -123,7 +123,7 @@ nextStep:
 
 ## 试玩说明
 
-在线试玩已经嵌入本页。因为 Web 版本包含 Godot 运行时和音频资源，首次加载会稍慢一点。
+在线试玩已经迁移到独立试玩域名，并继续在作品页里提供内嵌入口。因为 Web 版本包含 Godot 运行时、音频资源和较大的战斗数据，首次加载会稍慢一点。
 
 基础操作：
 

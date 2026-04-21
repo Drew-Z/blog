@@ -29,11 +29,13 @@ screenshots:
     title: 局外成长和玩家主菜单已经落地
     note: 项目开始从战斗工作台转向“玩家能按正常流程进入下一局”的产品形态。
 playableWeb: true
-embedUrl: /play/intespace/index.html
+embedUrl: https://play.playlab.eu.cc/intespace/index.html
 repoUrl: https://github.com/Drew-Z/intespace
 downloadLinks:
   - label: Web 试玩版（新标签打开）
-    url: /play/intespace/index.html
+    url: https://play.playlab.eu.cc/intespace/index.html
+  - label: 查看代码仓库
+    url: https://github.com/Drew-Z/intespace
 role: Roguelite 系统方向 / 武器树结构冻结 / 完整流程收口 / 试玩准备整理
 teamSize: 单人
 workspacePath: D:\workspace4Codex\intespace
@@ -71,8 +73,8 @@ milestones:
     title: 武器系统 v1 结构冻结
     summary: 确认第一版武器路线已经可以进入验证阶段，后续优先看可读性和平衡，而不是继续加分支。
   - date: 2026-04-21
-    title: Web 试玩入口接入作品站
-    summary: 用 Godot Web 导出把当前版本接入作品展示页，方便先验证入口和完整流程。
+    title: Web 试玩迁移到独立试玩域名
+    summary: 当前版本继续通过作品站展示文档和阶段判断，同时把试玩导出迁移到独立域名，避免静态站部署被大文件阻塞。
 devlogSlugs: []
 contribution:
   - 梳理竖屏自动射击 Roguelite 的产品定位和阶段路线
@@ -120,7 +122,7 @@ nextStep:
 
 ## 试玩说明
 
-在线试玩已经嵌入本页。
+在线试玩已经迁移到独立试玩域名，并继续在作品页里提供入口。
 
 因为这是统一试玩前的当前版本，体验重点不是最终平衡，而是先确认：
 

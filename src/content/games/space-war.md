@@ -28,12 +28,12 @@ screenshots:
     title: 结算页给出分数、阶段、最高分和下一步操作
     note: 完整结果反馈让试玩结束后仍然能清楚理解本局状态。
 playableWeb: true
-embedUrl: /play/space-war/index.html
+embedUrl: https://play.playlab.eu.cc/space-war/index.html
 downloadLinks:
   - label: Windows v1.1.1 下载页（GitHub Release）
     url: https://github.com/Drew-Z/space-impact/releases/tag/v1.1.1
   - label: Web 试玩版（新标签打开）
-    url: /play/space-war/index.html
+    url: https://play.playlab.eu.cc/space-war/index.html
 externalPage: https://github.com/Drew-Z/space-impact
 repoUrl: https://github.com/Drew-Z/space-impact
 role: 复刻方向定义 / Godot 实现 / 关卡与 Boss 收口 / 发布与展示整理
@@ -45,7 +45,7 @@ currentPhase: 完整可玩 / 可展示 / 发布后维护
 syncNote: 开发目录与同步仓库一致，当前主分支已连接 origin/main，并通过 GitHub Release 对外分发。
 progressSummary:
   - 经典 Nokia 3310《Space Impact》初代体验已经完成可玩闭环，并收成正式发布版本。
-  - Windows 发布页、GitHub Release 和 Web 试玩入口都已经接通，适合直接对外展示。
+  - Windows 发布页、GitHub Release 和基于 R2 的 Web 试玩入口都已经接通，适合直接对外展示。
   - 当前重点转向维护、试玩反馈和展示资料补齐，而不是继续大规模扩系统。
 keyDocs:
   - label: 项目说明
@@ -75,13 +75,13 @@ milestones:
     title: 主菜单、阶段继续和结算流程收口
     summary: 外层体验补齐后，项目从单关原型推进为别人第一次打开也能理解的可玩版本。
   - date: 2026-04-21
-    title: Web 试玩导出接入作品站
-    summary: 通过 Godot Web 导出把项目嵌入作品展示页，同时保留 GitHub Release 下载入口。
+    title: Web 试玩迁移到独立静态存储
+    summary: 保留作品站案例页与 Release 下载，同时把 Godot Web 导出迁移到独立试玩域名，避免静态站部署被大文件阻塞。
 devlogSlugs: []
 contribution:
   - 拆解 Nokia 3310《Space Impact》初代的核心节奏和视觉约束
   - 完成五个常规 Sector、最终 Boss、敌群扩展、武器成长和结算回路
-  - 整理 Windows 发布包、GitHub Release 和 Web 试玩导出入口
+  - 整理 Windows 发布包、GitHub Release 和独立试玩域名入口
   - 用真实截图替换概念图，让作品页更接近可验证项目档案
 outcome: 当前项目已经具备完整可玩、可展示、可维护的状态，适合放在作品站里作为“文档先行、阶段推进、发布收口”的代表案例。
 nextStep:
@@ -118,12 +118,12 @@ nextStep:
 - 有明确的参考范围，不随意扩题
 - 有完整文档与阶段记录
 - 有可发布 Windows 包
-- 有可嵌入作品站的 Web 试玩版
+- 有独立子域名承载的 Web 试玩版
 - 有真实截图和可复查的 Release 页面
 
 ## 试玩说明
 
-在线试玩已经嵌入本页。首次加载会下载 Godot Web 运行时和项目资源，加载时间取决于网络环境。
+在线试玩已经改由独立试玩域名承载，并保留在作品页内嵌展示。首次加载会下载 Godot Web 运行时和项目资源，第一次进入偏慢属于正常现象。
 
 基础操作：
 
