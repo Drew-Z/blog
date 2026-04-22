@@ -38,8 +38,8 @@ downloadLinks:
     url: https://play.playlab.eu.cc/raiden/index.html
 role: 街机节奏原型 / 双关章节流程 / Boss 与资源反馈 / Demo 发布包装
 teamSize: 单人
-workspacePath: D:\workspace4Codex\raiden prototype
-syncRepoPath: D:\workspace4Codex\raiden prototype\.publish-final
+workspacePath: D:\workspace4Codex\raiden-prototype
+syncRepoPath: D:\workspace4Codex\raiden-prototype\.publish-final
 currentBranch: main
 currentPhase: RC-0.4 稳定展示候选 / 公开 Demo 准备
 syncNote: 根目录主要作为开发工作目录使用，实际对外同步和发布记录以 .publish-final/main -> origin/main 为准。
