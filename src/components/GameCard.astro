@@ -16,6 +16,7 @@ interface Props {
   screenshotCount?: number;
   engine?: string;
   currentPhase?: string;
+  playUrl?: string;
 }
 
 const {
@@ -31,7 +32,8 @@ const {
   featured = false,
   screenshotCount = 0,
   engine,
-  currentPhase
+  currentPhase,
+  playUrl
 } = Astro.props;
 ---
 
@@ -90,7 +92,12 @@ const {
     </div>
     <div class="game-card-foot">
       <span class="game-card-track">{playableWeb ? '可直接试玩，也适合当作品集入口' : '当前以案例和截图展示为主'}</span>
-      <a class="inline-link" href={withBase(href)}>查看项目详情</a>
+      <div class="card-actions">
+        {playableWeb && playUrl ? (
+          <a class="button button--small" href={withBase(playUrl)} target="_blank" rel="noreferrer">立即试玩</a>
+        ) : null}
+        <a class="inline-link" href={withBase(href)}>查看项目详情</a>
+      </div>
     </div>
   </div>
 </article>

@@ -25,6 +25,7 @@ const galleryShots = games
     }))
   )
   .slice(0, 4);
+const webDemoGames = games.filter((game) => game.data.playableWeb).slice(0, 5);
 const filterGroups = [
   { label: '重点项目', value: 'featured' },
   { label: '持续迭代', value: 'ongoing' },
@@ -121,6 +122,38 @@ const filterGroups = [
     </section>
   )}
 
+  {webDemoGames.length > 0 && (
+    <section class="card">
+      <div class="section-heading">
+        <div>
+          <h2>当前试玩入口</h2>
+          <p class="content-meta">所有已经接通 R2 的 Web build 都汇总在这里，适合先快速上手，再回头看案例说明。</p>
+        </div>
+      </div>
+      <div class="play-lane">
+        {webDemoGames.map((game) => (
+          <article class="play-lane-card">
+            <div class="play-lane-copy">
+              <p class="eyebrow">Playable Build</p>
+              <strong>{game.data.title}</strong>
+              <span>{game.data.currentPhase ?? game.data.summary}</span>
+            </div>
+            <div class="tag-list">
+              <span>{game.data.engine}</span>
+              <span>{gameStatusLabels[game.data.status] ?? game.data.status}</span>
+            </div>
+            <div class="card-actions">
+              {game.data.embedUrl ? (
+                <a class="button button--small" href={withBase(game.data.embedUrl)} target="_blank" rel="noreferrer">打开试玩</a>
+              ) : null}
+              <a class="button button--ghost button--small" href={withBase(`/games/${game.id}`)}>查看案例</a>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+  )}
+
   <ArchiveFilter
     id="games-archive"
     placeholder="搜索项目名称、目标、职责、平台或标签"
@@ -159,6 +192,7 @@ const filterGroups = [
           screenshotCount={game.data.screenshots.length}
           engine={game.data.engine}
           currentPhase={game.data.currentPhase}
+          playUrl={game.data.embedUrl}
         />
       </div>
     ))}

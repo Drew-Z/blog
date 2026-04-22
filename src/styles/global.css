@@ -266,6 +266,12 @@ a {
   font-weight: 700;
 }
 
+.button--small {
+  min-height: 38px;
+  padding: 0 14px;
+  font-size: 0.9rem;
+}
+
 .button {
   color: #171b24;
   background: linear-gradient(135deg, var(--brand), #ff9f1c);
@@ -333,13 +339,43 @@ a {
 .route-grid,
 .positioning-grid,
 .contact-grid,
-.spotlight-grid {
+.spotlight-grid,
+.play-lane {
   display: grid;
   gap: 16px;
 }
 
 .project-matrix {
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.play-lane {
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.play-lane-card {
+  display: grid;
+  gap: 14px;
+  padding: 18px;
+  border-radius: 22px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background:
+    linear-gradient(135deg, rgba(255, 209, 102, 0.08), rgba(78, 205, 196, 0.06)),
+    rgba(255, 255, 255, 0.03);
+}
+
+.play-lane-copy {
+  display: grid;
+  gap: 8px;
+}
+
+.play-lane-copy strong {
+  font-size: 1.1rem;
+}
+
+.play-lane-copy span {
+  color: var(--muted);
+  line-height: 1.7;
 }
 
 .project-status-card p,
@@ -513,6 +549,13 @@ a {
   color: var(--muted);
   font-size: 0.92rem;
   line-height: 1.65;
+}
+
+.card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
 }
 
 .status-pill,

@@ -27,6 +27,7 @@ const spotlightArticle = homeArticles[0];
 const playableCount = games.filter((item) => item.data.playableWeb).length;
 const downloadableCount = games.filter((item) => item.data.downloadLinks.length > 0).length;
 const trackedProjects = games.slice(0, 5);
+const webDemoGames = games.filter((item) => item.data.playableWeb).slice(0, 5);
 const entryRoute = [
   homeGames[0] ? { label: '先看代表项目', href: `/games/${homeGames[0].id}`, title: homeGames[0].data.title } : undefined,
   homeLogs[0] ? { label: '再看阶段日志', href: `/logs/${homeLogs[0].id}`, title: homeLogs[0].data.title } : undefined,
@@ -82,6 +83,37 @@ const entryRoute = [
           </div>
         </a>
       )}
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="section-heading">
+      <div>
+        <h2>试玩总入口</h2>
+        <p class="content-meta">如果你想先上手，不想先读文档，可以直接从这里进入当前已经接通的五个 Web 试玩。</p>
+      </div>
+      <a href={withBase('/games')}>查看完整项目说明</a>
+    </div>
+    <div class="play-lane">
+      {webDemoGames.map((game) => (
+        <article class="play-lane-card">
+          <div class="play-lane-copy">
+            <p class="eyebrow">Web Demo</p>
+            <strong>{game.data.title}</strong>
+            <span>{game.data.currentPhase ?? game.data.summary}</span>
+          </div>
+          <div class="tag-list">
+            <span>{game.data.engine}</span>
+            <span>{game.data.platforms.join(' / ')}</span>
+          </div>
+          <div class="card-actions">
+            {game.data.embedUrl ? (
+              <a class="button button--small" href={withBase(game.data.embedUrl)} target="_blank" rel="noreferrer">立即试玩</a>
+            ) : null}
+            <a class="button button--ghost button--small" href={withBase(`/games/${game.id}`)}>项目详情</a>
+          </div>
+        </article>
+      ))}
     </div>
   </section>
 
@@ -246,6 +278,7 @@ const entryRoute = [
           screenshotCount={game.data.screenshots.length}
           engine={game.data.engine}
           currentPhase={game.data.currentPhase}
+          playUrl={game.data.embedUrl}
         />
       ))}
     </div>
