@@ -43,6 +43,8 @@ const keyDocsWithLinks = game.data.keyDocs.map((doc) => ({
   ...doc,
   href: repoFileBase ? `${repoFileBase}/${doc.path.replace(/^\/+/, '')}` : undefined
 }));
+const primaryDownload = game.data.downloadLinks.find((link) => !link.url.includes('play.playlab.eu.cc'));
+const primaryDoc = keyDocsWithLinks.find((doc) => Boolean(doc.href));
 const hasSyncDetails =
   Boolean(game.data.currentPhase) ||
   Boolean(game.data.currentBranch) ||
@@ -97,6 +99,45 @@ const readingTime = estimateReadingTime(game.body);
         <div class="mini-panel">
           <p class="eyebrow">当前结论</p>
           <p>{game.data.outcome ?? '项目仍在迭代中，阶段结论会继续通过开发日志沉淀。'}</p>
+        </div>
+      </section>
+
+      <section class="card project-action-panel">
+        <div class="section-heading">
+          <div>
+            <h2>快速进入</h2>
+            <p class="content-meta">试玩、下载、仓库和文档集中放在这里，方便直接验证项目状态。</p>
+          </div>
+        </div>
+        <div class="project-action-grid">
+          {game.data.playableWeb && game.data.embedUrl ? (
+            <a class="project-action-card project-action-card--primary" href={withBase(game.data.embedUrl)} target="_blank" rel="noreferrer">
+              <span class="eyebrow">Play</span>
+              <strong>立即试玩</strong>
+              <span>打开当前 Web build</span>
+            </a>
+          ) : null}
+          {primaryDownload ? (
+            <a class="project-action-card" href={withBase(primaryDownload.url)} target="_blank" rel="noreferrer">
+              <span class="eyebrow">Download</span>
+              <strong>{primaryDownload.label}</strong>
+              <span>从 GitHub 获取可下载版本</span>
+            </a>
+          ) : null}
+          {game.data.repoUrl ? (
+            <a class="project-action-card" href={game.data.repoUrl} target="_blank" rel="noreferrer">
+              <span class="eyebrow">GitHub</span>
+              <strong>查看代码仓库</strong>
+              <span>查看源码、提交和项目结构</span>
+            </a>
+          ) : null}
+          {primaryDoc?.href ? (
+            <a class="project-action-card" href={primaryDoc.href} target="_blank" rel="noreferrer">
+              <span class="eyebrow">Docs</span>
+              <strong>{primaryDoc.label}</strong>
+              <span>{primaryDoc.path}</span>
+            </a>
+          ) : null}
         </div>
       </section>
 

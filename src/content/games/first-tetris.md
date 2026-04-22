@@ -34,6 +34,8 @@ repoUrl: https://github.com/Drew-Z/game-first-tetris
 downloadLinks:
   - label: Web 试玩版（新标签打开）
     url: https://play.playlab.eu.cc/first-tetris/index.html
+  - label: 源码 ZIP（GitHub）
+    url: https://github.com/Drew-Z/game-first-tetris/archive/refs/heads/feature/mobile-touch-controls-next.zip
   - label: 查看代码仓库
     url: https://github.com/Drew-Z/game-first-tetris
 role: 系统设计 / 原型实现 / 输入结构整理 / 多端 UI 收口

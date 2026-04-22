@@ -30,6 +30,8 @@ repoUrl: https://github.com/Drew-Z/game-next-spacewar
 downloadLinks:
   - label: Web 试玩版（新标签打开）
     url: https://play.playlab.eu.cc/next-spacewar/index.html
+  - label: 源码 ZIP（GitHub）
+    url: https://github.com/Drew-Z/game-next-spacewar/archive/refs/heads/feature/stage-22-release-readiness-and-export-metadata.zip
   - label: 查看代码仓库
     url: https://github.com/Drew-Z/game-next-spacewar
 role: 玩法原型设计 / 功能阶段推进 / 展示版外壳收口

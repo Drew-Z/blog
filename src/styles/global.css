@@ -463,12 +463,19 @@ a {
 }
 
 .card-media img,
-.content-header-visual img,
-.screenshot-card--image img {
+.content-header-visual img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
+}
+
+.content-header-visual img {
+  object-fit: contain;
+  padding: 16px;
+  background:
+    radial-gradient(circle at center, rgba(255, 209, 102, 0.12), transparent 54%),
+    rgba(3, 5, 9, 0.7);
 }
 
 .card-media-placeholder {
@@ -702,6 +709,19 @@ a {
   position: relative;
   overflow: hidden;
   padding: 0;
+  min-height: 320px;
+  background:
+    radial-gradient(circle at top, rgba(78, 205, 196, 0.1), transparent 48%),
+    rgba(2, 4, 8, 0.78);
+}
+
+.screenshot-card--image img {
+  width: 100%;
+  height: 100%;
+  min-height: 320px;
+  object-fit: contain;
+  display: block;
+  padding: 14px;
 }
 
 .screenshot-card--image figcaption {
@@ -743,13 +763,50 @@ a {
 }
 
 .games-entry-grid,
-.project-gallery-grid {
+.project-gallery-grid,
+.project-action-grid {
   display: grid;
   gap: 16px;
 }
 
-.games-entry-grid {
+.games-entry-grid,
+.project-action-grid {
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.project-action-panel {
+  background:
+    linear-gradient(135deg, rgba(78, 205, 196, 0.08), rgba(255, 209, 102, 0.07)),
+    var(--panel);
+}
+
+.project-action-card {
+  display: grid;
+  gap: 8px;
+  min-height: 148px;
+  padding: 18px;
+  border-radius: 22px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.project-action-card strong {
+  color: var(--text);
+  font-size: 1.08rem;
+  line-height: 1.35;
+}
+
+.project-action-card span:last-child {
+  color: var(--muted);
+  line-height: 1.55;
+  word-break: break-word;
+}
+
+.project-action-card--primary {
+  border-color: rgba(255, 209, 102, 0.34);
+  background:
+    linear-gradient(135deg, rgba(255, 209, 102, 0.18), rgba(78, 205, 196, 0.08)),
+    rgba(255, 255, 255, 0.05);
 }
 
 .project-gallery-grid {

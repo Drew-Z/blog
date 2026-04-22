@@ -36,6 +36,8 @@ downloadLinks:
     url: https://github.com/Drew-Z/raiden-prototype/releases/tag/v0.4.0-rc.4
   - label: Web 试玩版（新标签打开）
     url: https://play.playlab.eu.cc/raiden/index.html
+  - label: 源码 ZIP（GitHub）
+    url: https://github.com/Drew-Z/raiden-prototype/archive/refs/heads/main.zip
 role: 街机节奏原型 / 双关章节流程 / Boss 与资源反馈 / Demo 发布包装
 teamSize: 单人
 workspacePath: D:\workspace4Codex\raiden-prototype

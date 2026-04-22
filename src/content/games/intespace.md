@@ -34,6 +34,8 @@ repoUrl: https://github.com/Drew-Z/intespace
 downloadLinks:
   - label: Web 试玩版（新标签打开）
     url: https://play.playlab.eu.cc/intespace/index.html
+  - label: 源码 ZIP（GitHub）
+    url: https://github.com/Drew-Z/intespace/archive/refs/heads/main.zip
   - label: 查看代码仓库
     url: https://github.com/Drew-Z/intespace
 role: Roguelite 系统方向 / 武器树结构冻结 / 完整流程收口 / 试玩准备整理

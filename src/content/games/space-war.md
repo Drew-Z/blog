@@ -34,6 +34,8 @@ downloadLinks:
     url: https://github.com/Drew-Z/space-impact/releases/tag/v1.1.1
   - label: Web 试玩版（新标签打开）
     url: https://play.playlab.eu.cc/space-war/index.html
+  - label: 源码 ZIP（GitHub）
+    url: https://github.com/Drew-Z/space-impact/archive/refs/heads/main.zip
 externalPage: https://github.com/Drew-Z/space-impact
 repoUrl: https://github.com/Drew-Z/space-impact
 role: 复刻方向定义 / Godot 实现 / 关卡与 Boss 收口 / 发布与展示整理
