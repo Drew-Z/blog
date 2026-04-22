@@ -86,6 +86,56 @@ D:\workspace4Codex\blog\tools\export_r2_play_manual.cmd
 
 后续所有 Godot 项目都统一复用这里的字体资源：
 
+- `D:\workspace4Codex\resources\font\NotoSansCJKsc-Regular.otf`
 - `D:\workspace4Codex\resources\font\NotoSansSC-VF.ttf`
 
 如果后面还要给新项目补中文 UI 字体，优先从这个目录复制，而不是每次重新下载。
+
+## 共享字体的正确用法
+
+共享字体目录是唯一来源，但 Godot Web 导出时不能稳定直接打包项目外的绝对路径字体。
+
+因此要分成两层：
+
+1. 共享源目录  
+   `D:\workspace4Codex\resources\font\NotoSansCJKsc-Regular.otf`
+
+2. 项目内打包副本  
+   `res://assets/fonts/NotoSansCJKsc-Regular.otf`
+
+也就是说：
+
+- 所有项目统一从共享目录同步字体
+- Godot 主题仍然引用项目内部的 `res://assets/fonts/...`
+
+推荐优先让 UI 主题引用静态 OTF，而不是可变字体。当前这套试玩项目统一使用：
+
+- `res://assets/fonts/NotoSansCJKsc-Regular.otf`
+
+这样在 Godot Web 导出里比可变字体更稳定，中文字形也更不容易丢失。
+
+## 新标签试玩页面为什么还要补一个壳子
+
+Godot 默认导出的 `index.html` 更偏“最小运行页”，直接新标签打开时，Canvas 容易贴在左上角，视觉上像一个很小的窗口。
+
+现在导出脚本会在导出完成后自动补一层 Web 壳子，负责：
+
+1. 让 Canvas 在浏览器视口里居中
+2. 按窗口大小等比缩放
+3. 给试玩页一个更像正式展示页的背景和边距
+
+这个步骤已经并入：
+
+- [export_r2_play_manual.cmd](/D:/workspace4Codex/blog/tools/export_r2_play_manual.cmd)
+
+已经准备好的同步脚本：
+
+- [sync_shared_fonts.cmd](/D:/workspace4Codex/blog/tools/sync_shared_fonts.cmd)
+- [apply_godot_ui_theme.cmd](/D:/workspace4Codex/blog/tools/apply_godot_ui_theme.cmd)
+
+管理员 `cmd` 里可直接执行：
+
+```cmd
+D:\workspace4Codex\blog\tools\sync_shared_fonts.cmd
+D:\workspace4Codex\blog\tools\apply_godot_ui_theme.cmd
+```

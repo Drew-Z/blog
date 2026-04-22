@@ -10,4 +10,5 @@ Thumbs.db
 AGENTS.md
 tmp/
 deploy/r2-play/
+deploy/r2-play-refresh/
 public/play/
