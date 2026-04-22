@@ -15,7 +15,7 @@ tags:
 engine: Godot 4.6.1
 platforms:
   - Windows
-  - Web 窗口
+  - Web 试玩
   - 安卓竖屏适配回归
 thumbnail: /images/projects/tetris-cover.svg
 screenshots:
@@ -28,19 +28,26 @@ screenshots:
   - src: /images/projects/tetris-help-panel.png
     title: Help 面板已经被纳入多端适配回归，不再是边角功能
     note: 这一点对展示型项目很重要，因为它意味着项目开始考虑“第一次打开的人能不能看懂”。
-playableWeb: false
+playableWeb: true
+embedUrl: https://play.playlab.eu.cc/first-tetris/index.html
 repoUrl: https://github.com/Drew-Z/game-first-tetris
+downloadLinks:
+  - label: Web 试玩版（新标签打开）
+    url: https://play.playlab.eu.cc/first-tetris/index.html
+  - label: 查看代码仓库
+    url: https://github.com/Drew-Z/game-first-tetris
 role: 系统设计 / 原型实现 / 输入结构整理 / 多端 UI 收口
 teamSize: 单人
 workspacePath: D:\workspace4Codex\game-first-tetris
 syncRepoPath: D:\workspace4Codex\game-first-tetris
 currentBranch: feature/mobile-touch-controls-next
-currentPhase: 移动端触控深化 / 多端可读性继续收口
+currentPhase: 移动端触控深化 / Web 试玩接通 / 多端可读性继续收口
 syncNote: 开发目录与同步仓库一致，当前分支已经同步到 origin/feature/mobile-touch-controls-next。
 progressSummary:
   - 经典模式已经稳定，可作为长期主线继续承接实验。
   - Rogue 模式保留在低侵入范围内，用三轮固定选择和最小局间带入验证中程目标感。
   - 触屏输入桥接层与第一版正式触屏控件原型已经打通，当前重点是超窄尺寸下的真实可玩性。
+  - Web 试玩入口已经接到独立试玩域名，作品页可以直接预览当前版本。
 keyDocs:
   - label: 当前路线图
     path: docs/roadmap.md
@@ -71,6 +78,9 @@ milestones:
   - date: 2026-04-09
     title: 触屏输入桥接层进入可演示阶段
     summary: 输入结构从键盘逻辑里抽离出来，正式为移动端按钮和后续手势方案留出承接空间。
+  - date: 2026-04-22
+    title: Web 试玩迁移到独立试玩域名
+    summary: 当前版本已经能通过独立试玩域名直接打开，便于在作品站中做统一展示和外部验证。
 devlogSlugs:
   - tetris-touch-controls
   - tetris-responsive-baseline
@@ -127,6 +137,12 @@ nextStep:
 ### 4. 输入结构已经从键盘逻辑里抽了出来
 
 这是我最看重的一步。它意味着后面不管是继续做移动端按钮、手势方案还是别的输入层，都不需要再把逻辑重新堆回 `_unhandled_input()`。
+
+## 试玩说明
+
+当前版本已经接通独立试玩域名，并在作品页中提供直接试玩入口。
+
+因为 Web 版会首次下载 Godot 运行时和项目资源，第一次进入加载偏慢属于正常现象；如果嵌入窗口里等待体验不够顺，直接点“新标签打开”会更稳一些。
 
 ## 当前阶段判断
 

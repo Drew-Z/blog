@@ -15,6 +15,7 @@ tags:
 engine: Godot 4.6.1
 platforms:
   - Windows
+  - Web 试玩
 thumbnail: /images/projects/spacewar-cover.svg
 screenshots:
   - src: /images/projects/spacewar-shot-menu.svg
@@ -23,19 +24,26 @@ screenshots:
   - src: /images/projects/spacewar-shot-result.svg
     title: 单局结束后进入独立结果页，而不是停留在战斗场景里
     note: 结果页承担了展示版状态提示、本局结果和下一步操作说明。
-playableWeb: false
+playableWeb: true
+embedUrl: https://play.playlab.eu.cc/next-spacewar/index.html
 repoUrl: https://github.com/Drew-Z/game-next-spacewar
+downloadLinks:
+  - label: Web 试玩版（新标签打开）
+    url: https://play.playlab.eu.cc/next-spacewar/index.html
+  - label: 查看代码仓库
+    url: https://github.com/Drew-Z/game-next-spacewar
 role: 玩法原型设计 / 功能阶段推进 / 展示版外壳收口
 teamSize: 单人
 workspacePath: D:\workspace4Codex\game-next-spacewar
 syncRepoPath: D:\workspace4Codex\game-next-spacewar
 currentBranch: feature/stage-22-release-readiness-and-export-metadata
-currentPhase: 展示版收尾 / release readiness / review 资料准备
+currentPhase: 展示版收尾 / Web 试玩接通 / release readiness
 syncNote: 开发目录与同步仓库一致，当前阶段分支已经推送并建立上游跟踪。
 progressSummary:
   - 主菜单、设置、About / Help、暂停返回已经形成稳定展示入口。
   - 首局按键提示、独立结果页和会话总结已经把单关 MVP 收成可讲清楚定位的展示版。
   - 当前工作更偏向 review / PR / 素材包装，而不是继续横向扩充关卡内容。
+  - Web 试玩入口已经迁移到独立试玩域名，方便直接在作品站里验证完整展示链路。
 keyDocs:
   - label: 项目说明
     path: README.md
@@ -66,6 +74,9 @@ milestones:
   - date: 2026-04-09
     title: 结果页与会话总结完成收口
     summary: 单局结束后不再停在战斗场景里，而是进入独立结果页承接 build 身份、本局结果和下一步操作说明。
+  - date: 2026-04-22
+    title: Web 试玩迁移到独立试玩域名
+    summary: 在保留案例页和文档归档的同时，把当前 Web 导出迁移到独立试玩域名，方便直接验证外层展示流程。
 devlogSlugs:
   - spacewar-showcase-finish
 contribution:
@@ -114,6 +125,12 @@ nextStep:
 ### 4. 展示版 build 标识明确
 
 这会让项目定位更清楚。别人看到它时，不会误以为这是完整商业版，也不会把阶段状态看得太模糊。
+
+## 试玩说明
+
+当前版本已经接通独立试玩域名，并继续在项目页里提供试玩入口。
+
+它更适合作为“展示版完整链路验证”的 Web build 来看，也就是重点体验主菜单、帮助、暂停、结果页和会话总结是否能连成一套清晰的外层流程。
 
 ## 当前阶段判断
 
