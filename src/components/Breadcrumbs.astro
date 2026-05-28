@@ -11,7 +11,7 @@ interface Props {
 }
 
 const { items = [] } = Astro.props;
-const currentUrl = Astro.site ? new URL(Astro.url.pathname, Astro.site).toString() : Astro.url.toString();
+const currentUrl = Astro.site ? toSiteUrl(Astro.url.pathname, Astro.site) : Astro.url.toString();
 const breadcrumbJson = {
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
