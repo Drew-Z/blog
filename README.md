@@ -35,10 +35,11 @@ Git Bash:
 ```bash
 cd /d/workspace4Codex/blog
 npm run content:audit
+npm run dist:audit
 npm run verify
 ```
 
-`content:audit` 会统计公开内容、文章工作区、游戏项目和开发日志，检查站内引用的 `public/` 静态资源是否存在，并校验游戏、开发日志和公开文章标签之间的基础引用关系。`verify` 会先执行内容审计，再执行生产构建。
+`content:audit` 会统计公开内容、文章工作区、游戏项目和开发日志，检查站内引用的 `public/` 静态资源是否存在，并校验游戏、开发日志和公开文章标签之间的基础引用关系。`dist:audit` 会检查构建产物里的站内链接和资源路径是否能在 `dist/` 中解析。`verify` 会先执行内容审计，再执行生产构建和构建产物链接审计。
 
 ## Cloudflare Pages
 

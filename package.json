@@ -9,7 +9,8 @@
     "build": "astro build",
     "preview": "astro preview",
     "content:audit": "node tools/audit_site_content.mjs",
-    "verify": "npm run content:audit && npm run build"
+    "dist:audit": "node tools/audit_dist_links.mjs",
+    "verify": "npm run content:audit && npm run build && npm run dist:audit"
   },
   "dependencies": {
     "astro": "^5.6.1"

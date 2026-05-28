@@ -10,16 +10,20 @@ interface Props {
   description?: string;
   image?: string;
   type?: string;
+  canonicalPath?: string;
+  robots?: string;
 }
 
 const {
   title = `${siteMeta.name} | ${siteMeta.title}`,
   description = siteMeta.description,
   image,
-  type = 'website'
+  type = 'website',
+  canonicalPath,
+  robots
 } = Astro.props;
 
-const canonical = Astro.site ? toSiteUrl(Astro.url.pathname, Astro.site) : Astro.url.toString();
+const canonical = Astro.site ? toSiteUrl(canonicalPath ?? Astro.url.pathname, Astro.site) : Astro.url.toString();
 const imageUrl = image
   ? Astro.site
     ? toSiteUrl(image, Astro.site)
@@ -35,6 +39,7 @@ const imageUrl = image
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <meta name="description" content={description} />
+    {robots ? <meta name="robots" content={robots} /> : null}
     <meta name="theme-color" content="#f4ede1" />
     <meta property="og:locale" content="zh_CN" />
     <meta property="og:site_name" content={siteMeta.name} />

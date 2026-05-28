@@ -3,7 +3,12 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import { withBase } from '../utils/site';
 ---
 
-<BaseLayout title="页面未找到 | Biau Playlab" description="你访问的页面不存在，返回首页或查看作品、日志与文章入口。">
+<BaseLayout
+  title="页面未找到 | Biau Playlab"
+  description="你访问的页面不存在，返回首页或查看作品、日志与文章入口。"
+  canonicalPath="/404.html"
+  robots="noindex,follow"
+>
   <section class="page-heading card page-heading--rich error-page">
     <p class="eyebrow">404</p>
     <h1>这个页面不在当前站点结构里。</h1>
