@@ -108,7 +108,7 @@ const entryRoute = [
           </div>
           <div class="card-actions">
             {game.data.embedUrl ? (
-              <a class="button button--small" href={withBase(game.data.embedUrl)} target="_blank" rel="noreferrer">立即试玩</a>
+              <a class="button button--small" href={withBase(game.data.embedUrl)} target="_blank" rel="noopener noreferrer">立即试玩</a>
             ) : null}
             <a class="button button--ghost button--small" href={withBase(`/games/${game.id}`)}>项目详情</a>
           </div>

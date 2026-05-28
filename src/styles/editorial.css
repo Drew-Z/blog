@@ -63,6 +63,29 @@ a {
   text-decoration: none;
 }
 
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 3px solid rgba(29, 107, 96, 0.34);
+  outline-offset: 4px;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button,
+.button,
+.button--ghost,
+.filter-chip {
+  touch-action: manipulation;
+}
+
 .skip-link {
   position: absolute;
   left: 16px;
@@ -279,9 +302,10 @@ a {
   margin: 0;
   color: var(--text-strong);
   font-family: var(--font-display);
-  font-size: clamp(2.6rem, 5.4vw, 4.5rem);
+  font-size: 4.35rem;
   line-height: 0.98;
   letter-spacing: -0.045em;
+  text-wrap: balance;
 }
 
 .hero-copy p,
@@ -354,8 +378,9 @@ a {
 .contact-card strong {
   color: #fff;
   font-family: var(--font-display);
-  font-size: clamp(1.3rem, 2.6vw, 2.1rem);
+  font-size: 2rem;
   line-height: 1.08;
+  text-wrap: balance;
 }
 
 .hero-visual-copy span {
@@ -454,8 +479,9 @@ a {
 .site-footer h2 {
   color: var(--text-strong);
   font-family: var(--font-display);
-  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-size: 1.95rem;
   line-height: 1.08;
+  text-wrap: balance;
 }
 
 .section-heading a,
@@ -709,8 +735,9 @@ a {
 .editor-pick-card strong {
   color: var(--text-strong);
   font-family: var(--font-display);
-  font-size: clamp(1.6rem, 2.8vw, 2.4rem);
+  font-size: 2.3rem;
   line-height: 1.04;
+  text-wrap: balance;
 }
 
 .spotlight-primary:hover,
@@ -889,7 +916,6 @@ a {
 }
 
 .filter-search input:focus {
-  outline: 2px solid rgba(29, 107, 96, 0.22);
   border-color: rgba(29, 107, 96, 0.28);
 }
 
@@ -1257,6 +1283,19 @@ a {
   .content-sidebar {
     position: static;
   }
+
+  .hero-copy h1,
+  .page-heading h1,
+  .content-header h1 {
+    font-size: 3.35rem;
+  }
+
+  .hero-visual-copy strong,
+  .contact-card strong,
+  .spotlight-primary strong,
+  .editor-pick-card strong {
+    font-size: 1.95rem;
+  }
 }
 
 @media (max-width: 720px) {
@@ -1290,7 +1329,7 @@ a {
   .hero-copy h1,
   .page-heading h1,
   .content-header h1 {
-    font-size: clamp(2.1rem, 10vw, 3.3rem);
+    font-size: 2.55rem;
   }
 
   .kpi-grid,
@@ -1317,5 +1356,29 @@ a {
 
   .game-embed iframe {
     min-height: 360px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+
+  .card:hover,
+  .nav-links a:hover,
+  .button:hover,
+  .button--ghost:hover,
+  .link-list a:hover,
+  .download-list a:hover,
+  .section-heading a:hover,
+  .footer-nav a:hover,
+  .inline-link:hover,
+  .card:hover .card-media img {
+    transform: none;
   }
 }

@@ -18,7 +18,7 @@ const { href, title, description, pubDate, tags = [], coverImage, featured = fal
 <article class="card article-card article-card--rich">
   <a class="card-media" href={withBase(href)}>
     {coverImage ? (
-      <img src={withBase(coverImage)} alt={title} loading="lazy" />
+      <img src={withBase(coverImage)} alt={title} loading="lazy" decoding="async" />
     ) : (
       <div class="card-media-placeholder card-media-placeholder--article">
         <p class="eyebrow">Article</p>

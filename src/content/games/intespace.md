@@ -17,15 +17,15 @@ platforms:
   - Web 试玩
   - 手机优先
   - Windows 预留
-thumbnail: /images/projects/inteapsce-cover.svg
+thumbnail: /images/projects/intespace-cover.svg
 screenshots:
-  - src: /images/projects/inteapsce-shot-flow.svg
+  - src: /images/projects/intespace-shot-flow.svg
     title: 当前主线围绕完整 session 收口
     note: 首页、战斗、升级、结算、成长和下一局需要在同一套试玩口径下闭环。
-  - src: /images/projects/inteapsce-shot-weapon.svg
+  - src: /images/projects/intespace-shot-weapon.svg
     title: 武器树 v1 已进入结构冻结阶段
     note: 现在优先验证路线构筑是否清晰，而不是继续无限增加武器分支。
-  - src: /images/projects/inteapsce-shot-meta.svg
+  - src: /images/projects/intespace-shot-meta.svg
     title: 局外成长和玩家主菜单已经落地
     note: 项目开始从战斗工作台转向“玩家能按正常流程进入下一局”的产品形态。
 playableWeb: true

@@ -1,8 +1,8 @@
 import type { APIRoute } from 'astro';
+import { toSiteUrl } from '../utils/site';
 
 export const GET: APIRoute = ({ site }) => {
-  const origin = site?.toString().replace(/\/$/, '') ?? 'https://blog.playlab.eu.cc';
-  const body = `User-agent: *\nAllow: /\n\nSitemap: ${origin}/sitemap.xml\n`;
+  const body = `User-agent: *\nAllow: /\n\nSitemap: ${toSiteUrl('/sitemap.xml', site)}\n`;
 
   return new Response(body, {
     headers: {

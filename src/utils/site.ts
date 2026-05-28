@@ -21,3 +21,7 @@ export function withBase(path: string): string {
 
   return `${normalizedBase}${normalizedPath}`;
 }
+
+export function toSiteUrl(path: string, site: URL | undefined): string {
+  return new URL(withBase(path), site ?? 'https://blog.playlab.eu.cc').toString();
+}

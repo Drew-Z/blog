@@ -110,7 +110,7 @@ const filterGroups = [
       <div class="project-gallery-grid">
         {galleryShots.map((shot) => (
           <a class="project-gallery-card" href={withBase(shot.href)}>
-            <img src={withBase(shot.src)} alt={`${shot.gameTitle} ${shot.title}`} loading="lazy" />
+            <img src={withBase(shot.src)} alt={`${shot.gameTitle} ${shot.title}`} loading="lazy" decoding="async" />
             <div class="project-gallery-copy">
               <p class="eyebrow">{shot.gameTitle}</p>
               <strong>{shot.title}</strong>
@@ -144,7 +144,7 @@ const filterGroups = [
             </div>
             <div class="card-actions">
               {game.data.embedUrl ? (
-                <a class="button button--small" href={withBase(game.data.embedUrl)} target="_blank" rel="noreferrer">打开试玩</a>
+                <a class="button button--small" href={withBase(game.data.embedUrl)} target="_blank" rel="noopener noreferrer">打开试玩</a>
               ) : null}
               <a class="button button--ghost button--small" href={withBase(`/games/${game.id}`)}>查看案例</a>
             </div>

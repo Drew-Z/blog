@@ -57,7 +57,7 @@ const { newer, older } = getEntryNeighbors(allArticles, (item) => item.id === ar
         <div class="content-meta-panel">
           {article.data.coverImage ? (
             <div class="content-header-visual">
-              <img src={withBase(article.data.coverImage)} alt={article.data.title} loading="eager" />
+              <img src={withBase(article.data.coverImage)} alt={article.data.title} loading="eager" decoding="async" fetchpriority="high" />
             </div>
           ) : null}
           <div class="mini-panel">

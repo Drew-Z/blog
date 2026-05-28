@@ -1,5 +1,5 @@
 ---
-import { withBase } from '../utils/site';
+import { toSiteUrl, withBase } from '../utils/site';
 
 interface Item {
   label: string;
@@ -11,20 +11,34 @@ interface Props {
 }
 
 const { items = [] } = Astro.props;
+const currentUrl = Astro.site ? new URL(Astro.url.pathname, Astro.site).toString() : Astro.url.toString();
+const breadcrumbJson = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: items.map((item, index) => ({
+    '@type': 'ListItem',
+    position: index + 1,
+    name: item.label,
+    item: item.href ? toSiteUrl(item.href, Astro.site) : currentUrl
+  }))
+};
 ---
 
 {items.length > 1 && (
-  <nav class="breadcrumbs" aria-label="面包屑导航">
-    <ol>
-      {items.map((item, index) => (
-        <li>
-          {item.href && index < items.length - 1 ? (
-            <a href={withBase(item.href)}>{item.label}</a>
-          ) : (
-            <span aria-current={index === items.length - 1 ? 'page' : undefined}>{item.label}</span>
-          )}
-        </li>
-      ))}
-    </ol>
-  </nav>
+  <>
+    <nav class="breadcrumbs" aria-label="面包屑导航">
+      <ol>
+        {items.map((item, index) => (
+          <li>
+            {item.href && index < items.length - 1 ? (
+              <a href={withBase(item.href)}>{item.label}</a>
+            ) : (
+              <span aria-current={index === items.length - 1 ? 'page' : undefined}>{item.label}</span>
+            )}
+          </li>
+        ))}
+      </ol>
+    </nav>
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbJson)} />
+  </>
 )}

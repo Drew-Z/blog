@@ -13,7 +13,7 @@ const { title, embedUrl } = Astro.props;
   <div class="section-heading">
     <h2>在线试玩</h2>
     {embedUrl && (
-      <a href={withBase(embedUrl)} target="_blank" rel="noreferrer">新标签打开</a>
+      <a href={withBase(embedUrl)} target="_blank" rel="noopener noreferrer">新标签打开</a>
     )}
   </div>
   {embedUrl ? (
@@ -24,6 +24,7 @@ const { title, embedUrl } = Astro.props;
         title={`${title} 在线试玩`}
         loading="lazy"
         allow="autoplay; fullscreen; gamepad"
+        referrerpolicy="strict-origin-when-cross-origin"
         allowfullscreen
       ></iframe>
     </>

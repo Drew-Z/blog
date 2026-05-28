@@ -30,13 +30,20 @@ const {
   <div class="filter-bar">
     <label class="filter-search">
       <span class="eyebrow">Search</span>
-      <input type="search" placeholder={placeholder} data-filter-search />
+      <input
+        id={`${id}-search`}
+        name={`${id}-search`}
+        type="search"
+        placeholder={placeholder}
+        autocomplete="off"
+        data-filter-search
+      />
     </label>
     {chips.length > 0 && (
       <div class="filter-chip-row" role="group" aria-label="快速筛选">
-        <button class="filter-chip is-active" type="button" data-filter-chip="all">全部</button>
+        <button class="filter-chip is-active" type="button" aria-pressed="true" data-filter-chip="all">全部</button>
         {chips.map((chip) => (
-          <button class="filter-chip" type="button" data-filter-chip={chip.value}>{chip.label}</button>
+          <button class="filter-chip" type="button" aria-pressed="false" data-filter-chip={chip.value}>{chip.label}</button>
         ))}
       </div>
     )}
@@ -89,7 +96,11 @@ const {
     buttons.forEach((button) => {
       button.addEventListener('click', () => {
         activeChip = button.getAttribute('data-filter-chip') || 'all';
-        buttons.forEach((item) => item.classList.toggle('is-active', item === button));
+        buttons.forEach((item) => {
+          const isActive = item === button;
+          item.classList.toggle('is-active', isActive);
+          item.setAttribute('aria-pressed', String(isActive));
+        });
         apply();
       });
     });

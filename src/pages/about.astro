@@ -139,12 +139,12 @@ const articleWorkbenchStats = await getArticleWorkbenchStats();
           <div class="mini-panel">
             <p class="eyebrow">GitHub 入口</p>
             <p>如果你想先看公开项目、仓库动态或进一步找到个人主页，从 GitHub 入口开始最直接。</p>
-            <a class="inline-link" href={siteMeta.githubProfile} target="_blank" rel="noreferrer">打开 GitHub Profile</a>
+            <a class="inline-link" href={siteMeta.githubProfile} target="_blank" rel="noopener noreferrer">打开 GitHub Profile</a>
           </div>
           <div class="mini-panel">
             <p class="eyebrow">站点仓库</p>
             <p>如果你更关心这个博客如何维护、怎么迭代、提交历史是否清晰，可以直接看仓库本体。</p>
-            <a class="inline-link" href={siteMeta.repository} target="_blank" rel="noreferrer">查看站点仓库</a>
+            <a class="inline-link" href={siteMeta.repository} target="_blank" rel="noopener noreferrer">查看站点仓库</a>
           </div>
           <div class="mini-panel">
             <p class="eyebrow">持续关注</p>
@@ -189,7 +189,7 @@ const articleWorkbenchStats = await getArticleWorkbenchStats();
           <a href={withBase('/games')}>查看游戏作品</a>
           <a href={withBase('/logs')}>查看开发日志</a>
           <a href={withBase('/articles')}>查看文章归档</a>
-          <a href={siteMeta.githubProfile} target="_blank" rel="noreferrer">打开 GitHub Profile</a>
+          <a href={siteMeta.githubProfile} target="_blank" rel="noopener noreferrer">打开 GitHub Profile</a>
         </div>
       </section>
     </aside>

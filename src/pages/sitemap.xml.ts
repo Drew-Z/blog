@@ -1,16 +1,13 @@
 import { getCollection } from 'astro:content';
 import type { APIRoute } from 'astro';
 import { getPublishedArticles, getPublishedArticleTagCounts } from '../utils/content';
+import { toSiteUrl } from '../utils/site';
 import { slugifyTag } from '../utils/site-meta';
 
 type SitemapItem = {
   path: string;
   lastmod?: Date;
 };
-
-function toAbsoluteUrl(path: string, site: URL | undefined) {
-  return new URL(path, site ?? 'https://blog.playlab.eu.cc').toString();
-}
 
 function xmlEscape(value: string) {
   return value
@@ -55,7 +52,7 @@ export const GET: APIRoute = async ({ site }) => {
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${items
     .map((item) => {
-      const parts = [`  <url>`, `    <loc>${xmlEscape(toAbsoluteUrl(item.path, site))}</loc>`];
+      const parts = [`  <url>`, `    <loc>${xmlEscape(toSiteUrl(item.path, site))}</loc>`];
       if (item.lastmod) {
         parts.push(`    <lastmod>${item.lastmod.toISOString()}</lastmod>`);
       }
