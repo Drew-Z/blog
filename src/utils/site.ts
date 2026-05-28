@@ -37,7 +37,7 @@ export function withBase(path: string): string {
     return normalizedBase ? `${normalizedBase}/` : '/';
   }
 
-  return `${normalizedBase}${normalizedPath}`;
+  return withTrailingSlash(`${normalizedBase}${normalizedPath}`);
 }
 
 export function toSiteUrl(path: string, site: URL | undefined): string {
