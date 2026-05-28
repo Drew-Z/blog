@@ -1323,7 +1323,18 @@ button,
   }
 
   .nav-links {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
     width: 100%;
+    gap: 8px;
+  }
+
+  .nav-links a {
+    display: flex;
+    justify-content: center;
+    min-width: 0;
+    padding: 9px 0;
+    font-size: 0.95rem;
   }
 
   .hero-copy h1,
