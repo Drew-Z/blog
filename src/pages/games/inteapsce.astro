@@ -1,7 +1,8 @@
 ---
-import { withBase } from '../../utils/site';
+import { toSiteUrl, withBase } from '../../utils/site';
 
 const target = withBase('/games/intespace');
+const canonical = toSiteUrl('/games/intespace', Astro.site);
 ---
 
 <!doctype html>
@@ -9,8 +10,9 @@ const target = withBase('/games/intespace');
   <head>
     <meta charset="utf-8" />
     <title>Redirecting…</title>
+    <meta name="robots" content="noindex,follow" />
     <meta http-equiv="refresh" content={`0;url=${target}`} />
-    <link rel="canonical" href={target} />
+    <link rel="canonical" href={canonical} />
   </head>
   <body>
     <p>页面已迁移到 <a href={target}>{target}</a></p>
