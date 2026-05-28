@@ -4,6 +4,22 @@ import { toSiteUrl } from './site';
 export type JsonLdNode = Record<string, unknown>;
 export type JsonLdInput = JsonLdNode | JsonLdNode[];
 
+interface CollectionItem {
+  name: string;
+  url: string;
+  description?: string;
+  image?: string;
+}
+
+interface CollectionPageSchemaInput {
+  site: URL | undefined;
+  path: string;
+  name: string;
+  description: string;
+  items: CollectionItem[];
+  itemType?: string;
+}
+
 export function serializeJsonLd(data: JsonLdInput): string {
   return JSON.stringify(data)
     .replace(/</g, '\\u003c')
@@ -47,6 +63,43 @@ export function getProfilePageSchema(site: URL | undefined): JsonLdNode {
     url: toSiteUrl('/about', site),
     inLanguage: 'zh-CN',
     mainEntity: getAuthorSchema(site)
+  };
+}
+
+export function getCollectionPageSchema({
+  site,
+  path,
+  name,
+  description,
+  items,
+  itemType = 'CreativeWork'
+}: CollectionPageSchemaInput): JsonLdNode {
+  const url = toSiteUrl(path, site);
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    '@id': `${url}#collection`,
+    name,
+    description,
+    url,
+    inLanguage: 'zh-CN',
+    isPartOf: { '@id': `${toSiteUrl('/', site)}#website` },
+    mainEntity: {
+      '@type': 'ItemList',
+      itemListElement: items.map((item, index) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        url: toSiteUrl(item.url, site),
+        item: {
+          '@type': itemType,
+          name: item.name,
+          url: toSiteUrl(item.url, site),
+          ...(item.description ? { description: item.description } : {}),
+          ...(item.image ? { image: getImageUrl(item.image, site) } : {})
+        }
+      }))
+    }
   };
 }
 

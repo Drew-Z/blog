@@ -6,6 +6,7 @@ import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import { withBase } from '../../utils/site';
 import { getPublishedArticles, getPublishedArticleTagCounts } from '../../utils/content';
 import { formatDate, siteMeta, slugifyTag } from '../../utils/site-meta';
+import { getCollectionPageSchema } from '../../utils/schema';
 
 const articles = await getPublishedArticles();
 const tagCounts = await getPublishedArticleTagCounts();
@@ -18,9 +19,23 @@ const filterTags = hotTags.slice(0, 6).map(({ tag }) => ({
   label: tag,
   value: slugifyTag(tag)
 }));
+const pageDescription = '系统策划拆解、游戏分析和方法沉淀文章。';
+const collectionSchema = getCollectionPageSchema({
+  site: Astro.site,
+  path: '/articles',
+  name: `文章归档 | ${siteMeta.name}`,
+  description: pageDescription,
+  itemType: 'BlogPosting',
+  items: articles.map((article) => ({
+    name: article.data.title,
+    url: `/articles/${article.id}`,
+    description: article.data.description,
+    image: article.data.coverImage
+  }))
+});
 ---
 
-<BaseLayout title={`文章归档 | ${siteMeta.name}`} description="系统策划拆解、游戏分析和方法沉淀文章。">
+<BaseLayout title={`文章归档 | ${siteMeta.name}`} description={pageDescription} structuredData={collectionSchema}>
   <Breadcrumbs items={[{ label: '首页', href: '/' }, { label: '文章' }]} />
   <section class="page-heading card page-heading--rich">
     <p class="eyebrow">Articles</p>

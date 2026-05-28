@@ -155,6 +155,14 @@ function requiredSchemaTypes(relativeFile) {
     return ['ProfilePage'];
   }
 
+  if (['dist/articles/index.html', 'dist/articles/tags/index.html', 'dist/games/index.html', 'dist/logs/index.html'].includes(normalized)) {
+    return ['CollectionPage'];
+  }
+
+  if (/^dist\/articles\/tags\/[^/]+\/index\.html$/.test(normalized)) {
+    return ['CollectionPage'];
+  }
+
   if (/^dist\/articles\/(?!tags\/)[^/]+\/index\.html$/.test(normalized)) {
     return ['BlogPosting'];
   }

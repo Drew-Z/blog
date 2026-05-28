@@ -7,6 +7,7 @@ import GameCard from '../../components/GameCard.astro';
 import { withBase } from '../../utils/site';
 import { sortEditorialEntries } from '../../utils/entries';
 import { gameStatusLabels, siteMeta } from '../../utils/site-meta';
+import { getCollectionPageSchema } from '../../utils/schema';
 
 const games = sortEditorialEntries(await getCollection('games'));
 const featuredCount = games.filter((game) => game.data.featured).length;
@@ -37,9 +38,23 @@ const filterGroups = [
   { label: '移动导向', value: 'mobile' },
   { label: '正式发布', value: 'released' }
 ];
+const pageDescription = '围绕玩法验证、展示版包装、多端适配和 Web 试玩整理的项目案例。';
+const collectionSchema = getCollectionPageSchema({
+  site: Astro.site,
+  path: '/games',
+  name: `游戏作品 | ${siteMeta.name}`,
+  description: pageDescription,
+  itemType: 'VideoGame',
+  items: games.map((game) => ({
+    name: game.data.title,
+    url: `/games/${game.id}`,
+    description: game.data.summary,
+    image: game.data.thumbnail
+  }))
+});
 ---
 
-<BaseLayout title={`游戏作品 | ${siteMeta.name}`} description="围绕玩法验证、展示版包装、多端适配和 Web 试玩整理的项目案例。">
+<BaseLayout title={`游戏作品 | ${siteMeta.name}`} description={pageDescription} structuredData={collectionSchema}>
   <Breadcrumbs items={[{ label: '首页', href: '/' }, { label: '作品' }]} />
   <section class="page-heading card page-heading--rich">
     <p class="eyebrow">Games</p>

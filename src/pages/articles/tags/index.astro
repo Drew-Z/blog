@@ -4,12 +4,26 @@ import Breadcrumbs from '../../../components/Breadcrumbs.astro';
 import { withBase } from '../../../utils/site';
 import { getPublishedArticleTagCounts } from '../../../utils/content';
 import { siteMeta, slugifyTag } from '../../../utils/site-meta';
+import { getCollectionPageSchema } from '../../../utils/schema';
 
 const tags = await getPublishedArticleTagCounts();
 const totalTaggedArticles = tags.reduce((sum, item) => sum + item.count, 0);
+const pageDescription = '按主题浏览公开文章，快速查看不同分析方向的内容沉淀。';
+const collectionSchema = getCollectionPageSchema({
+  site: Astro.site,
+  path: '/articles/tags',
+  name: `文章标签 | ${siteMeta.name}`,
+  description: pageDescription,
+  itemType: 'DefinedTerm',
+  items: tags.map(({ tag, count }) => ({
+    name: tag,
+    url: `/articles/tags/${slugifyTag(tag)}`,
+    description: `${count} 篇相关文章`
+  }))
+});
 ---
 
-<BaseLayout title={`文章标签 | ${siteMeta.name}`} description="按主题浏览公开文章，快速查看不同分析方向的内容沉淀。">
+<BaseLayout title={`文章标签 | ${siteMeta.name}`} description={pageDescription} structuredData={collectionSchema}>
   <Breadcrumbs items={[{ label: '首页', href: '/' }, { label: '文章', href: '/articles' }, { label: '标签' }]} />
   <section class="page-heading card page-heading--rich">
     <p class="eyebrow">Tags</p>

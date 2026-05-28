@@ -5,6 +5,7 @@ import Breadcrumbs from '../../../components/Breadcrumbs.astro';
 import { withBase } from '../../../utils/site';
 import { getPublishedArticles, getPublishedArticleTagCounts } from '../../../utils/content';
 import { siteMeta, slugifyTag } from '../../../utils/site-meta';
+import { getCollectionPageSchema } from '../../../utils/schema';
 
 export async function getStaticPaths() {
   const [articles, tags] = await Promise.all([
@@ -23,9 +24,23 @@ export async function getStaticPaths() {
 }
 
 const { tag, count, articles } = Astro.props;
+const pageDescription = `浏览与 ${tag} 相关的公开文章。`;
+const collectionSchema = getCollectionPageSchema({
+  site: Astro.site,
+  path: `/articles/tags/${slugifyTag(tag)}`,
+  name: `${tag} | 文章标签`,
+  description: pageDescription,
+  itemType: 'BlogPosting',
+  items: articles.map((article) => ({
+    name: article.data.title,
+    url: `/articles/${article.id}`,
+    description: article.data.description,
+    image: article.data.coverImage
+  }))
+});
 ---
 
-<BaseLayout title={`${tag} | 文章标签`} description={`浏览与 ${tag} 相关的公开文章。`}>
+<BaseLayout title={`${tag} | 文章标签`} description={pageDescription} structuredData={collectionSchema}>
   <Breadcrumbs
     items={[
       { label: '首页', href: '/' },

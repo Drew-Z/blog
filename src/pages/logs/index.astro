@@ -7,6 +7,7 @@ import DevlogCard from '../../components/DevlogCard.astro';
 import { withBase } from '../../utils/site';
 import { sortEditorialEntries } from '../../utils/entries';
 import { devlogProjectLabels, formatDate, siteMeta } from '../../utils/site-meta';
+import { getCollectionPageSchema } from '../../utils/schema';
 
 const logs = sortEditorialEntries(await getCollection('devlogs'));
 const featuredCount = logs.filter((log) => log.data.featured).length;
@@ -17,9 +18,23 @@ const filterProjects = Array.from(new Set(logs.map((log) => log.data.project))).
   label: devlogProjectLabels[project] ?? project,
   value: project
 }));
+const pageDescription = '项目开发过程、阶段结论和关键方案取舍记录。';
+const collectionSchema = getCollectionPageSchema({
+  site: Astro.site,
+  path: '/logs',
+  name: `开发日志 | ${siteMeta.name}`,
+  description: pageDescription,
+  itemType: 'BlogPosting',
+  items: logs.map((log) => ({
+    name: log.data.title,
+    url: `/logs/${log.id}`,
+    description: log.data.description,
+    image: log.data.coverImage
+  }))
+});
 ---
 
-<BaseLayout title={`开发日志 | ${siteMeta.name}`} description="项目开发过程、阶段结论和关键方案取舍记录。">
+<BaseLayout title={`开发日志 | ${siteMeta.name}`} description={pageDescription} structuredData={collectionSchema}>
   <Breadcrumbs items={[{ label: '首页', href: '/' }, { label: '日志' }]} />
   <section class="page-heading card page-heading--rich">
     <p class="eyebrow">Devlogs</p>
