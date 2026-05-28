@@ -4,10 +4,11 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import ContentPager from '../../components/ContentPager.astro';
 import ContentToc from '../../components/ContentToc.astro';
-import { withBase } from '../../utils/site';
+import { toSiteUrl, withBase } from '../../utils/site';
 import { getPublishedArticles } from '../../utils/content';
 import { getEntryNeighbors } from '../../utils/entries';
 import { estimateReadingTime, formatDate, slugifyTag } from '../../utils/site-meta';
+import { getAuthorSchema, getImageUrl } from '../../utils/schema';
 
 export async function getStaticPaths() {
   const articles = await getPublishedArticles();
@@ -32,6 +33,24 @@ const relatedArticles = allArticles
   .map(({ item }) => item);
 const readingTime = estimateReadingTime(article.body);
 const { newer, older } = getEntryNeighbors(allArticles, (item) => item.id === article.id);
+const articleUrl = toSiteUrl(`/articles/${article.id}`, Astro.site);
+const authorSchema = getAuthorSchema(Astro.site);
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  '@id': `${articleUrl}#article`,
+  headline: article.data.title,
+  description: article.data.description,
+  image: getImageUrl(article.data.coverImage, Astro.site),
+  url: articleUrl,
+  mainEntityOfPage: articleUrl,
+  datePublished: article.data.pubDate.toISOString(),
+  dateModified: (article.data.updatedDate ?? article.data.pubDate).toISOString(),
+  author: authorSchema,
+  publisher: authorSchema,
+  keywords: article.data.tags,
+  inLanguage: 'zh-CN'
+};
 ---
 
 <BaseLayout
@@ -39,6 +58,7 @@ const { newer, older } = getEntryNeighbors(allArticles, (item) => item.id === ar
   description={article.data.description}
   image={article.data.coverImage}
   type="article"
+  structuredData={articleSchema}
 >
   <Breadcrumbs items={[{ label: '首页', href: '/' }, { label: '文章', href: '/articles' }, { label: article.data.title }]} />
   <article class="content-layout">

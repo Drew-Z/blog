@@ -1,5 +1,6 @@
 ---
 import { toSiteUrl, withBase } from '../utils/site';
+import { serializeJsonLd } from '../utils/schema';
 
 interface Item {
   label: string;
@@ -39,6 +40,6 @@ const breadcrumbJson = {
         ))}
       </ol>
     </nav>
-    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbJson)} />
+    <script type="application/ld+json" set:html={serializeJsonLd(breadcrumbJson)} />
   </>
 )}

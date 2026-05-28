@@ -4,10 +4,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import ArticleCard from '../components/ArticleCard.astro';
 import GameCard from '../components/GameCard.astro';
 import DevlogCard from '../components/DevlogCard.astro';
-import { withBase } from '../utils/site';
+import { toSiteUrl, withBase } from '../utils/site';
 import { getPublishedArticles } from '../utils/content';
 import { sortEditorialEntries } from '../utils/entries';
 import { devlogProjectLabels, gameStatusLabels, profileFocusAreas, siteMeta } from '../utils/site-meta';
+import { getAuthorSchema, getWebSiteSchema } from '../utils/schema';
 
 const games = sortEditorialEntries(await getCollection('games'));
 const logs = sortEditorialEntries(await getCollection('devlogs'));
@@ -33,9 +34,24 @@ const entryRoute = [
   homeLogs[0] ? { label: '再看阶段日志', href: `/logs/${homeLogs[0].id}`, title: homeLogs[0].data.title } : undefined,
   homeArticles[0] ? { label: '最后读长文', href: `/articles/${homeArticles[0].id}`, title: homeArticles[0].data.title } : undefined
 ].filter(Boolean);
+const homeUrl = toSiteUrl('/', Astro.site);
+const homeSchema = [
+  getWebSiteSchema(Astro.site),
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    '@id': `${homeUrl}#webpage`,
+    name: `${siteMeta.name} | ${siteMeta.title}`,
+    description: siteMeta.description,
+    url: homeUrl,
+    inLanguage: 'zh-CN',
+    isPartOf: { '@id': `${homeUrl}#website` },
+    about: getAuthorSchema(Astro.site)
+  }
+];
 ---
 
-<BaseLayout title={`${siteMeta.name} | ${siteMeta.title}`} description={siteMeta.description}>
+<BaseLayout title={`${siteMeta.name} | ${siteMeta.title}`} description={siteMeta.description} structuredData={homeSchema}>
   <section class="hero hero--home">
     <div class="hero-copy">
       <p class="eyebrow">Portfolio Blog</p>

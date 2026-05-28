@@ -5,14 +5,16 @@ import Breadcrumbs from '../components/Breadcrumbs.astro';
 import { withBase } from '../utils/site';
 import { getArticleWorkbenchStats, getPublishedArticles } from '../utils/content';
 import { profileFocusAreas, siteMeta } from '../utils/site-meta';
+import { getProfilePageSchema } from '../utils/schema';
 
 const games = await getCollection('games');
 const logs = await getCollection('devlogs');
 const articles = await getPublishedArticles();
 const articleWorkbenchStats = await getArticleWorkbenchStats();
+const profileSchema = getProfilePageSchema(Astro.site);
 ---
 
-<BaseLayout title={`关于 | ${siteMeta.name}`} description="这个作品展示博客的定位、内容结构与当前关注。">
+<BaseLayout title={`关于 | ${siteMeta.name}`} description="这个作品展示博客的定位、内容结构与当前关注。" structuredData={profileSchema}>
   <Breadcrumbs items={[{ label: '首页', href: '/' }, { label: '关于' }]} />
   <section class="page-heading card page-heading--rich">
     <p class="eyebrow">About</p>

@@ -6,6 +6,8 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
+    "clean:dist": "node tools/clean_dist.mjs",
+    "prebuild": "npm run clean:dist",
     "build": "astro build",
     "preview": "astro preview",
     "content:audit": "node tools/audit_site_content.mjs",

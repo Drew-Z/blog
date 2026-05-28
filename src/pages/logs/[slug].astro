@@ -4,9 +4,10 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import ContentPager from '../../components/ContentPager.astro';
 import ContentToc from '../../components/ContentToc.astro';
-import { withBase } from '../../utils/site';
+import { toSiteUrl, withBase } from '../../utils/site';
 import { getEntryNeighbors, sortEditorialEntries } from '../../utils/entries';
 import { devlogProjectLabels, estimateReadingTime, formatDate } from '../../utils/site-meta';
+import { getAuthorSchema, getImageUrl } from '../../utils/schema';
 
 export async function getStaticPaths() {
   const logs = await getCollection('devlogs');
@@ -26,9 +27,29 @@ const relatedLogs = allLogs
   .slice(0, 3);
 const readingTime = estimateReadingTime(log.body);
 const { newer, older } = getEntryNeighbors(allLogs, (item) => item.id === log.id);
+const logUrl = toSiteUrl(`/logs/${log.id}`, Astro.site);
+const authorSchema = getAuthorSchema(Astro.site);
+const logSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  '@id': `${logUrl}#article`,
+  headline: log.data.title,
+  description: log.data.description,
+  image: getImageUrl(log.data.coverImage, Astro.site),
+  url: logUrl,
+  mainEntityOfPage: logUrl,
+  datePublished: log.data.pubDate.toISOString(),
+  dateModified: (log.data.updatedDate ?? log.data.pubDate).toISOString(),
+  author: authorSchema,
+  publisher: authorSchema,
+  keywords: log.data.tags,
+  genre: '开发日志',
+  about: devlogProjectLabels[log.data.project] ?? log.data.project,
+  inLanguage: 'zh-CN'
+};
 ---
 
-<BaseLayout title={`${log.data.title} | 开发日志`} description={log.data.description}>
+<BaseLayout title={`${log.data.title} | 开发日志`} description={log.data.description} image={log.data.coverImage} type="article" structuredData={logSchema}>
   <Breadcrumbs items={[{ label: '首页', href: '/' }, { label: '日志', href: '/logs' }, { label: log.data.title }]} />
   <article class="content-layout">
     <div class="content-main">

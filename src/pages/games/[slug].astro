@@ -4,8 +4,9 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import ContentToc from '../../components/ContentToc.astro';
 import GameEmbed from '../../components/GameEmbed.astro';
-import { withBase } from '../../utils/site';
+import { toSiteUrl, withBase } from '../../utils/site';
 import { estimateReadingTime, formatDate, gameStatusLabels } from '../../utils/site-meta';
+import { getAuthorSchema, getImageUrl } from '../../utils/schema';
 
 export async function getStaticPaths() {
   const games = await getCollection('games');
@@ -55,6 +56,27 @@ const hasSyncDetails =
   game.data.keyDocs.length > 0 ||
   game.data.directoryMap.length > 0;
 const readingTime = estimateReadingTime(game.body);
+const gameUrl = toSiteUrl(`/games/${game.id}`, Astro.site);
+const authorSchema = getAuthorSchema(Astro.site);
+const gameSameAs = [game.data.externalPage, game.data.repoUrl].filter((url): url is string => Boolean(url));
+const gameSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'VideoGame',
+  '@id': `${gameUrl}#game`,
+  name: game.data.title,
+  description: game.data.summary,
+  image: getImageUrl(game.data.thumbnail, Astro.site),
+  url: gameUrl,
+  datePublished: game.data.pubDate.toISOString(),
+  dateModified: (game.data.updatedDate ?? game.data.pubDate).toISOString(),
+  author: authorSchema,
+  creator: authorSchema,
+  gamePlatform: game.data.platforms,
+  keywords: game.data.tags,
+  genre: game.data.tags,
+  sameAs: gameSameAs.length > 0 ? gameSameAs : undefined,
+  inLanguage: 'zh-CN'
+};
 ---
 
 <BaseLayout
@@ -62,6 +84,7 @@ const readingTime = estimateReadingTime(game.body);
   description={game.data.summary}
   image={game.data.thumbnail}
   type="article"
+  structuredData={gameSchema}
 >
   <Breadcrumbs items={[{ label: '首页', href: '/' }, { label: '作品', href: '/games' }, { label: game.data.title }]} />
   <article class="content-layout">
