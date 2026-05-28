@@ -38,7 +38,7 @@ const {
 ---
 
 <article class="card game-card game-card--rich">
-  <a class="card-media" href={withBase(href)}>
+  <a class="card-media" href={withBase(href)} aria-label={`查看项目详情：${title}`}>
     {thumbnail ? (
       <>
         <img src={withBase(thumbnail)} alt={title} loading="lazy" decoding="async" />
