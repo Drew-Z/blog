@@ -30,9 +30,9 @@ const downloadableCount = games.filter((item) => item.data.downloadLinks.length 
 const trackedProjects = games.slice(0, 5);
 const webDemoGames = games.filter((item) => item.data.playableWeb).slice(0, 5);
 const entryRoute = [
-  homeGames[0] ? { label: '先看代表项目', href: `/games/${homeGames[0].id}`, title: homeGames[0].data.title } : undefined,
-  homeLogs[0] ? { label: '再看阶段日志', href: `/logs/${homeLogs[0].id}`, title: homeLogs[0].data.title } : undefined,
-  homeArticles[0] ? { label: '最后读长文', href: `/articles/${homeArticles[0].id}`, title: homeArticles[0].data.title } : undefined
+  homeGames[0] ? { label: 'Playable', href: `/games/${homeGames[0].id}`, title: homeGames[0].data.title, note: '先验证项目完成度' } : undefined,
+  homeLogs[0] ? { label: 'Process', href: `/logs/${homeLogs[0].id}`, title: homeLogs[0].data.title, note: '再看推进和取舍' } : undefined,
+  homeArticles[0] ? { label: 'Systems', href: `/articles/${homeArticles[0].id}`, title: homeArticles[0].data.title, note: '最后看拆解方法' } : undefined
 ].filter(Boolean);
 const homeUrl = toSiteUrl('/', Astro.site);
 const homeSchema = [
@@ -54,43 +54,47 @@ const homeSchema = [
 <BaseLayout title={`${siteMeta.name} | ${siteMeta.title}`} description={siteMeta.description} structuredData={homeSchema}>
   <section class="hero hero--home">
     <div class="hero-copy">
-      <p class="eyebrow">Portfolio Blog</p>
-      <h1>把游戏原型、阶段决策、目录结构和展示收口放在同一个作品站里。</h1>
+      <p class="eyebrow">Biau Playlab / Game Systems Archive</p>
+      <h1>可玩的游戏原型，和能解释决策的系统档案。</h1>
       <p>
-        {siteMeta.description}
-        这里不只展示“做了什么”，也会同步“现在做到哪里、目录怎么组织、下一步准备怎么推进”，更适合招聘评估、合作沟通和阶段复盘时快速建立理解。
+        这个站点把 Godot 原型、Web 试玩、阶段日志和系统策划拆解压进同一个浏览路径。
+        它不是传统博客首页，而是一张作品集控制台：先看项目是否跑得起来，再看我如何拆问题、做取舍、把内容收口成可交付案例。
       </p>
       <div class="button-row">
-        <a class="button" href={withBase('/games')}>查看项目案例</a>
-        <a class="button button--ghost" href={withBase('/logs')}>浏览开发日志</a>
+        <a class="button" href={withBase('/games')}>进入项目库</a>
+        <a class="button button--ghost" href={withBase('/articles')}>查看系统拆解</a>
       </div>
       <div class="tag-list">
         <span>Godot 原型</span>
-        <span>系统策划</span>
-        <span>进度同步</span>
         <span>Web 试玩</span>
+        <span>系统策划</span>
+        <span>作品集收口</span>
       </div>
     </div>
 
-    <div class="hero-panel">
+    <div class="hero-panel status-board">
+      <div class="station-row">
+        <span>Build Monitor</span>
+        <strong>{games.length} Projects Online</strong>
+      </div>
       <div class="kpi-grid">
         <div class="mini-panel">
           <strong>{games.length}</strong>
-          <p>个项目案例</p>
+          <p>项目案例</p>
         </div>
         <div class="mini-panel">
           <strong>{playableCount}</strong>
-          <p>个在线试玩入口</p>
+          <p>在线试玩</p>
         </div>
         <div class="mini-panel">
           <strong>{downloadableCount}</strong>
-          <p>个下载体验入口</p>
+          <p>下载入口</p>
         </div>
       </div>
 
       {spotlightGame && (
         <a class="hero-spotlight-card" href={withBase(`/games/${spotlightGame.id}`)}>
-          <p class="eyebrow">当前门面项目</p>
+          <p class="eyebrow">当前主推项目</p>
           <strong>{spotlightGame.data.title}</strong>
           <span>{spotlightGame.data.summary}</span>
           <div class="tag-list">
@@ -102,42 +106,67 @@ const homeSchema = [
     </div>
   </section>
 
-  <section class="card">
+  <section class="section-banner mission-rail">
     <div class="section-heading">
       <div>
-        <h2>试玩总入口</h2>
-        <p class="content-meta">如果你想先上手，不想先读文档，可以直接从这里进入当前已经接通的五个 Web 试玩。</p>
+        <h2>建议浏览路径</h2>
+        <p class="content-meta">按“能不能玩、怎么做成、如何拆解”的顺序读，信息密度最高。</p>
       </div>
-      <a href={withBase('/games')}>查看完整项目说明</a>
     </div>
-    <div class="play-lane">
-      {webDemoGames.map((game) => (
-        <article class="play-lane-card">
-          <div class="play-lane-copy">
-            <p class="eyebrow">Web Demo</p>
-            <strong>{game.data.title}</strong>
-            <span>{game.data.currentPhase ?? game.data.summary}</span>
-          </div>
-          <div class="tag-list">
-            <span>{game.data.engine}</span>
-            <span>{game.data.platforms.join(' / ')}</span>
-          </div>
-          <div class="card-actions">
-            {game.data.embedUrl ? (
-              <a class="button button--small" href={withBase(game.data.embedUrl)} target="_blank" rel="noopener noreferrer">立即试玩</a>
-            ) : null}
-            <a class="button button--ghost button--small" href={withBase(`/games/${game.id}`)}>项目详情</a>
-          </div>
-        </article>
+    <div class="route-grid">
+      {entryRoute.map((item) => (
+        <a class="route-card" href={withBase(item!.href)}>
+          <p class="eyebrow">{item!.label}</p>
+          <strong>{item!.title}</strong>
+          <span>{item!.note}</span>
+        </a>
       ))}
+      <a class="route-card route-card--quiet" href={withBase('/about')}>
+        <p class="eyebrow">Profile</p>
+        <strong>个人定位与合作场景</strong>
+        <span>快速判断我更适合做哪类工作</span>
+      </a>
     </div>
   </section>
+
+  {webDemoGames.length > 0 && (
+    <section class="card">
+      <div class="section-heading">
+        <div>
+          <h2>试玩入口</h2>
+          <p class="content-meta">已经接通的 Web build 放在最前面，先上手，再读项目说明。</p>
+        </div>
+        <a href={withBase('/games')}>完整项目库</a>
+      </div>
+      <div class="play-lane">
+        {webDemoGames.map((game) => (
+          <article class="play-lane-card">
+            <div class="play-lane-copy">
+              <p class="eyebrow">Web Demo</p>
+              <strong>{game.data.title}</strong>
+              <span>{game.data.currentPhase ?? game.data.summary}</span>
+            </div>
+            <div class="tag-list">
+              <span>{game.data.engine}</span>
+              <span>{game.data.platforms.join(' / ')}</span>
+            </div>
+            <div class="card-actions">
+              {game.data.embedUrl ? (
+                <a class="button button--small" href={withBase(game.data.embedUrl)} target="_blank" rel="noopener noreferrer">立即试玩</a>
+              ) : null}
+              <a class="button button--ghost button--small" href={withBase(`/games/${game.id}`)}>项目详情</a>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+  )}
 
   <section class="card">
     <div class="section-heading">
       <div>
-        <h2>五个项目总览</h2>
-        <p class="content-meta">把当前阶段、入口形式和下一步意图统一压成一屏，方便先看全局再深入单个项目。</p>
+        <h2>项目雷达</h2>
+        <p class="content-meta">把阶段、入口和当前状态压成一屏，方便快速判断每个项目的展示成熟度。</p>
       </div>
       <a href={withBase('/games')}>进入作品页</a>
     </div>
@@ -156,10 +185,10 @@ const homeSchema = [
             <span>
               入口：
               {game.data.playableWeb
-                ? ' 在线试玩'
+                ? '在线试玩'
                 : game.data.downloadLinks.length > 0
-                  ? ' 下载 / 外链体验'
-                  : ' 案例页阅读'}
+                  ? '下载 / 外链体验'
+                  : '案例页阅读'}
             </span>
           </div>
         </a>
@@ -167,74 +196,12 @@ const homeSchema = [
     </div>
   </section>
 
-  <section class="section-banner">
-    <div class="section-heading">
-      <div>
-        <h2>第一次来，建议这样浏览</h2>
-        <p class="content-meta">先看项目，再看过程，最后看方法论，理解效率最高。</p>
-      </div>
-    </div>
-    <div class="feature-grid">
-      <div class="mini-panel">
-        <p class="eyebrow">01 项目案例</p>
-        <p>先看作品页，快速知道项目类型、当前阶段、目录结构、试玩入口和核心职责。</p>
-      </div>
-      <div class="mini-panel">
-        <p class="eyebrow">02 开发日志</p>
-        <p>再看阶段日志，理解这些项目是怎么一步步收口、为什么这样做、做了哪些取舍。</p>
-      </div>
-      <div class="mini-panel">
-        <p class="eyebrow">03 深度文章</p>
-        <p>最后读系统设计和游戏拆解文章，看分析框架、表达组织和判断方式。</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="card">
-    <div class="section-heading">
-      <div>
-        <h2>个人定位</h2>
-        <p class="content-meta">如果你想快速判断我更偏哪一类工作，可以先看这三个重点方向。</p>
-      </div>
-      <a href={withBase('/about')}>查看详细说明</a>
-    </div>
-    <div class="positioning-grid">
-      {profileFocusAreas.map((item) => (
-        <article class="positioning-card">
-          <p class="eyebrow">Focus</p>
-          <strong>{item.title}</strong>
-          <span class="positioning-ratio">{item.ratio}</span>
-          <p>{item.summary}</p>
-        </article>
-      ))}
-    </div>
-  </section>
-
-  {entryRoute.length > 0 && (
-    <section class="card">
-      <div class="section-heading">
-        <div>
-          <h2>推荐起点</h2>
-          <p class="content-meta">如果你想在最短时间内建立整体印象，可以直接按这条路线往下看。</p>
-        </div>
-      </div>
-      <div class="route-grid">
-        {entryRoute.map((item) => (
-          <a class="route-card" href={withBase(item!.href)}>
-            <p class="eyebrow">{item!.label}</p>
-            <strong>{item!.title}</strong>
-          </a>
-        ))}
-      </div>
-    </section>
-  )}
-
   {(spotlightGame || spotlightLog || spotlightArticle) && (
     <section class="card spotlight-shell">
       <div class="section-heading">
         <div>
-          <h2>编辑主推</h2>
-          <p class="content-meta">把最适合作为门面、过程入口和方法论入口的内容单独拎出来，方便第一次访问时快速建立完整印象。</p>
+          <h2>主推档案</h2>
+          <p class="content-meta">把项目、过程和方法论分成三种证据，避免只看结果不看判断过程。</p>
         </div>
       </div>
       <div class="spotlight-grid">
@@ -251,7 +218,7 @@ const homeSchema = [
         <div class="spotlight-side">
           {spotlightLog && (
             <a class="editor-pick-card" href={withBase(`/logs/${spotlightLog.id}`)}>
-              <p class="eyebrow">Process Pick</p>
+              <p class="eyebrow">Process Log</p>
               <strong>{spotlightLog.data.title}</strong>
               <p>{devlogProjectLabels[spotlightLog.data.project] ?? spotlightLog.data.project}</p>
               <span>{spotlightLog.data.description}</span>
@@ -259,7 +226,7 @@ const homeSchema = [
           )}
           {spotlightArticle && (
             <a class="editor-pick-card" href={withBase(`/articles/${spotlightArticle.id}`)}>
-              <p class="eyebrow">Method Pick</p>
+              <p class="eyebrow">Systems Note</p>
               <strong>{spotlightArticle.data.title}</strong>
               <p>{spotlightArticle.data.tags.slice(0, 3).join(' / ') || '系统分析'}</p>
               <span>{spotlightArticle.data.description}</span>
@@ -273,100 +240,100 @@ const homeSchema = [
   <section class="card">
     <div class="section-heading">
       <div>
-        <h2>近期作品</h2>
-        <p class="content-meta">优先展示当前最值得先看的项目案例。</p>
+        <h2>工作重心</h2>
+        <p class="content-meta">用三个方向说明这个作品站想证明什么。</p>
       </div>
-      <a href={withBase('/games')}>查看全部项目</a>
+      <a href={withBase('/about')}>详细说明</a>
     </div>
-    <div class="grid grid--cards-lg">
-      {homeGames.map((game) => (
-        <GameCard
-          href={`/games/${game.id}`}
-          title={game.data.title}
-          summary={game.data.summary}
-          description={game.data.description}
-          status={game.data.status}
-          role={game.data.role}
-          platforms={game.data.platforms}
-          playableWeb={game.data.playableWeb}
-          thumbnail={game.data.thumbnail}
-          featured={game.data.featured}
-          screenshotCount={game.data.screenshots.length}
-          engine={game.data.engine}
-          currentPhase={game.data.currentPhase}
-          playUrl={game.data.embedUrl}
-        />
+    <div class="positioning-grid">
+      {profileFocusAreas.map((item) => (
+        <article class="positioning-card">
+          <p class="eyebrow">Focus</p>
+          <strong>{item.title}</strong>
+          <span class="positioning-ratio">{item.ratio}</span>
+          <p>{item.summary}</p>
+        </article>
       ))}
     </div>
   </section>
 
-  <section class="card">
-    <div class="section-heading">
-      <div>
-        <h2>近期日志</h2>
-        <p class="content-meta">这些内容更适合解释项目是怎么一步步推进成现在这个样子的。</p>
+  <section class="content-dashboard">
+    <div class="card">
+      <div class="section-heading">
+        <div>
+          <h2>近期作品</h2>
+          <p class="content-meta">当前最适合作为作品集入口的项目。</p>
+        </div>
+        <a href={withBase('/games')}>全部项目</a>
       </div>
-      <a href={withBase('/logs')}>查看全部日志</a>
+      <div class="grid grid--cards-lg">
+        {homeGames.map((game) => (
+          <GameCard
+            href={`/games/${game.id}`}
+            title={game.data.title}
+            summary={game.data.summary}
+            description={game.data.description}
+            status={game.data.status}
+            role={game.data.role}
+            platforms={game.data.platforms}
+            playableWeb={game.data.playableWeb}
+            thumbnail={game.data.thumbnail}
+            featured={game.data.featured}
+            screenshotCount={game.data.screenshots.length}
+            engine={game.data.engine}
+            currentPhase={game.data.currentPhase}
+            playUrl={game.data.embedUrl}
+          />
+        ))}
+      </div>
     </div>
-    <div class="grid grid--cards-lg">
-      {homeLogs.map((log) => (
-        <DevlogCard
-          href={`/logs/${log.id}`}
-          title={log.data.title}
-          description={log.data.description}
-          pubDate={log.data.pubDate}
-          tags={log.data.tags}
-          project={devlogProjectLabels[log.data.project] ?? log.data.project}
-          featured={log.data.featured}
-        />
-      ))}
-    </div>
-  </section>
 
-  <section class="card">
-    <div class="section-heading">
-      <div>
-        <h2>精选文章</h2>
-        <p class="content-meta">如果你更关心分析框架、表达方式和系统判断，可以从这里进入。</p>
-      </div>
-      <a href={withBase('/articles')}>查看全部文章</a>
-    </div>
-    <div class="grid grid--cards-lg">
-      {homeArticles.map((article) => (
-        <ArticleCard
-          href={`/articles/${article.id}`}
-          title={article.data.title}
-          description={article.data.description}
-          pubDate={article.data.pubDate}
-          tags={article.data.tags}
-          coverImage={article.data.coverImage}
-          featured={article.data.featured}
-        />
-      ))}
-    </div>
-  </section>
+    <div class="side-stack">
+      <section class="card">
+        <div class="section-heading">
+          <div>
+            <h2>开发记录</h2>
+            <p class="content-meta">解释项目是怎么逐步收口的。</p>
+          </div>
+          <a href={withBase('/logs')}>全部日志</a>
+        </div>
+        <div class="compact-list">
+          {homeLogs.map((log) => (
+            <DevlogCard
+              href={`/logs/${log.id}`}
+              title={log.data.title}
+              description={log.data.description}
+              pubDate={log.data.pubDate}
+              tags={log.data.tags}
+              project={devlogProjectLabels[log.data.project] ?? log.data.project}
+              featured={log.data.featured}
+            />
+          ))}
+        </div>
+      </section>
 
-  <section class="card bilingual-card">
-    <div class="section-heading">
-      <div>
-        <h2>English Summary</h2>
-        <p class="content-meta">A compact overview for portfolio sharing, cross-team handoff, or readers who prefer English first.</p>
-      </div>
-    </div>
-    <p class="bilingual-lead">{siteMeta.englishDescription}</p>
-    <div class="feature-grid">
-      <div class="mini-panel">
-        <p class="eyebrow">What You’ll Find</p>
-        <p>Playable game cases, development logs, and long-form systems writing collected in one portfolio blog.</p>
-      </div>
-      <div class="mini-panel">
-        <p class="eyebrow">Best Fit</p>
-        <p>Prototype design, systems thinking, structured writing, and packaging projects into showcase-ready case studies.</p>
-      </div>
-      <div class="mini-panel">
-        <p class="eyebrow">Suggested Route</p>
-        <p>Start from a featured project, continue with a devlog, then move to a systems article for methodology and communication style.</p>
-      </div>
+      <section class="card">
+        <div class="section-heading">
+          <div>
+            <h2>系统文章</h2>
+            <p class="content-meta">展示拆解框架、表达方式和判断密度。</p>
+          </div>
+          <a href={withBase('/articles')}>全部文章</a>
+        </div>
+        <div class="compact-list">
+          {homeArticles.map((article) => (
+            <ArticleCard
+              href={`/articles/${article.id}`}
+              title={article.data.title}
+              description={article.data.description}
+              pubDate={article.data.pubDate}
+              tags={article.data.tags}
+              coverImage={article.data.coverImage}
+              featured={article.data.featured}
+            />
+          ))}
+        </div>
+      </section>
     </div>
   </section>
 </BaseLayout>
