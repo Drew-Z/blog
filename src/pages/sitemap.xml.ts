@@ -19,9 +19,8 @@ function xmlEscape(value: string) {
 }
 
 export const GET: APIRoute = async ({ site }) => {
-  const [games, logs, articles, tags] = await Promise.all([
+  const [games, articles, tags] = await Promise.all([
     getCollection('games'),
-    getCollection('devlogs'),
     getPublishedArticles(),
     getPublishedArticleTagCounts()
   ]);
@@ -30,16 +29,11 @@ export const GET: APIRoute = async ({ site }) => {
     { path: '/' },
     { path: '/about' },
     { path: '/games' },
-    { path: '/logs' },
     { path: '/articles' },
     { path: '/articles/tags' },
     ...games.map((game) => ({
       path: `/games/${game.id}`,
       lastmod: game.data.updatedDate ?? game.data.pubDate
-    })),
-    ...logs.map((log) => ({
-      path: `/logs/${log.id}`,
-      lastmod: log.data.updatedDate ?? log.data.pubDate
     })),
     ...articles.map((article) => ({
       path: `/articles/${article.id}`,

@@ -17,6 +17,8 @@ platforms:
   - Web 试玩
   - Windows
 thumbnail: /images/projects/space-war-gameplay.png
+playtestVideo: /videos/projects/space-war-playtest.mp4
+playtestPoster: /images/projects/space-war-gameplay.png
 screenshots:
   - src: /images/projects/space-war-menu.png
     title: 主菜单承接继续游戏、设置、语言切换和版本定位

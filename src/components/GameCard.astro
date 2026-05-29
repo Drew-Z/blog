@@ -3,6 +3,7 @@ import { withBase } from '../utils/site';
 import { gameStatusLabels } from '../utils/site-meta';
 
 interface Props {
+  slug?: string;
   href: string;
   title: string;
   summary: string;
@@ -20,6 +21,7 @@ interface Props {
 }
 
 const {
+  slug,
   href,
   title,
   summary,
@@ -35,9 +37,21 @@ const {
   currentPhase,
   playUrl
 } = Astro.props;
+
+const projectAccents: Record<string, { accent: string; accent2: string; rgb: string }> = {
+  'first-tetris': { accent: '#0078d4', accent2: '#00a99d', rgb: '0, 120, 212' },
+  'next-spacewar': { accent: '#0b7bd3', accent2: '#4aa3ff', rgb: '11, 123, 211' },
+  intespace: { accent: '#00a99d', accent2: '#7cddc9', rgb: '0, 169, 157' },
+  raiden: { accent: '#ff7a59', accent2: '#f4b23f', rgb: '255, 122, 89' },
+  'space-war': { accent: '#21a65b', accent2: '#9fd36a', rgb: '33, 166, 91' }
+};
+const accent = slug ? projectAccents[slug] : undefined;
+const accentStyle = accent
+  ? `--project-accent: ${accent.accent}; --project-accent-2: ${accent.accent2}; --project-rgb: ${accent.rgb};`
+  : undefined;
 ---
 
-<article class="card game-card game-card--rich">
+<article class:list={['card', 'game-card', 'game-card--rich', slug && `game-card--${slug}`]} style={accentStyle}>
   <a class="card-media" href={withBase(href)} aria-label={`查看项目详情：${title}`}>
     {thumbnail ? (
       <>
@@ -74,22 +88,13 @@ const {
       <span class="badge">{playableWeb ? 'Web 可试玩' : '案例阅读'}</span>
     </div>
 
-    <div class="game-card-case-grid">
-      <div class="mini-panel">
-        <p class="eyebrow">验证目标</p>
-        <p>{description}</p>
-      </div>
-      <div class="mini-panel">
-        <p class="eyebrow">我的职责</p>
-        <p>{role ?? '待补充'}</p>
-      </div>
+    <div class="game-card-detail-list">
+      <span><strong>验证</strong>{description}</span>
+      <span><strong>职责</strong>{role ?? '待补充'}</span>
+      <span><strong>阶段</strong>{currentPhase ?? gameStatusLabels[status] ?? status}</span>
+      <span><strong>平台</strong>{platforms.join(' / ') || '待补充'}</span>
     </div>
 
-    <div class="meta-stack">
-      <span>阶段：{gameStatusLabels[status] ?? status}</span>
-      {currentPhase ? <span>当前阶段：{currentPhase}</span> : null}
-      <span>平台：{platforms.join(' / ') || '待补充'}</span>
-    </div>
     <div class="game-card-foot">
       <span class="game-card-track">{playableWeb ? '可直接试玩，也适合当作品集入口' : '当前以案例和截图展示为主'}</span>
       <div class="card-actions">

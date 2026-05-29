@@ -13,7 +13,7 @@ const games = sortEditorialEntries(await getCollection('games'));
 const featuredCount = games.filter((game) => game.data.featured).length;
 const playableCount = games.filter((game) => game.data.playableWeb || game.data.status === 'playable').length;
 const ongoingCount = games.filter((game) => game.data.status === 'ongoing').length;
-const entryGame = games[0];
+const leadGame = games.find((game) => game.data.featured) ?? games[0];
 const galleryShots = games
   .flatMap((game) =>
     game.data.screenshots.slice(0, 2).map((shot, index) => ({
@@ -27,6 +27,55 @@ const galleryShots = games
   )
   .slice(0, 4);
 const webDemoGames = games.filter((game) => game.data.playableWeb).slice(0, 5);
+const projectPersonas: Record<string, { kicker: string; identity: string; accent: string; accent2: string; rgb: string }> = {
+  'first-tetris': {
+    kicker: 'Rogue Tetris Lab',
+    identity: '经典方块、Rogue 实验和移动触控并行推进',
+    accent: '#0078d4',
+    accent2: '#00a99d',
+    rgb: '0, 120, 212'
+  },
+  'next-spacewar': {
+    kicker: 'Showcase Shooter',
+    identity: '单关空战、菜单帮助和结果页收成展示版',
+    accent: '#0b7bd3',
+    accent2: '#4aa3ff',
+    rgb: '11, 123, 211'
+  },
+  intespace: {
+    kicker: 'Mobile Roguelite',
+    identity: '竖屏自动射击、武器树和局外成长收口',
+    accent: '#00a99d',
+    accent2: '#7cddc9',
+    rgb: '0, 169, 157'
+  },
+  raiden: {
+    kicker: 'Arcade RC Build',
+    identity: '纵版街机双关 Demo 和公开试玩包装',
+    accent: '#ff7a59',
+    accent2: '#f4b23f',
+    rgb: '255, 122, 89'
+  },
+  'space-war': {
+    kicker: 'Retro Release',
+    identity: 'Nokia 横向卷轴复刻、Boss 和正式发布流程',
+    accent: '#21a65b',
+    accent2: '#9fd36a',
+    rgb: '33, 166, 91'
+  }
+};
+const projectPlaytestCards = games
+  .filter((game) => game.data.playtestVideo)
+  .map((game) => ({
+    game,
+    persona: projectPersonas[game.id] ?? {
+      kicker: 'Playable Case',
+      identity: game.data.summary,
+      accent: '#0078d4',
+      accent2: '#00a99d',
+      rgb: '0, 120, 212'
+    }
+  }));
 const filterGroups = [
   { label: '重点项目', value: 'featured' },
   { label: '持续迭代', value: 'ongoing' },
@@ -56,114 +105,98 @@ const collectionSchema = getCollectionPageSchema({
 
 <BaseLayout title={`游戏作品 | ${siteMeta.name}`} description={pageDescription} structuredData={collectionSchema}>
   <Breadcrumbs items={[{ label: '首页', href: '/' }, { label: '作品' }]} />
-  <section class="page-heading card page-heading--rich">
-    <p class="eyebrow">Games</p>
-    <h1>游戏作品</h1>
-    <p>这里收录围绕玩法验证、展示版收口和多端适配整理的项目案例。每个项目页都会同步当前阶段、目录聚焦、关键文档、下载入口和在线试玩方式。</p>
+  <section class="page-heading card archive-hero archive-hero--games">
+    <div class="archive-hero-copy">
+      <p class="eyebrow">Games</p>
+      <h1>游戏作品</h1>
+      <p>把 Godot 原型、Web build 和项目截图放在同一个归档里。这里优先展示能看出完成度、玩法方向和当前阶段的案例。</p>
+      <div class="button-row">
+        <a class="button" href="#games-archive-search">筛选项目</a>
+        {webDemoGames[0]?.data.embedUrl ? (
+          <a class="button button--ghost" href="#playtest-matrix">试玩切片</a>
+        ) : (
+          <a class="button button--ghost" href={withBase('/articles')}>阅读拆解</a>
+        )}
+      </div>
+      <div class="archive-metrics">
+        <span><strong>{games.length}</strong> 项目</span>
+        <span><strong>{playableCount}</strong> 试玩</span>
+        <span><strong>{featuredCount}</strong> 精选</span>
+        <span><strong>{ongoingCount}</strong> 迭代中</span>
+      </div>
+    </div>
+
+    {leadGame && (
+      <a class="archive-feature-card archive-feature-card--game" href={withBase(`/games/${leadGame.id}`)}>
+        {leadGame.data.thumbnail ? (
+          <img src={withBase(leadGame.data.thumbnail)} alt={leadGame.data.title} loading="eager" decoding="async" />
+        ) : null}
+        <div class="archive-feature-copy">
+          <p class="eyebrow">Featured Case</p>
+          <strong>{leadGame.data.title}</strong>
+          <span>{leadGame.data.summary}</span>
+          <div class="tag-list">
+            <span>{leadGame.data.engine}</span>
+            <span>{leadGame.data.playableWeb ? '可在线试玩' : gameStatusLabels[leadGame.data.status]}</span>
+          </div>
+        </div>
+      </a>
+    )}
   </section>
 
-  <section class="section-banner">
-    <div class="feature-grid">
-      <div class="mini-panel">
-        <p class="eyebrow">项目总数</p>
-        <strong>{games.length}</strong>
-        <p>当前公开可浏览的项目案例。</p>
+  <section class="showcase-reel card showcase-reel--archive">
+    <div class="showcase-reel-copy">
+      <p class="eyebrow">Capture Reel</p>
+      <h2>项目运行画面合集</h2>
+      <p>
+        把五个 Godot 项目的真实运行片段集中成一条预览线，先看节奏、界面和完成度，再进入单个案例页深入验证。
+      </p>
+      <div class="tag-list">
+        <span>5 个项目</span>
+        <span>真实运行采集</span>
+        <span>横版展示</span>
       </div>
-      <div class="mini-panel">
-        <p class="eyebrow">重点项目</p>
-        <strong>{featuredCount}</strong>
-        <p>优先推荐先看的代表作。</p>
-      </div>
-      <div class="mini-panel">
-        <p class="eyebrow">持续迭代</p>
-        <strong>{ongoingCount}</strong>
-        <p>仍在继续推进和打磨的项目。</p>
-      </div>
-      <div class="mini-panel">
-        <p class="eyebrow">试玩入口</p>
-        <strong>{playableCount}</strong>
-        <p>已经具备 Web 或可玩验证条件的项目。</p>
-      </div>
+    </div>
+    <div class="showcase-reel-media">
+      <video
+        controls
+        playsinline
+        preload="metadata"
+        poster={withBase('/images/projects/project-showcase-preview.png')}
+      >
+        <source src={withBase('/videos/project-showcase.mp4')} type="video/mp4" />
+      </video>
     </div>
   </section>
 
-  {entryGame && (
-    <section class="card games-entry-card">
+  {projectPlaytestCards.length > 0 && (
+    <section id="playtest-matrix" class="card project-playtest-index">
       <div class="section-heading">
         <div>
-          <h2>建议先看</h2>
-          <p class="content-meta">如果你只打算先看一个项目，优先从当前最适合作为门面的案例开始。</p>
-        </div>
-        <a href={withBase(`/games/${entryGame.id}`)}>进入案例</a>
-      </div>
-      <div class="games-entry-grid">
-        <div class="mini-panel">
-          <p class="eyebrow">当前推荐项目</p>
-          <strong>{entryGame.data.title}</strong>
-          <p>{entryGame.data.summary}</p>
-        </div>
-        <div class="mini-panel">
-          <p class="eyebrow">当前阶段</p>
-          <p>{entryGame.data.currentPhase ?? gameStatusLabels[entryGame.data.status] ?? entryGame.data.status}</p>
-        </div>
-        <div class="mini-panel">
-          <p class="eyebrow">体验方式</p>
-          <p>{entryGame.data.playableWeb ? '可在线试玩，并带下载或案例入口' : '当前以案例归档和阶段说明为主'}</p>
+          <p class="eyebrow">Playtest Matrix</p>
+          <h2>五个项目试玩切片</h2>
+          <p class="content-meta">每个卡片都指向对应项目的实机试玩视频，方便快速比较玩法类型、页面完成度和当前阶段。</p>
         </div>
       </div>
-    </section>
-  )}
-
-  {galleryShots.length > 0 && (
-    <section class="card">
-      <div class="section-heading">
-        <div>
-          <h2>真实画面预览</h2>
-          <p class="content-meta">统一把项目里最有代表性的画面拿出来预览，比只看封面更容易判断项目是否已经进入可展示状态。</p>
-        </div>
-      </div>
-      <div class="project-gallery-grid">
-        {galleryShots.map((shot) => (
-          <a class="project-gallery-card" href={withBase(shot.href)}>
-            <img src={withBase(shot.src)} alt={`${shot.gameTitle} ${shot.title}`} loading="lazy" decoding="async" />
-            <div class="project-gallery-copy">
-              <p class="eyebrow">{shot.gameTitle}</p>
-              <strong>{shot.title}</strong>
-              <span>{shot.note}</span>
+      <div class="project-playtest-index-grid">
+        {projectPlaytestCards.map(({ game, persona }) => (
+          <a
+            class="project-playtest-index-card"
+            href={withBase(`/games/${game.id}#playtest`)}
+            style={`--project-accent: ${persona.accent}; --project-accent-2: ${persona.accent2}; --project-rgb: ${persona.rgb};`}
+          >
+            <div class="project-playtest-index-media">
+              {game.data.playtestPoster || game.data.thumbnail ? (
+                <img src={withBase(game.data.playtestPoster ?? game.data.thumbnail)} alt={`${game.data.title} 试玩画面`} loading="lazy" decoding="async" />
+              ) : null}
+              <span>看试玩视频</span>
+            </div>
+            <div class="project-playtest-index-copy">
+              <p class="eyebrow">{persona.kicker}</p>
+              <strong>{game.data.title}</strong>
+              <span>{persona.identity}</span>
             </div>
           </a>
-        ))}
-      </div>
-    </section>
-  )}
-
-  {webDemoGames.length > 0 && (
-    <section class="card">
-      <div class="section-heading">
-        <div>
-          <h2>当前试玩入口</h2>
-          <p class="content-meta">所有已经接通 R2 的 Web build 都汇总在这里，适合先快速上手，再回头看案例说明。</p>
-        </div>
-      </div>
-      <div class="play-lane">
-        {webDemoGames.map((game) => (
-          <article class="play-lane-card">
-            <div class="play-lane-copy">
-              <p class="eyebrow">Playable Build</p>
-              <strong>{game.data.title}</strong>
-              <span>{game.data.currentPhase ?? game.data.summary}</span>
-            </div>
-            <div class="tag-list">
-              <span>{game.data.engine}</span>
-              <span>{gameStatusLabels[game.data.status] ?? game.data.status}</span>
-            </div>
-            <div class="card-actions">
-              {game.data.embedUrl ? (
-                <a class="button button--small" href={withBase(game.data.embedUrl)} target="_blank" rel="noopener noreferrer">打开试玩</a>
-              ) : null}
-              <a class="button button--ghost button--small" href={withBase(`/games/${game.id}`)}>查看案例</a>
-            </div>
-          </article>
         ))}
       </div>
     </section>
@@ -194,6 +227,7 @@ const collectionSchema = getCollectionPageSchema({
         ].filter(Boolean).join('|')}
       >
         <GameCard
+          slug={game.id}
           href={`/games/${game.id}`}
           title={game.data.title}
           summary={game.data.summary}
@@ -212,4 +246,60 @@ const collectionSchema = getCollectionPageSchema({
       </div>
     ))}
   </section>
+
+  {galleryShots.length > 0 && (
+    <section class="card">
+      <div class="section-heading">
+        <div>
+          <h2>真实画面预览</h2>
+          <p class="content-meta">用项目截图直接呈现完成度与视觉状态。</p>
+        </div>
+      </div>
+      <div class="project-gallery-grid">
+        {galleryShots.map((shot) => (
+          <a class="project-gallery-card" href={withBase(shot.href)}>
+            <img src={withBase(shot.src)} alt={`${shot.gameTitle} ${shot.title}`} loading="lazy" decoding="async" />
+            <div class="project-gallery-copy">
+              <p class="eyebrow">{shot.gameTitle}</p>
+              <strong>{shot.title}</strong>
+              <span>{shot.note}</span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </section>
+  )}
+
+  {webDemoGames.length > 0 && (
+    <section class="card">
+      <div class="section-heading">
+        <div>
+          <h2>当前试玩入口</h2>
+          <p class="content-meta">已接通的 Web build 统一放在这里。</p>
+        </div>
+      </div>
+      <div class="play-lane">
+        {webDemoGames.map((game) => (
+          <article class="play-lane-card">
+            <div class="play-lane-copy">
+              <p class="eyebrow">Playable Build</p>
+              <strong>{game.data.title}</strong>
+              <span>{game.data.currentPhase ?? game.data.summary}</span>
+            </div>
+            <div class="tag-list">
+              <span>{game.data.engine}</span>
+              <span>{gameStatusLabels[game.data.status] ?? game.data.status}</span>
+            </div>
+            <div class="card-actions">
+              {game.data.embedUrl ? (
+                <a class="button button--small" href={withBase(game.data.embedUrl)} target="_blank" rel="noopener noreferrer">打开试玩</a>
+              ) : null}
+              <a class="button button--ghost button--small" href={withBase(`/games/${game.id}`)}>查看案例</a>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+  )}
+
 </BaseLayout>

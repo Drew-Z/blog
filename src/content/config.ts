@@ -55,6 +55,8 @@ const games = defineCollection({
     platforms: z.array(z.string()).default([]),
     featured: z.boolean().default(false),
     thumbnail: z.string().optional(),
+    playtestVideo: z.string().optional(),
+    playtestPoster: z.string().optional(),
     screenshots: z.array(
       z.object({
         src: z.string(),

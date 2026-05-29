@@ -1,11 +1,11 @@
 export const siteMeta = {
   name: 'Biau Playlab',
-  title: '独立游戏原型与系统设计博客',
-  description: '围绕 Godot 游戏原型、系统策划拆解与开发复盘搭建的个人作品展示博客。',
-  tagline: '独立游戏原型 / 系统设计 / 开发写作',
+  title: '独立游戏原型与系统设计作品集',
+  description: '围绕 Godot 游戏原型、Web 试玩和系统策划拆解搭建的个人作品集。',
+  tagline: '游戏原型 / Web 试玩 / 系统拆解',
   englishTitle: 'Indie Game Prototypes, Systems Design, and Dev Writing',
   englishDescription:
-    'A portfolio blog focused on Godot prototypes, systems analysis, and development write-ups, built to show both what was made and how the decisions were formed.',
+    'A portfolio focused on Godot prototypes, systems analysis, and playable work, built to show both what was made and how the decisions were formed.',
   githubProfile: 'https://github.com/ciallo-bill',
   repository: 'https://github.com/ciallo-bill/blog',
   rss: '/rss.xml',
@@ -16,7 +16,6 @@ export const siteMeta = {
 export const navLinks = [
   { href: '/', label: '首页' },
   { href: '/games', label: '作品' },
-  { href: '/logs', label: '日志' },
   { href: '/articles', label: '文章' },
   { href: '/about', label: '关于' }
 ];
@@ -48,7 +47,7 @@ export const profileFocusAreas = [
   {
     title: '项目收口与展示包装',
     ratio: '25%',
-    summary: '把日志、里程碑、截图和浏览路径整理清楚，让外部第一次打开时就能快速建立理解。'
+    summary: '把里程碑、截图和试玩入口整理成清晰页面，让外部第一次打开时就能判断项目质量。'
   }
 ] as const;
 

@@ -17,7 +17,9 @@ platforms:
   - Windows
   - Web 试玩
   - 安卓竖屏适配回归
-thumbnail: /images/projects/tetris-cover.svg
+thumbnail: /images/projects/tetris-rogue-game.png
+playtestVideo: /videos/projects/first-tetris-playtest.mp4
+playtestPoster: /images/projects/tetris-rogue-game.png
 screenshots:
   - src: /images/projects/tetris-main-menu.png
     title: 主菜单在窄宽度和桌面窗口下都已经达到可用线

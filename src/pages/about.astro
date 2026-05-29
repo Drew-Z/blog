@@ -8,47 +8,77 @@ import { profileFocusAreas, siteMeta } from '../utils/site-meta';
 import { getProfilePageSchema } from '../utils/schema';
 
 const games = await getCollection('games');
-const logs = await getCollection('devlogs');
 const articles = await getPublishedArticles();
 const articleWorkbenchStats = await getArticleWorkbenchStats();
 const profileSchema = getProfilePageSchema(Astro.site);
+
+const workingMethods = [
+  {
+    step: '01',
+    title: '先验证核心循环',
+    summary: '把规则、输入和反馈压到一个可玩的最小版本里，先确认它是否真的成立。'
+  },
+  {
+    step: '02',
+    title: '再整理系统结构',
+    summary: '把体验拆成目标、资源、限制和反馈，记录每一次取舍背后的判断。'
+  },
+  {
+    step: '03',
+    title: '最后收成可阅读案例',
+    summary: '补齐截图、试玩入口、阶段状态和文章说明，让第一次打开的人也能快速理解。'
+  }
+];
+
+const upcomingNotes = [
+  '为重点项目补更完整的录屏、真实截图和试玩入口。',
+  '补充版本时间线、里程碑和关键设计取舍。',
+  '继续把零散笔记筛成可公开文章，只保留真正值得阅读的内容。'
+];
+
+const nowNotes = [
+  { label: '当前方向', value: 'Godot 原型 / 系统策划 / 内容表达' },
+  { label: '内容状态', value: `${articles.length} 篇公开文章，${articleWorkbenchStats.drafts} 篇内部素材` },
+  { label: '站点技术', value: 'Astro 静态站点，内容集合管理' }
+];
 ---
 
-<BaseLayout title={`关于 | ${siteMeta.name}`} description="这个作品展示博客的定位、内容结构与当前关注。" structuredData={profileSchema}>
+<BaseLayout title={`关于 | ${siteMeta.name}`} description="这个作品集的定位、内容结构与当前关注。" structuredData={profileSchema}>
   <Breadcrumbs items={[{ label: '首页', href: '/' }, { label: '关于' }]} />
-  <section class="page-heading card page-heading--rich">
-    <p class="eyebrow">About</p>
-    <h1>这是一个围绕独立游戏原型、系统设计与开发写作搭建的个人作品展示博客。</h1>
-    <p>
-      这里不是单纯的资料堆积页，也不是只放截图的作品页。我把项目案例、开发过程和长文章放在同一个入口里，让访客能同时看到“做了什么”和“为什么这样做”。
-    </p>
-    <div class="tag-list">
-      <span>{games.length} 个项目</span>
-      <span>{logs.length} 篇日志</span>
-      <span>{articles.length} 篇文章</span>
+  <section class="page-heading card archive-hero about-hero">
+    <div class="archive-hero-copy">
+      <p class="eyebrow">About / Practice</p>
+      <h1>做可验证的游戏原型，也把系统判断写清楚。</h1>
+      <p>
+        这个站点收集我在玩法原型、系统拆解和内容表达上的练习：先把想法做成能试玩的东西，
+        再把过程整理成别人能看懂、能复盘的案例。
+      </p>
+      <div class="button-row">
+        <a class="button" href={withBase('/games')}>查看作品</a>
+        <a class="button button--ghost" href={withBase('/articles')}>阅读文章</a>
+      </div>
+      <div class="archive-metrics">
+        <span><strong>{games.length}</strong> 公开项目</span>
+        <span><strong>{articles.length}</strong> 公开文章</span>
+        <span><strong>{articleWorkbenchStats.drafts}</strong> 素材池</span>
+      </div>
     </div>
-  </section>
 
-  <section class="section-banner">
-    <div class="section-heading">
-      <h2>这个站里主要有什么</h2>
-    </div>
-    <div class="feature-grid">
-      <div class="mini-panel">
-        <p class="eyebrow">作品案例</p>
-        <p>围绕 Godot 原型、展示版收口和多端适配整理项目案例，强调目标、阶段、职责和下一步计划。</p>
+    <div class="about-signal-card" aria-hidden="true">
+      <div class="about-signal-header">
+        <span>Working loop</span>
+        <strong>Idea / Prototype / Case</strong>
       </div>
-      <div class="mini-panel">
-        <p class="eyebrow">开发日志</p>
-        <p>记录功能推进、方案取舍与阶段结论，让外部也能看懂项目是怎么一步步收口的。</p>
+      <div class="about-orbit">
+        <span class="orbit-core">Playtest</span>
+        <span class="orbit-dot orbit-dot--one"></span>
+        <span class="orbit-dot orbit-dot--two"></span>
+        <span class="orbit-dot orbit-dot--three"></span>
       </div>
-      <div class="mini-panel">
-        <p class="eyebrow">深度文章</p>
-        <p>用系统策划拆解、游戏分析和方法沉淀补足“表达能力”和“结构化思考”这一层。</p>
-      </div>
-      <div class="mini-panel">
-        <p class="eyebrow">发布流</p>
-        <p>公开文章和内部素材已经分开维护，正式发布内容统一走站点文章入口，避免素材库和公开站混在一起。</p>
+      <div class="about-signal-stack">
+        <span><strong>Prototype</strong><em>core loop</em></span>
+        <span><strong>Systems</strong><em>decision map</em></span>
+        <span><strong>Writing</strong><em>public case</em></span>
       </div>
     </div>
   </section>
@@ -57,27 +87,29 @@ const profileSchema = getProfilePageSchema(Astro.site);
     <div class="content-main">
       <section class="card">
         <div class="section-heading">
-          <h2>我重点在做什么</h2>
+          <div>
+            <p class="eyebrow">Method</p>
+            <h2>我怎样推进一个想法</h2>
+          </div>
         </div>
-        <div class="feature-grid">
-          <div class="mini-panel">
-            <p class="eyebrow">玩法原型</p>
-            <p>把核心循环先做出来，再逐步补足外层入口、反馈结构和可展示性，而不是停在开发态原型。</p>
-          </div>
-          <div class="mini-panel">
-            <p class="eyebrow">系统拆解</p>
-            <p>用长文章把复杂系统拆成可说明的结构，训练自己也帮助别人快速理解设计逻辑。</p>
-          </div>
-          <div class="mini-panel">
-            <p class="eyebrow">开发复盘</p>
-            <p>把“做了什么”之外的判断、取舍和踩坑记录下来，让过程也成为作品的一部分。</p>
-          </div>
+        <div class="about-method-grid">
+          {workingMethods.map((item) => (
+            <article class="about-method-card">
+              <span>{item.step}</span>
+              <strong>{item.title}</strong>
+              <p>{item.summary}</p>
+            </article>
+          ))}
         </div>
       </section>
 
       <section class="card">
         <div class="section-heading">
-          <h2>更明确的能力定位</h2>
+          <div>
+            <p class="eyebrow">Positioning</p>
+            <h2>能力定位</h2>
+          </div>
+          <p class="content-meta">这个作品集主要围绕三类能力展开。</p>
         </div>
         <div class="positioning-grid">
           {profileFocusAreas.map((item) => (
@@ -85,114 +117,59 @@ const profileSchema = getProfilePageSchema(Astro.site);
               <p class="eyebrow">Focus</p>
               <strong>{item.title}</strong>
               <span class="positioning-ratio">{item.ratio}</span>
+              <span class="positioning-meter" style={`--value: ${item.ratio}`}></span>
               <p>{item.summary}</p>
             </article>
           ))}
         </div>
       </section>
 
-      <section class="card bilingual-card">
-        <div class="section-heading">
-          <h2>English Summary</h2>
-        </div>
-        <p class="bilingual-lead">{siteMeta.englishDescription}</p>
-        <ul class="timeline-list">
-          <li>I work across prototype design, systems analysis, and structured development writing.</li>
-          <li>This site is organized to show both outcomes and decision-making, not just final screenshots.</li>
-          <li>If you are reviewing for hiring or collaboration, start from projects, then logs, then long-form articles.</li>
-        </ul>
-      </section>
-
       <section class="card">
         <div class="section-heading">
-          <h2>建议浏览顺序</h2>
+          <div>
+            <p class="eyebrow">Next</p>
+            <h2>近期会补齐什么</h2>
+          </div>
         </div>
-        <ol class="timeline-list">
-          <li>先从作品页进入，快速看代表项目的目标、阶段和关键画面。</li>
-          <li>再读一篇关联日志，理解这个项目是怎么推进和收口的。</li>
-          <li>最后选一篇系统拆解或方法文章，看我如何表达复杂内容和组织分析框架。</li>
+        <ol class="about-roadmap">
+          {upcomingNotes.map((note) => (
+            <li>{note}</li>
+          ))}
         </ol>
-      </section>
-
-      <section class="card">
-        <div class="section-heading">
-          <h2>后续会继续补什么</h2>
-        </div>
-        <ul class="timeline-list">
-          <li>为项目补更完整的录屏、真实截图和可试玩入口。</li>
-          <li>给重点项目增加更清晰的版本时间线和里程碑说明。</li>
-          <li>持续筛选零散笔记，只把真正值得公开的内容整理进主站。</li>
-        </ul>
-      </section>
-
-      <section class="card">
-        <div class="section-heading">
-          <h2>合作方式与联系入口</h2>
-        </div>
-        <div class="feature-grid">
-          <div class="mini-panel">
-            <p class="eyebrow">适合的合作场景</p>
-            <p>独立游戏原型、系统设计拆解、开发复盘整理、作品站搭建与内容结构收口。</p>
-          </div>
-          <div class="mini-panel">
-            <p class="eyebrow">适合的角色判断</p>
-            <p>更适合偏原型策划、系统设计、内容结构化表达，以及把项目收成可展示版本的工作。</p>
-          </div>
-          <div class="mini-panel">
-            <p class="eyebrow">GitHub 入口</p>
-            <p>如果你想先看公开项目、仓库动态或进一步找到个人主页，从 GitHub 入口开始最直接。</p>
-            <a class="inline-link" href={siteMeta.githubProfile} target="_blank" rel="noopener noreferrer">打开 GitHub Profile</a>
-          </div>
-          <div class="mini-panel">
-            <p class="eyebrow">站点仓库</p>
-            <p>如果你更关心这个博客如何维护、怎么迭代、提交历史是否清晰，可以直接看仓库本体。</p>
-            <a class="inline-link" href={siteMeta.repository} target="_blank" rel="noopener noreferrer">查看站点仓库</a>
-          </div>
-          <div class="mini-panel">
-            <p class="eyebrow">持续关注</p>
-            <p>如果你现在只是先收藏或想追踪更新，RSS 是最稳定的长期关注方式。</p>
-            <a class="inline-link" href={withBase(siteMeta.rss)}>订阅 RSS</a>
-          </div>
-        </div>
       </section>
     </div>
 
-    <aside class="content-sidebar card">
+    <aside class="content-sidebar card about-sidebar">
       <section>
         <div class="section-heading">
-          <h2>站点速览</h2>
+          <h2>当前状态</h2>
         </div>
-        <div class="meta-grid">
-          <div class="mini-panel">
-            <p class="eyebrow">定位</p>
-            <p>作品展示博客</p>
-          </div>
-          <div class="mini-panel">
-            <p class="eyebrow">方向</p>
-            <p>Godot 原型 / 系统策划 / 开发写作</p>
-          </div>
-          <div class="mini-panel">
-            <p class="eyebrow">技术栈</p>
-            <p>Astro + Content Collections</p>
-          </div>
-          <div class="mini-panel">
-            <p class="eyebrow">公开文章</p>
-            <p>{articles.length} 篇已发布 / {articleWorkbenchStats.drafts} 篇内部素材</p>
-            {articleWorkbenchStats.duplicates > 0 ? <p>其中 {articleWorkbenchStats.duplicates} 篇是与公开稿重复的历史版本。</p> : null}
-          </div>
+        <div class="about-now-list">
+          {nowNotes.map((item) => (
+            <div class="about-now-item">
+              <span>{item.label}</span>
+              <strong>{item.value}</strong>
+            </div>
+          ))}
         </div>
       </section>
 
       <section>
         <div class="section-heading">
-          <h2>快速入口</h2>
+          <h2>入口</h2>
         </div>
         <div class="link-list">
           <a href={withBase('/games')}>查看游戏作品</a>
-          <a href={withBase('/logs')}>查看开发日志</a>
           <a href={withBase('/articles')}>查看文章归档</a>
           <a href={siteMeta.githubProfile} target="_blank" rel="noopener noreferrer">打开 GitHub Profile</a>
+          <a href={siteMeta.repository} target="_blank" rel="noopener noreferrer">查看站点仓库</a>
+          <a href={withBase(siteMeta.rss)}>订阅 RSS</a>
         </div>
+      </section>
+
+      <section class="bilingual-card mini-panel">
+        <p class="eyebrow">English</p>
+        <p class="bilingual-lead">{siteMeta.englishDescription}</p>
       </section>
     </aside>
   </section>

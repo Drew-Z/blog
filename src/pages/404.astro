@@ -5,14 +5,14 @@ import { withBase } from '../utils/site';
 
 <BaseLayout
   title="页面未找到 | Biau Playlab"
-  description="你访问的页面不存在，返回首页或查看作品、日志与文章入口。"
+  description="你访问的页面不存在，返回首页或查看作品与文章入口。"
   canonicalPath="/404.html"
   robots="noindex,follow"
 >
   <section class="page-heading card page-heading--rich error-page">
     <p class="eyebrow">404</p>
     <h1>这个页面不在当前站点结构里。</h1>
-    <p>你可以回到首页重新浏览，或者直接进入作品、开发日志和文章归档页。</p>
+    <p>你可以回到首页重新浏览，或者直接进入作品和文章归档页。</p>
     <div class="button-row">
       <a class="button" href={withBase('/')}>返回首页</a>
       <a class="button button--ghost" href={withBase('/games')}>查看作品</a>
@@ -23,13 +23,8 @@ import { withBase } from '../utils/site';
     <div class="feature-grid">
       <div class="mini-panel">
         <p class="eyebrow">作品</p>
-        <p>先看当前最值得优先浏览的项目案例。</p>
+        <p>查看游戏原型、项目案例和试玩入口。</p>
         <a class="inline-link" href={withBase('/games')}>进入作品页</a>
-      </div>
-      <div class="mini-panel">
-        <p class="eyebrow">日志</p>
-        <p>如果你想看项目是怎么一步步收口的，可以直接读开发日志。</p>
-        <a class="inline-link" href={withBase('/logs')}>进入日志页</a>
       </div>
       <div class="mini-panel">
         <p class="eyebrow">文章</p>

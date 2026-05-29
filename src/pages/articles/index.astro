@@ -13,8 +13,9 @@ const tagCounts = await getPublishedArticleTagCounts();
 const featuredCount = articles.filter((article) => article.data.featured).length;
 const tagCount = tagCounts.length;
 const latestArticle = articles[0];
+const latestUpdateLabel = latestArticle ? formatDate(latestArticle.data.pubDate).replace(/^\d+年/, '') : '待补充';
+const leadArticle = articles.find((article) => article.data.featured) ?? latestArticle;
 const hotTags = tagCounts.slice(0, 10);
-const entryArticle = articles[0];
 const filterTags = hotTags.slice(0, 6).map(({ tag }) => ({
   label: tag,
   value: slugifyTag(tag)
@@ -37,73 +38,39 @@ const collectionSchema = getCollectionPageSchema({
 
 <BaseLayout title={`文章归档 | ${siteMeta.name}`} description={pageDescription} structuredData={collectionSchema}>
   <Breadcrumbs items={[{ label: '首页', href: '/' }, { label: '文章' }]} />
-  <section class="page-heading card page-heading--rich">
-    <p class="eyebrow">Articles</p>
-    <h1>文章归档</h1>
-    <p>这里以系统策划拆解、游戏分析和方法沉淀为主，也保留了少量对实际工作有帮助的技术长文，更适合展示分析能力与表达质量。</p>
-  </section>
-
-  <section class="section-banner">
-    <div class="feature-grid">
-      <div class="mini-panel">
-        <p class="eyebrow">文章总数</p>
-        <strong>{articles.length}</strong>
-        <p>当前公开可浏览的长文内容。</p>
+  <section class="page-heading card archive-hero archive-hero--articles">
+    <div class="archive-hero-copy">
+      <p class="eyebrow">Articles</p>
+      <h1>文章归档</h1>
+      <p>系统策划拆解、游戏分析和方法沉淀集中在这里。内容更偏结构化判断：先说明系统如何运作，再落到问题、风险和可优化方向。</p>
+      <div class="button-row">
+        <a class="button" href="#articles-archive-search">筛选文章</a>
+        <a class="button button--ghost" href={withBase('/articles/tags')}>查看标签</a>
       </div>
-      <div class="mini-panel">
-        <p class="eyebrow">精选文章</p>
-        <strong>{featuredCount}</strong>
-        <p>适合第一次来时优先阅读。</p>
-      </div>
-      <div class="mini-panel">
-        <p class="eyebrow">主题标签</p>
-        <strong>{tagCount}</strong>
-        <p>目前覆盖的主要话题范围。</p>
-      </div>
-      <div class="mini-panel">
-        <p class="eyebrow">最近更新</p>
-        <strong>{latestArticle ? formatDate(latestArticle.data.pubDate) : '待补充'}</strong>
-        <p>保持文章入口的持续整理与沉淀。</p>
+      <div class="archive-metrics">
+        <span><strong>{articles.length}</strong> 文章</span>
+        <span><strong>{featuredCount}</strong> 精选</span>
+        <span><strong>{tagCount}</strong> 标签</span>
+        <span><strong>{latestUpdateLabel}</strong> 更新</span>
       </div>
     </div>
+
+    {leadArticle && (
+      <a class="archive-feature-card archive-feature-card--article" href={withBase(`/articles/${leadArticle.id}`)}>
+        {leadArticle.data.coverImage ? (
+          <img src={withBase(leadArticle.data.coverImage)} alt={leadArticle.data.title} loading="eager" decoding="async" />
+        ) : null}
+        <div class="archive-feature-copy">
+          <p class="eyebrow">Featured Note</p>
+          <strong>{leadArticle.data.title}</strong>
+          <span>{leadArticle.data.description}</span>
+          <div class="tag-list">
+            {leadArticle.data.tags.slice(0, 3).map((tag) => <span>{tag}</span>)}
+          </div>
+        </div>
+      </a>
+    )}
   </section>
-
-  {entryArticle && (
-    <section class="card">
-      <div class="section-heading">
-        <div>
-          <h2>建议起点</h2>
-          <p class="content-meta">如果你是第一次看这里，先从这篇开始，通常最容易判断我的分析框架和表达密度。</p>
-        </div>
-        <a href={withBase(`/articles/${entryArticle.id}`)}>直接阅读</a>
-      </div>
-      <div class="mini-panel">
-        <p class="eyebrow">当前优先推荐</p>
-        <strong>{entryArticle.data.title}</strong>
-        <p>{entryArticle.data.description}</p>
-      </div>
-    </section>
-  )}
-
-  {hotTags.length > 0 && (
-    <section class="card">
-      <div class="section-heading">
-        <div>
-          <h2>按标签浏览</h2>
-          <p class="content-meta">把相近主题聚合在一起，适合快速判断我最常写什么、分析重心在哪里。</p>
-        </div>
-        <a href={withBase('/articles/tags')}>查看全部标签</a>
-      </div>
-      <div class="tag-cloud">
-        {hotTags.map(({ tag, count }) => (
-          <a class="tag-cloud-link" href={withBase(`/articles/tags/${slugifyTag(tag)}`)}>
-            <span>{tag}</span>
-            <strong>{count}</strong>
-          </a>
-        ))}
-      </div>
-    </section>
-  )}
 
   <ArchiveFilter
     id="articles-archive"
@@ -132,4 +99,25 @@ const collectionSchema = getCollectionPageSchema({
       </div>
     ))}
   </section>
+
+  {hotTags.length > 0 && (
+    <section class="card">
+      <div class="section-heading">
+        <div>
+          <h2>按标签浏览</h2>
+          <p class="content-meta">相近主题自动聚合，便于按方向浏览。</p>
+        </div>
+        <a href={withBase('/articles/tags')}>查看全部标签</a>
+      </div>
+      <div class="tag-cloud">
+        {hotTags.map(({ tag, count }) => (
+          <a class="tag-cloud-link" href={withBase(`/articles/tags/${slugifyTag(tag)}`)}>
+            <span>{tag}</span>
+            <strong>{count}</strong>
+          </a>
+        ))}
+      </div>
+    </section>
+  )}
+
 </BaseLayout>

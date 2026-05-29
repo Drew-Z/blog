@@ -63,9 +63,9 @@ const collectionSchema = getCollectionPageSchema({
         <p>当前标签下已公开的文章数量。</p>
       </div>
       <div class="mini-panel">
-        <p class="eyebrow">浏览建议</p>
+        <p class="eyebrow">排序方式</p>
         <strong>按时间阅读</strong>
-        <p>当前页面已按发布时间倒序整理，方便先看最近的表达状态。</p>
+        <p>当前页面按发布时间倒序整理。</p>
       </div>
       <div class="mini-panel">
         <p class="eyebrow">更多主题</p>
@@ -83,7 +83,7 @@ const collectionSchema = getCollectionPageSchema({
       </div>
       <a href={withBase('/articles/tags')}>查看全部标签</a>
     </div>
-    <p>你现在看到的是“{tag}”专题页。如果是第一次来，建议先读最新一篇，再按兴趣展开到相关文章。</p>
+    <p>你现在看到的是“{tag}”专题页，下面是该主题下的全部公开文章。</p>
   </section>
 
   <section class="grid grid--cards-lg">

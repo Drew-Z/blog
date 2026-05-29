@@ -17,11 +17,13 @@ platforms:
   - Web 试玩
   - 手机优先
   - Windows 预留
-thumbnail: /images/projects/intespace-cover.svg
+thumbnail: /images/projects/intespace-capture.png
+playtestVideo: /videos/projects/intespace-playtest.mp4
+playtestPoster: /images/projects/intespace-capture.png
 screenshots:
-  - src: /images/projects/intespace-shot-flow.svg
-    title: 当前主线围绕完整 session 收口
-    note: 首页、战斗、升级、结算、成长和下一局需要在同一套试玩口径下闭环。
+  - src: /images/projects/intespace-capture.png
+    title: 玩家中枢已经围绕完整 session、成长入口和试玩准备组织
+    note: 这张截图来自本地 Godot 运行采集，能看到项目已经从战斗工作台转向完整玩家流程。
   - src: /images/projects/intespace-shot-weapon.svg
     title: 武器树 v1 已进入结构冻结阶段
     note: 现在优先验证路线构筑是否清晰，而不是继续无限增加武器分支。

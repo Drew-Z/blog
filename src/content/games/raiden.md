@@ -17,11 +17,13 @@ platforms:
   - Web 试玩
   - Windows
   - 竖屏布局
-thumbnail: /images/projects/raiden-cover.svg
+thumbnail: /images/projects/raiden-capture.png
+playtestVideo: /videos/projects/raiden-playtest.mp4
+playtestPoster: /images/projects/raiden-capture.png
 screenshots:
-  - src: /images/projects/raiden-shot-stage.svg
-    title: 双关章节把 Stage 01 与 Stage 02 串成完整 Demo 路线
-    note: 项目重点不再只是单关爽感，而是验证章节继承、过场和结尾是否能撑起展示版体验。
+  - src: /images/projects/raiden-capture.png
+    title: 公开 Demo 准备版主菜单把完整章节入口、语言和音频设置集中前置
+    note: 这张截图来自本地 Godot 运行采集，能说明项目已经进入外部试玩和 Demo 包装阶段。
   - src: /images/projects/raiden-shot-boss.svg
     title: Boss 与风暴机关共同压缩安全区域
     note: 第二关 Storm Front 已接入风暴十字封线、overdrive 和最后安全窗口预警。

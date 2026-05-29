@@ -59,7 +59,7 @@ export function getProfilePageSchema(site: URL | undefined): JsonLdNode {
     '@type': 'ProfilePage',
     '@id': `${toSiteUrl('/about', site)}#profile`,
     name: `关于 | ${siteMeta.name}`,
-    description: '这个作品展示博客的定位、内容结构与当前关注。',
+    description: '这个作品集的定位、内容结构与当前关注。',
     url: toSiteUrl('/about', site),
     inLanguage: 'zh-CN',
     mainEntity: getAuthorSchema(site)

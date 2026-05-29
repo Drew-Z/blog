@@ -16,11 +16,13 @@ engine: Godot 4.6.1
 platforms:
   - Windows
   - Web 试玩
-thumbnail: /images/projects/spacewar-cover.svg
+thumbnail: /images/projects/next-spacewar-capture.png
+playtestVideo: /videos/projects/next-spacewar-playtest.mp4
+playtestPoster: /images/projects/next-spacewar-capture.png
 screenshots:
-  - src: /images/projects/spacewar-shot-menu.svg
-    title: 展示版从主菜单开始承接设置和帮助入口
-    note: 这说明项目已经开始从单关原型转向更完整的外层体验组织。
+  - src: /images/projects/next-spacewar-capture.png
+    title: 真实运行主菜单已经能承接 Start Run、Settings 和 About / Help
+    note: 这张截图来自本地 Godot 运行采集，能说明项目已经从单关原型转向更完整的外层体验组织。
   - src: /images/projects/spacewar-shot-result.svg
     title: 单局结束后进入独立结果页，而不是停留在战斗场景里
     note: 结果页承担了展示版状态提示、本局结果和下一步操作说明。
