@@ -17,21 +17,36 @@ html, body {
 }
 
 body {
-\tdisplay: flex;
-\tjustify-content: center;
-\talign-items: center;
-\tpadding: 24px;
+\tposition: fixed;
+\tinset: 0;
+\tmin-height: 100%;
+\tpadding: clamp(12px, 3vw, 28px);
 \tbox-sizing: border-box;
 \tbackground:
-\t\tradial-gradient(circle at top, rgba(90, 120, 255, 0.18), transparent 42%),
-\t\tlinear-gradient(180deg, #0f1014 0%, #06070a 100%);
+\t\tradial-gradient(ellipse 46% 58% at 18% 18%, rgba(255, 211, 110, 0.16), transparent 68%),
+\t\tradial-gradient(ellipse 52% 62% at 76% 24%, rgba(111, 124, 255, 0.22), transparent 70%),
+\t\tlinear-gradient(180deg, #0f1529 0%, #05070d 100%);
+\toverflow: hidden;
 }
 
 #canvas {
-\tmargin: auto;
-\tbox-shadow: 0 24px 80px rgba(0, 0, 0, 0.45);
-\tborder-radius: 18px;
+\tposition: fixed !important;
+\tleft: 50% !important;
+\ttop: 50% !important;
+\ttransform: translate(-50%, -50%);
+\tmargin: 0 !important;
+\tbox-sizing: border-box;
+\tbox-shadow: 0 22px 72px rgba(0, 0, 0, 0.48), 0 0 0 1px rgba(210, 225, 255, 0.18);
+\tborder-radius: 8px;
 \tbackground: #000;
+\tmax-width: calc(100vw - 24px);
+\tmax-height: calc(100vh - 24px);
+}
+
+@media (max-width: 720px) {
+\tbody {
+\t\tpadding: 10px;
+\t}
 }
 `;
 
@@ -50,12 +65,17 @@ const scriptPatch = `
 \t\t\t\t\treturn;
 \t\t\t\t}
 
-\t\t\t\tconst safeWidth = Math.max(window.innerWidth - 48, 320);
-\t\t\t\tconst safeHeight = Math.max(window.innerHeight - 48, 320);
+\t\t\t\tconst margin = window.innerWidth < 720 ? 20 : 56;
+\t\t\t\tconst safeWidth = Math.max(window.innerWidth - margin, 280);
+\t\t\t\tconst safeHeight = Math.max(window.innerHeight - margin, 280);
 \t\t\t\tconst scale = Math.min(safeWidth / width, safeHeight / height);
 
 \t\t\t\tcanvas.style.width = Math.max(1, Math.floor(width * scale)) + 'px';
 \t\t\t\tcanvas.style.height = Math.max(1, Math.floor(height * scale)) + 'px';
+\t\t\t\tcanvas.style.position = 'fixed';
+\t\t\t\tcanvas.style.left = '50%';
+\t\t\t\tcanvas.style.top = '50%';
+\t\t\t\tcanvas.style.transform = 'translate(-50%, -50%)';
 \t\t\t}
 
 \t\t\twindow.addEventListener('resize', fitCanvas);
@@ -85,13 +105,11 @@ for (const target of targets) {
   }
 
   let html = fs.readFileSync(filePath, 'utf8');
-  if (!html.includes('codex-web-shell')) {
-    html = html.replace('</style>', `${cssPatch}\n\t\t</style>`);
-  }
+  html = html.replace(/\n\n\/\* codex-web-shell \*\/[\s\S]*?(?=\n\s*<\/style>)/, '');
+  html = html.replace('</style>', `${cssPatch}\n\t\t</style>`);
 
-  if (!html.includes('codex-web-shell-patch')) {
-    html = html.replace('</body>', `${scriptPatch}\n\t</body>`);
-  }
+  html = html.replace(/\n\s*<script id="codex-web-shell-patch">[\s\S]*?<\/script>\s*/g, '\n');
+  html = html.replace('</body>', `${scriptPatch}\n\t</body>`);
 
   fs.writeFileSync(filePath, html, 'utf8');
   console.log(`Patched ${filePath}`);

@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" role="img" aria-labelledby="title desc">
+  <title id="title">Spacewar II cover</title>
+  <desc id="desc">A stylized mobile shooter cover with a vertical playfield, player ship, enemies, score HUD, and upgrade pickups.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0a1024"/>
+      <stop offset="0.46" stop-color="#1b2350"/>
+      <stop offset="1" stop-color="#080a12"/>
+    </linearGradient>
+    <linearGradient id="panel" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#27346f"/>
+      <stop offset="1" stop-color="#10172f"/>
+    </linearGradient>
+    <linearGradient id="ship" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="0.52" stop-color="#7fdcff"/>
+      <stop offset="1" stop-color="#6f7cff"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <rect width="1280" height="720" fill="url(#bg)"/>
+  <g opacity="0.42">
+    <path d="M0 96H1280M0 192H1280M0 288H1280M0 384H1280M0 480H1280M0 576H1280" stroke="#6f7cff" stroke-width="1"/>
+    <path d="M160 0V720M320 0V720M480 0V720M640 0V720M800 0V720M960 0V720M1120 0V720" stroke="#ffce5c" stroke-width="1"/>
+  </g>
+  <rect x="408" y="52" width="464" height="616" rx="34" fill="url(#panel)" stroke="#a8b4ff" stroke-width="3"/>
+  <rect x="432" y="86" width="416" height="540" rx="18" fill="#050817" stroke="#4254bd" stroke-width="2"/>
+  <g opacity="0.8">
+    <circle cx="496" cy="132" r="3" fill="#ffffff"/>
+    <circle cx="738" cy="164" r="2" fill="#ffffff"/>
+    <circle cx="594" cy="218" r="2.5" fill="#ffffff"/>
+    <circle cx="804" cy="292" r="2" fill="#ffffff"/>
+    <circle cx="474" cy="352" r="2.5" fill="#ffffff"/>
+    <circle cx="712" cy="454" r="3" fill="#ffffff"/>
+  </g>
+  <g filter="url(#glow)">
+    <path d="M640 532L610 606L640 590L670 606Z" fill="url(#ship)"/>
+    <path d="M640 500L598 574L640 552L682 574Z" fill="#dff7ff"/>
+    <path d="M622 584H658L640 640Z" fill="#ffce5c"/>
+  </g>
+  <g fill="#ff6363" stroke="#ffd6d6" stroke-width="3">
+    <path d="M540 192L506 226L540 260L574 226Z"/>
+    <path d="M742 230L708 264L742 298L776 264Z"/>
+    <path d="M642 134L608 168L642 202L676 168Z"/>
+  </g>
+  <g fill="#ffce5c" stroke="#fff1b5" stroke-width="3">
+    <circle cx="584" cy="382" r="18"/>
+    <path d="M584 366V398M568 382H600" stroke="#1b2350" stroke-width="6" stroke-linecap="round"/>
+  </g>
+  <g fill="#7fdcff" opacity="0.85">
+    <rect x="633" y="318" width="14" height="74" rx="7"/>
+    <rect x="575" y="280" width="10" height="54" rx="5"/>
+    <rect x="701" y="300" width="10" height="54" rx="5"/>
+  </g>
+  <g font-family="Bahnschrift, Segoe UI, sans-serif" fill="#f7fbff">
+    <text x="92" y="188" font-size="72" font-weight="800">Spacewar II</text>
+    <text x="94" y="244" font-size="30" fill="#a8b4ff">Vertical mobile shooter prototype</text>
+    <text x="94" y="520" font-size="24" fill="#ffce5c">Web playable build</text>
+    <text x="94" y="556" font-size="24" fill="#d9e3ff">Menu / Battle / HUD / Results</text>
+  </g>
+  <g font-family="Bahnschrift, Segoe UI, sans-serif" fill="#f7fbff">
+    <text x="458" y="122" font-size="22" fill="#a8b4ff">SCORE 024600</text>
+    <text x="720" y="122" font-size="22" fill="#ffce5c">BOMB x2</text>
+  </g>
+</svg>

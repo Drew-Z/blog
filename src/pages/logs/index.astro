@@ -1,0 +1,115 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ArchiveFilter from '../../components/ArchiveFilter.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import { withBase } from '../../utils/site';
+import { sortEditorialEntries } from '../../utils/entries';
+import { devlogProjectLabels, formatDate, siteMeta } from '../../utils/site-meta';
+import { getCollectionPageSchema } from '../../utils/schema';
+
+const devlogs = sortEditorialEntries(await getCollection('devlogs'));
+const featuredCount = devlogs.filter((log) => log.data.featured).length;
+const latestLog = devlogs[0];
+const latestUpdateLabel = latestLog ? formatDate(latestLog.data.pubDate).replace(/^\d+年/, '') : '待补充';
+const filterProjects = Array.from(new Set(devlogs.map((log) => log.data.project))).map((project) => ({
+  label: devlogProjectLabels[project] ?? project,
+  value: project
+}));
+const pageDescription = '游戏原型、站点整合和 Web 试玩接线过程中的阶段记录。';
+const collectionSchema = getCollectionPageSchema({
+  site: Astro.site,
+  path: '/logs',
+  name: `开发日志 | ${siteMeta.name}`,
+  description: pageDescription,
+  itemType: 'BlogPosting',
+  items: devlogs.map((log) => ({
+    name: log.data.title,
+    url: `/logs/${log.id}`,
+    description: log.data.description,
+    image: log.data.coverImage
+  }))
+});
+---
+
+<BaseLayout title={`开发日志 | ${siteMeta.name}`} description={pageDescription} structuredData={collectionSchema}>
+  <Breadcrumbs items={[{ label: '首页', href: '/' }, { label: '开发日志' }]} />
+  <section class="page-heading card archive-hero archive-hero--articles">
+    <div class="archive-hero-copy">
+      <p class="eyebrow">Devlogs</p>
+      <h1>开发日志</h1>
+      <p>这里记录六个 Godot 原型、Web 试玩包、游戏内容站和公开展示包装的阶段进展。</p>
+      <div class="button-row">
+        <a class="button" href="#logs-archive-search">筛选日志</a>
+        <a class="button button--ghost" href={withBase('/games')}>查看游戏</a>
+      </div>
+      <div class="archive-metrics">
+        <span><strong>{devlogs.length}</strong> 日志</span>
+        <span><strong>{featuredCount}</strong> 精选</span>
+        <span><strong>{filterProjects.length}</strong> 项目线</span>
+        <span><strong>{latestUpdateLabel}</strong> 更新</span>
+      </div>
+    </div>
+
+    {latestLog && (
+      <a class="archive-feature-card archive-feature-card--article" href={withBase(`/logs/${latestLog.id}`)}>
+        {latestLog.data.coverImage ? (
+          <img src={withBase(latestLog.data.coverImage)} alt={latestLog.data.title} loading="eager" decoding="async" />
+        ) : null}
+        <div class="archive-feature-copy">
+          <p class="eyebrow">Latest Log</p>
+          <strong>{latestLog.data.title}</strong>
+          <span>{latestLog.data.description}</span>
+          <div class="tag-list">
+            <span>{devlogProjectLabels[latestLog.data.project] ?? latestLog.data.project}</span>
+            {latestLog.data.status ? <span>{latestLog.data.status}</span> : null}
+          </div>
+        </div>
+      </a>
+    )}
+  </section>
+
+  <ArchiveFilter
+    id="logs-archive"
+    placeholder="搜索日志标题、项目、状态或标签"
+    chips={filterProjects}
+    emptyMessage="没有找到匹配的开发日志，可以试试别的项目线。"
+  />
+
+  <section class="grid grid--cards-lg" data-filter-target="logs-archive">
+    {devlogs.map((log) => (
+      <article
+        class="card article-card article-card--rich filter-item-shell"
+        data-filter-item
+        data-search={`${log.data.title} ${log.data.description} ${devlogProjectLabels[log.data.project] ?? log.data.project} ${log.data.status ?? ''} ${log.data.tags.join(' ')}`}
+        data-groups={log.data.project}
+      >
+        <a class="card-media" href={withBase(`/logs/${log.id}`)} aria-label={`阅读开发日志：${log.data.title}`}>
+          {log.data.coverImage ? (
+            <img src={withBase(log.data.coverImage)} alt={log.data.title} loading="lazy" decoding="async" />
+          ) : (
+            <div class="card-media-placeholder card-media-placeholder--article">
+              <p class="eyebrow">Devlog</p>
+              <strong>{devlogProjectLabels[log.data.project] ?? log.data.project}</strong>
+            </div>
+          )}
+        </a>
+        <div class="card-body">
+          <div class="meta-row meta-row--top">
+            <p class="eyebrow">{devlogProjectLabels[log.data.project] ?? log.data.project}</p>
+            {log.data.featured ? <span class="status-pill status-pill--active">重点记录</span> : null}
+          </div>
+          <h3><a href={withBase(`/logs/${log.id}`)}>{log.data.title}</a></h3>
+          <p>{log.data.description}</p>
+          <div class="meta-row">
+            <time datetime={log.data.pubDate.toISOString()}>{formatDate(log.data.pubDate)}</time>
+            <div class="tag-list">
+              {log.data.tags.slice(0, 3).map((tag) => <span>{tag}</span>)}
+            </div>
+          </div>
+          <a class="inline-link" href={withBase(`/logs/${log.id}`)}>阅读日志</a>
+        </div>
+      </article>
+    ))}
+  </section>
+</BaseLayout>

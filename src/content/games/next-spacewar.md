@@ -38,8 +38,8 @@ downloadLinks:
     url: https://github.com/Drew-Z/game-next-spacewar
 role: 玩法原型设计 / 功能阶段推进 / 展示版外壳收口
 teamSize: 单人
-workspacePath: D:\workspace4Codex\game-next-spacewar
-syncRepoPath: D:\workspace4Codex\game-next-spacewar
+workspacePath: D:\workspace4Cursor\game\game-next-spacewar
+syncRepoPath: D:\workspace4Cursor\game\game-next-spacewar
 currentBranch: feature/stage-22-release-readiness-and-export-metadata
 currentPhase: 展示版收尾 / Web 试玩接通 / release readiness
 syncNote: 开发目录与同步仓库一致，当前阶段分支已经推送并建立上游跟踪。

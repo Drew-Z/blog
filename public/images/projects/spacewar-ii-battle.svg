@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" role="img" aria-labelledby="title desc">
+  <title id="title">Spacewar II battle screen</title>
+  <desc id="desc">A vertical shooter battle composition showing the player, enemy lanes, projectiles, pickups, and compact HUD.</desc>
+  <rect width="1280" height="720" fill="#080b18"/>
+  <rect x="390" y="32" width="500" height="656" rx="28" fill="#101832" stroke="#6f7cff" stroke-width="4"/>
+  <rect x="420" y="82" width="440" height="554" rx="14" fill="#050817"/>
+  <g opacity="0.32" stroke="#2b3f8f" stroke-width="2">
+    <path d="M420 174H860M420 266H860M420 358H860M420 450H860M420 542H860"/>
+    <path d="M508 82V636M596 82V636M684 82V636M772 82V636"/>
+  </g>
+  <g font-family="Bahnschrift, Segoe UI, sans-serif" fill="#eef4ff" font-size="20">
+    <text x="442" y="62">HP 92</text>
+    <text x="556" y="62">SCORE 024600</text>
+    <text x="748" y="62">BOMB x2</text>
+  </g>
+  <g fill="#ff6363" stroke="#ffd6d6" stroke-width="3">
+    <path d="M508 164L480 192L508 220L536 192Z"/>
+    <path d="M720 176L692 204L720 232L748 204Z"/>
+    <path d="M642 254L606 290L642 326L678 290Z"/>
+    <path d="M782 362L746 398L782 434L818 398Z"/>
+  </g>
+  <g fill="#7fdcff">
+    <rect x="636" y="378" width="12" height="76" rx="6"/>
+    <rect x="588" y="408" width="10" height="52" rx="5"/>
+    <rect x="692" y="408" width="10" height="52" rx="5"/>
+  </g>
+  <g fill="#ffd86b" stroke="#fff5bd" stroke-width="3">
+    <circle cx="548" cy="360" r="16"/>
+    <circle cx="744" cy="500" r="16"/>
+  </g>
+  <g>
+    <path d="M640 502L600 592L640 568L680 592Z" fill="#dff7ff"/>
+    <path d="M622 580H658L640 638Z" fill="#ffce5c"/>
+    <path d="M640 540L622 582H658Z" fill="#6f7cff"/>
+  </g>
+  <g font-family="Bahnschrift, Segoe UI, sans-serif" fill="#eef4ff">
+    <text x="88" y="158" font-size="54" font-weight="800">Battle Loop</text>
+    <text x="88" y="208" font-size="26" fill="#a8b4ff">Auto fire, pickups, bombs, result flow</text>
+    <text x="938" y="522" font-size="24" fill="#ffce5c">Target: browser-ready Web build</text>
+  </g>
+</svg>

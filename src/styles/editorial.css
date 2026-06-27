@@ -16,11 +16,11 @@
   --danger: #ff6d68;
   --shadow: 0 14px 42px rgba(20, 68, 110, 0.1);
   --shadow-strong: 0 24px 70px rgba(20, 68, 110, 0.16);
-  --radius-lg: 8px;
-  --radius-md: 8px;
+  --radius-lg: 24px;
+  --radius-md: 24px;
   --radius-sm: 6px;
   --font-sans: 'Bahnschrift', 'Aptos', 'Segoe UI Variable', 'PingFang SC', 'Microsoft YaHei UI', 'Noto Sans SC', sans-serif;
-  --font-display: 'Segoe UI Variable Display', 'Bahnschrift', 'PingFang SC', 'Microsoft YaHei UI', sans-serif;
+  --font-display: "HYXuanSong 95S", HYXuanSong-95S, "HYXuanSong 90S", HYXuanSong-90S, "Noto Serif SC", "Source Han Serif SC", "Songti SC", SimSun, serif;
   color-scheme: light;
 }
 
@@ -307,7 +307,7 @@ button,
 .page-shell {
   position: relative;
   z-index: 1;
-  width: min(1240px, calc(100% - 32px));
+  width: min(1360px, calc(100% - 32px));
   margin: 0 auto;
   padding: 18px 0 42px;
 }
@@ -511,7 +511,8 @@ button,
   margin: 0;
   color: var(--text-strong);
   font-family: var(--font-display);
-  font-size: clamp(2.3rem, 5vw, 4.25rem);
+  font-size: 26px;
+  font-weight: 900;
   line-height: 1.03;
   text-wrap: balance;
 }
@@ -1123,6 +1124,8 @@ button,
   align-items: center;
   gap: 14px;
   min-width: 0;
+  font-size: 16px;
+  font-weight: 700;
 }
 
 .brand-mark {
@@ -1205,7 +1208,7 @@ button,
   border-radius: var(--radius-md);
   background: rgba(255, 255, 255, 0.72);
   color: var(--muted);
-  font-weight: 800;
+  font-weight: 700;
 }
 
 .nav-links a::after,

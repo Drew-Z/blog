@@ -43,5 +43,5 @@ export function withBase(path: string): string {
 export function toSiteUrl(path: string, site: URL | undefined): string {
   const basedPath = withBase(path);
   const normalizedPath = isPassthroughPath(basedPath) ? basedPath : withTrailingSlash(basedPath);
-  return new URL(normalizedPath, site ?? 'https://blog.playlab.eu.cc').toString();
+  return new URL(normalizedPath, site ?? 'https://games.playlab.eu.cc').toString();
 }

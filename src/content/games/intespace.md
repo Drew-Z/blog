@@ -42,8 +42,8 @@ downloadLinks:
     url: https://github.com/Drew-Z/intespace
 role: Roguelite 系统方向 / 武器树结构冻结 / 完整流程收口 / 试玩准备整理
 teamSize: 单人
-workspacePath: D:\workspace4Codex\intespace
-syncRepoPath: D:\workspace4Codex\intespace
+workspacePath: D:\workspace4Cursor\game\intespace
+syncRepoPath: D:\workspace4Cursor\game\intespace
 currentBranch: main
 currentPhase: 武器系统 v1 冻结后 / 统一试玩前完整流程收口
 syncNote: 开发目录与同步仓库一致，仓库已初始化并完成首个 main 分支远端同步。

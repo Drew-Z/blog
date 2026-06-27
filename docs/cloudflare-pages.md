@@ -29,11 +29,11 @@
 
 当前正式域名已经是：
 
-- `https://blog.playlab.eu.cc`
+- `https://games.playlab.eu.cc`
 
 环境变量建议直接设置为：
 
-- `SITE_URL=https://blog.playlab.eu.cc`
+- `SITE_URL=https://games.playlab.eu.cc`
 
 同样不需要设置 `BASE_PATH`。
 
@@ -52,7 +52,7 @@
 
 7. 在环境变量里添加：
 
-- `SITE_URL=https://blog.playlab.eu.cc`
+- `SITE_URL=https://games.playlab.eu.cc`
 
 如果你以后切换域名，再把这里替换成新的正式域名即可。
 
@@ -66,7 +66,7 @@
 Cloudflare 官方文档当前的要点是：
 
 - 如果你要绑定顶级域名，例如 `example.com`，这个域名需要接入 Cloudflare zone
-- 如果你要绑定子域名，例如 `blog.example.com`，可以通过 CNAME 指向 `<project>.pages.dev`
+- 如果你要绑定子域名，例如 `games.example.com`，可以通过 CNAME 指向 `<project>.pages.dev`
 - 但即使你手动加了 DNS，也仍然应该先在 Pages 项目后台里执行“Add custom domain”，不要只改 DNS
 
 ## 当前仓库里已经为 Cloudflare 准备好的内容
@@ -76,7 +76,7 @@ Cloudflare 官方文档当前的要点是：
 - `public/_headers`：静态资源缓存与基础安全响应头
 - 已移除 GitHub Pages 的自动部署 workflow，避免仓库 push 后再触发无用的 Actions 失败
 - 当前 Git 远程地址已切换为 `git@github.com:ciallo-bill/blog.git`
-- 当前生产域名：`https://blog.playlab.eu.cc`
+- 当前生产域名：`https://games.playlab.eu.cc`
 - 当前 `pages.dev` 主地址建议统一跳转到正式域名，不再作为对外入口
 
 ## 我对你当前项目的推荐

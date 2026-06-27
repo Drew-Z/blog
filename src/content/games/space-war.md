@@ -42,8 +42,8 @@ externalPage: https://github.com/Drew-Z/space-impact
 repoUrl: https://github.com/Drew-Z/space-impact
 role: 复刻方向定义 / Godot 实现 / 关卡与 Boss 收口 / 发布与展示整理
 teamSize: 单人
-workspacePath: D:\workspace4Codex\space-war
-syncRepoPath: D:\workspace4Codex\space-war
+workspacePath: D:\workspace4Cursor\game\space-war
+syncRepoPath: D:\workspace4Cursor\game\space-war
 currentBranch: main
 currentPhase: 完整可玩 / 可展示 / 发布后维护
 syncNote: 开发目录与同步仓库一致，当前主分支已连接 origin/main，并通过 GitHub Release 对外分发。

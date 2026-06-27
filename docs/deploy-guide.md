@@ -18,7 +18,58 @@
 - Framework preset: Astro
 - Build command: `npm run build`
 - Build output directory: `dist`
-- Environment variable: `SITE_URL=https://blog.playlab.eu.cc`
+- Environment variable: `SITE_URL=https://games.playlab.eu.cc`
+
+手动部署备用命令：
+
+```bash
+npx wrangler login
+npm run deploy:pages -- --project <Cloudflare Pages 项目名>
+```
+
+也可以用环境变量传项目名：
+
+```bash
+set CLOUDFLARE_PAGES_PROJECT=<Cloudflare Pages 项目名>
+npm run deploy:pages
+```
+
+脚本会先执行 `npm run verify`，再把 `dist/` 发布到 Cloudflare Pages。若使用 API token 而不是网页登录，需要先按 Cloudflare Wrangler 要求设置 token 环境变量。
+
+## Godot Web 试玩包
+
+试玩包不进入 Pages 构建产物，统一发布到 `play.playlab.eu.cc` 背后的 R2 bucket。
+
+本地导出与检查：
+
+```bash
+npm run play:export
+npm run play:check
+```
+
+上传到 R2：
+
+```bash
+npx wrangler login
+npm run deploy:play -- --bucket <R2 bucket 名>
+```
+
+也可以用环境变量传 bucket：
+
+```bash
+set R2_PLAY_BUCKET=<R2 bucket 名>
+npm run deploy:play
+```
+
+如果 bucket 内需要额外目录前缀，可追加 `-- --bucket <R2 bucket 名> --prefix <前缀>`，或设置 `R2_PLAY_PREFIX`。
+
+发布后统一验收：
+
+```bash
+npm run deploy:check
+```
+
+它会检查 `https://games.playlab.eu.cc`、六个 `https://play.playlab.eu.cc/{slug}/index.html`、以及主站入口是否返回成功状态。
 
 ## 国内服务器
 

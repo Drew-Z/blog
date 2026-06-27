@@ -24,6 +24,7 @@ export const GET: APIRoute = async ({ site }) => {
     getPublishedArticles(),
     getPublishedArticleTagCounts()
   ]);
+  const devlogs = await getCollection('devlogs');
 
   const items: SitemapItem[] = [
     { path: '/' },
@@ -31,6 +32,7 @@ export const GET: APIRoute = async ({ site }) => {
     { path: '/games' },
     { path: '/articles' },
     { path: '/articles/tags' },
+    { path: '/logs' },
     ...games.map((game) => ({
       path: `/games/${game.id}`,
       lastmod: game.data.updatedDate ?? game.data.pubDate
@@ -38,6 +40,10 @@ export const GET: APIRoute = async ({ site }) => {
     ...articles.map((article) => ({
       path: `/articles/${article.id}`,
       lastmod: article.data.updatedDate ?? article.data.pubDate
+    })),
+    ...devlogs.map((log) => ({
+      path: `/logs/${log.id}`,
+      lastmod: log.data.updatedDate ?? log.data.pubDate
     })),
     ...tags.map(({ tag }) => ({
       path: `/articles/tags/${slugifyTag(tag)}`

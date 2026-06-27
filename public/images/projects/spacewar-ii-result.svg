@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" role="img" aria-labelledby="title desc">
+  <title id="title">Spacewar II result screen</title>
+  <desc id="desc">A result screen layout showing score, survival time, enemies defeated, upgrades collected, and restart actions.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#101832"/>
+      <stop offset="1" stop-color="#080b18"/>
+    </linearGradient>
+  </defs>
+  <rect width="1280" height="720" fill="url(#bg)"/>
+  <rect x="216" y="80" width="848" height="560" rx="28" fill="#141f42" stroke="#6f7cff" stroke-width="4"/>
+  <g font-family="Bahnschrift, Segoe UI, sans-serif" fill="#eef4ff">
+    <text x="284" y="176" font-size="58" font-weight="800">Run Summary</text>
+    <text x="286" y="220" font-size="24" fill="#a8b4ff">Spacewar II Prototype</text>
+  </g>
+  <g font-family="Bahnschrift, Segoe UI, sans-serif">
+    <g transform="translate(284 286)">
+      <rect width="300" height="108" rx="18" fill="#0b1024" stroke="#2f3f90"/>
+      <text x="28" y="42" font-size="20" fill="#a8b4ff">SCORE</text>
+      <text x="28" y="82" font-size="40" fill="#ffce5c" font-weight="800">024600</text>
+    </g>
+    <g transform="translate(628 286)">
+      <rect width="300" height="108" rx="18" fill="#0b1024" stroke="#2f3f90"/>
+      <text x="28" y="42" font-size="20" fill="#a8b4ff">SURVIVAL</text>
+      <text x="28" y="82" font-size="40" fill="#eef4ff" font-weight="800">04:32</text>
+    </g>
+    <g transform="translate(284 426)">
+      <rect width="300" height="108" rx="18" fill="#0b1024" stroke="#2f3f90"/>
+      <text x="28" y="42" font-size="20" fill="#a8b4ff">ENEMIES</text>
+      <text x="28" y="82" font-size="40" fill="#eef4ff" font-weight="800">86</text>
+    </g>
+    <g transform="translate(628 426)">
+      <rect width="300" height="108" rx="18" fill="#0b1024" stroke="#2f3f90"/>
+      <text x="28" y="42" font-size="20" fill="#a8b4ff">UPGRADES</text>
+      <text x="28" y="82" font-size="40" fill="#eef4ff" font-weight="800">12</text>
+    </g>
+  </g>
+  <g font-family="Bahnschrift, Segoe UI, sans-serif" font-size="24" font-weight="700">
+    <rect x="284" y="570" width="188" height="54" rx="14" fill="#ffce5c"/>
+    <text x="322" y="605" fill="#12162a">RESTART</text>
+    <rect x="500" y="570" width="188" height="54" rx="14" fill="none" stroke="#a8b4ff" stroke-width="3"/>
+    <text x="544" y="605" fill="#eef4ff">MENU</text>
+  </g>
+</svg>

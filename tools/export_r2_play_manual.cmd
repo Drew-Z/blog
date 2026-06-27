@@ -1,16 +1,29 @@
 @echo off
 setlocal
 
-set "ROOT=D:\workspace4Codex"
-set "BLOG=%ROOT%\blog"
+set "SCRIPT_DIR=%~dp0"
+for %%I in ("%SCRIPT_DIR%\..") do set "BLOG=%%~fI"
+for %%I in ("%BLOG%\..") do set "ROOT=%%~fI"
+if defined WORKSPACE_ROOT (
+  set "ROOT=%WORKSPACE_ROOT%"
+  set "BLOG=%WORKSPACE_ROOT%\blog"
+)
+if defined BLOG_ROOT set "BLOG=%BLOG_ROOT%"
 set "GODOT=D:\Development\Godot\Godot_v4.6.1-stable_win64_console.exe"
+if defined GODOT_EXE set "GODOT=%GODOT_EXE%"
 set "REFRESH=%BLOG%\deploy\r2-play-refresh"
 set "FINAL=%BLOG%\deploy\r2-play"
 set "SYNC_FONTS=%BLOG%\tools\sync_shared_fonts.cmd"
 set "APPLY_THEME=%BLOG%\tools\apply_godot_ui_theme.cmd"
 set "PATCH_SHELL=%BLOG%\tools\patch_web_shell.mjs"
 
-echo [1/5] Checking Godot processes...
+echo Workspace root:
+echo   %ROOT%
+echo Blog root:
+echo   %BLOG%
+echo.
+
+echo [1/7] Checking Godot processes...
 tasklist | findstr /i "Godot_v4.6.1-stable_win64" >nul
 if not errorlevel 1 (
   echo.
@@ -19,7 +32,7 @@ if not errorlevel 1 (
   exit /b 1
 )
 
-echo [2/5] Checking export templates...
+echo [2/7] Checking export templates...
 if not exist "%APPDATA%\Godot\export_templates\4.6.1.stable\web_nothreads_release.zip" (
   echo.
   echo Missing export template:
@@ -39,6 +52,7 @@ mkdir "%REFRESH%\next-spacewar"
 mkdir "%REFRESH%\raiden"
 mkdir "%REFRESH%\intespace"
 mkdir "%REFRESH%\space-war"
+mkdir "%REFRESH%\spacewar-ii"
 
 echo [5/7] Exporting web builds...
 "%GODOT%" --headless --path "%ROOT%\game-first-tetris" --export-release Web "%REFRESH%\first-tetris\index.html" || exit /b 1
@@ -46,6 +60,7 @@ echo [5/7] Exporting web builds...
 "%GODOT%" --headless --path "%ROOT%\raiden-prototype" --export-release Web "%REFRESH%\raiden\index.html" || exit /b 1
 "%GODOT%" --headless --path "%ROOT%\intespace" --export-release Web "%REFRESH%\intespace\index.html" || exit /b 1
 "%GODOT%" --headless --path "%ROOT%\space-war" --export-release Web "%REFRESH%\space-war\index.html" || exit /b 1
+"%GODOT%" --headless --path "%ROOT%\spacewar II" --export-release Web "%REFRESH%\spacewar-ii\index.html" || exit /b 1
 
 echo [6/7] Patching exported web shells for centered layout...
 node "%PATCH_SHELL%" ^
@@ -53,7 +68,8 @@ node "%PATCH_SHELL%" ^
   "%REFRESH%\next-spacewar" ^
   "%REFRESH%\raiden" ^
   "%REFRESH%\intespace" ^
-  "%REFRESH%\space-war" || exit /b 1
+  "%REFRESH%\space-war" ^
+  "%REFRESH%\spacewar-ii" || exit /b 1
 
 echo [7/7] Copying refresh builds into final upload directory...
 if not exist "%FINAL%\first-tetris" mkdir "%FINAL%\first-tetris"
@@ -61,20 +77,23 @@ if not exist "%FINAL%\next-spacewar" mkdir "%FINAL%\next-spacewar"
 if not exist "%FINAL%\raiden" mkdir "%FINAL%\raiden"
 if not exist "%FINAL%\intespace" mkdir "%FINAL%\intespace"
 if not exist "%FINAL%\space-war" mkdir "%FINAL%\space-war"
+if not exist "%FINAL%\spacewar-ii" mkdir "%FINAL%\spacewar-ii"
 
 robocopy "%REFRESH%\first-tetris" "%FINAL%\first-tetris" /MIR >nul
 robocopy "%REFRESH%\next-spacewar" "%FINAL%\next-spacewar" /MIR >nul
 robocopy "%REFRESH%\raiden" "%FINAL%\raiden" /MIR >nul
 robocopy "%REFRESH%\intespace" "%FINAL%\intespace" /MIR >nul
 robocopy "%REFRESH%\space-war" "%FINAL%\space-war" /MIR >nul
+robocopy "%REFRESH%\spacewar-ii" "%FINAL%\spacewar-ii" /MIR >nul
 
 echo.
 echo Web builds are ready in:
 echo   %FINAL%
 echo.
-echo Upload these five folders to R2:
+echo Upload these six folders to R2:
 echo   first-tetris
 echo   next-spacewar
 echo   raiden
 echo   intespace
 echo   space-war
+echo   spacewar-ii

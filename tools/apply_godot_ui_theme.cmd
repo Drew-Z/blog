@@ -1,7 +1,9 @@
 @echo off
 setlocal
 
-set "ROOT=D:\workspace4Codex"
+set "SCRIPT_DIR=%~dp0"
+for %%I in ("%SCRIPT_DIR%\..\..") do set "ROOT=%%~fI"
+if defined WORKSPACE_ROOT set "ROOT=%WORKSPACE_ROOT%"
 set "FONT_NAME=NotoSansCJKsc-Regular.otf"
 
 call :write_theme "%ROOT%\game-first-tetris\assets\fonts\ui_theme.tres"
@@ -9,6 +11,7 @@ call :write_theme "%ROOT%\game-next-spacewar\assets\fonts\ui_theme.tres"
 call :write_theme "%ROOT%\raiden-prototype\assets\fonts\ui_theme.tres"
 call :write_theme "%ROOT%\intespace\assets\fonts\ui_theme.tres"
 call :write_theme "%ROOT%\space-war\assets\fonts\ui_theme.tres"
+call :write_theme "%ROOT%\spacewar II\assets\fonts\ui_theme.tres"
 
 echo.
 echo Godot UI themes now use:

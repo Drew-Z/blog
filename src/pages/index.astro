@@ -20,7 +20,8 @@ const homeArticles = featuredArticles.length > 0 ? featuredArticles : articles.s
 const latestArticles = articles.slice(0, 3);
 
 const playableCount = games.filter((item) => item.data.playableWeb).length;
-const webDemoGames = games.filter((item) => item.data.playableWeb).slice(0, 5);
+const devlogs = sortEditorialEntries(await getCollection('devlogs'));
+const webDemoGames = games.filter((item) => item.data.playableWeb).slice(0, 6);
 const homePlayableGames = webDemoGames.slice(0, 3);
 const homeUrl = toSiteUrl('/', Astro.site);
 const homeSchema = [
@@ -42,17 +43,18 @@ const homeSchema = [
 <BaseLayout title={`${siteMeta.name} | ${siteMeta.title}`} description={siteMeta.description} structuredData={homeSchema}>
   <section class="home-banner tech-story-banner" aria-label="博客内容动态横幅">
     <div class="banner-copy">
-      <p class="eyebrow">Tech Blog / Playable Portfolio</p>
-      <h1>系统拆解文章与可试玩原型。</h1>
-      <p>围绕游戏系统、关卡节奏和原型验证写作，也把能运行的 Godot Demo 放在同一个入口里，方便从思路一路看到可玩的结果。</p>
+      <p class="eyebrow">Games / Devlogs / Playable Portfolio</p>
+      <h1>六个 Godot 原型与可试玩内容站。</h1>
+      <p>围绕游戏系统、关卡节奏和原型验证写作，也把能运行的 Web Demo 放在同一个入口里，方便从思路一路看到可玩的结果。</p>
       <div class="button-row">
         <a class="button" href={withBase('/articles')}>阅读文章</a>
         <a class="button button--ghost" href={withBase('/games')}>查看作品</a>
       </div>
       <div class="tag-list">
         <span>{articles.length} 篇文章</span>
-        <span>{games.length} 个项目</span>
+        <span>{games.length} 个游戏</span>
         <span>{playableCount} 个试玩入口</span>
+        <span>{devlogs.length} 篇开发日志</span>
       </div>
     </div>
 
@@ -108,7 +110,7 @@ const homeSchema = [
       <p class="eyebrow">Project Reel</p>
       <h2>项目动态预览。</h2>
       <p>
-        用一段短视频先扫过五个原型的画面气质，再进入详情页看玩法目标、实现阶段和试玩入口。
+        用一段短视频先扫过当前原型的画面气质，再进入详情页看玩法目标、实现阶段和试玩入口。
       </p>
       <div class="tag-list">
         <span>Godot 4.6</span>
@@ -163,6 +165,7 @@ const homeSchema = [
         <div class="link-list">
           <a href={withBase('/articles')}>系统策划拆解</a>
           <a href={withBase('/games')}>Godot 项目案例</a>
+          <a href={withBase('/logs')}>开发日志</a>
           <a href={withBase('/articles/tags')}>文章标签</a>
           <a href={withBase('/about')}>关于我</a>
         </div>

@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url';
 const rootDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const distDir = path.join(rootDir, 'dist');
 const publicDir = path.join(rootDir, 'public');
-const siteOrigin = 'https://blog.playlab.eu.cc';
+const siteOrigin = 'https://games.playlab.eu.cc';
 
 function walkFiles(dir, predicate = () => true) {
   if (!fs.existsSync(dir)) {
@@ -93,7 +93,7 @@ function localPathExists(urlPath) {
 function extractRefs(source) {
   const refs = new Set();
   const attributePattern = /\b(?:href|src|content|url)=["']([^"']+)["']/gi;
-  const xmlUrlPattern = /https:\/\/blog\.playlab\.eu\.cc\/[^\s<"]*/g;
+  const xmlUrlPattern = /https:\/\/games\.playlab\.eu\.cc\/[^\s<"]*/g;
 
   for (const match of source.matchAll(attributePattern)) {
     refs.add(match[1]);

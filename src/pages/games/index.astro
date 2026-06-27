@@ -26,7 +26,7 @@ const galleryShots = games
     }))
   )
   .slice(0, 4);
-const webDemoGames = games.filter((game) => game.data.playableWeb).slice(0, 5);
+const webDemoGames = games.filter((game) => game.data.playableWeb).slice(0, 6);
 const projectPersonas: Record<string, { kicker: string; identity: string; accent: string; accent2: string; rgb: string }> = {
   'first-tetris': {
     kicker: 'Rogue Tetris Lab',
@@ -62,6 +62,13 @@ const projectPersonas: Record<string, { kicker: string; identity: string; accent
     accent: '#21a65b',
     accent2: '#9fd36a',
     rgb: '33, 166, 91'
+  },
+  'spacewar-ii': {
+    kicker: 'Mobile Sequel Lab',
+    identity: '纵向移动射击、升级拾取和短局结算回路',
+    accent: '#6f7cff',
+    accent2: '#ffce5c',
+    rgb: '111, 124, 255'
   }
 };
 const projectPlaytestCards = games
@@ -149,10 +156,10 @@ const collectionSchema = getCollectionPageSchema({
       <p class="eyebrow">Capture Reel</p>
       <h2>项目运行画面合集</h2>
       <p>
-        把五个 Godot 项目的真实运行片段集中成一条预览线，先看节奏、界面和完成度，再进入单个案例页深入验证。
+        把已有 Godot 项目的真实运行片段集中成一条预览线，先看节奏、界面和完成度，再进入单个案例页深入验证。
       </p>
       <div class="tag-list">
-        <span>5 个项目</span>
+        <span>{games.length} 个项目</span>
         <span>真实运行采集</span>
         <span>横版展示</span>
       </div>
@@ -174,8 +181,8 @@ const collectionSchema = getCollectionPageSchema({
       <div class="section-heading">
         <div>
           <p class="eyebrow">Playtest Matrix</p>
-          <h2>五个项目试玩切片</h2>
-          <p class="content-meta">每个卡片都指向对应项目的实机试玩视频，方便快速比较玩法类型、页面完成度和当前阶段。</p>
+          <h2>实机试玩切片</h2>
+          <p class="content-meta">每个卡片都指向对应项目的实机试玩视频，方便快速比较玩法类型、页面完成度和当前阶段；第六个项目通过下方 Web 试玩入口承接。</p>
         </div>
       </div>
       <div class="project-playtest-index-grid">

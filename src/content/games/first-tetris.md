@@ -42,8 +42,8 @@ downloadLinks:
     url: https://github.com/Drew-Z/game-first-tetris
 role: 系统设计 / 原型实现 / 输入结构整理 / 多端 UI 收口
 teamSize: 单人
-workspacePath: D:\workspace4Codex\game-first-tetris
-syncRepoPath: D:\workspace4Codex\game-first-tetris
+workspacePath: D:\workspace4Cursor\game\game-first-tetris
+syncRepoPath: D:\workspace4Cursor\game\game-first-tetris
 currentBranch: feature/mobile-touch-controls-next
 currentPhase: 移动端触控深化 / Web 试玩接通 / 多端可读性继续收口
 syncNote: 开发目录与同步仓库一致，当前分支已经同步到 origin/feature/mobile-touch-controls-next。

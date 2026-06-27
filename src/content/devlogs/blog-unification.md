@@ -10,7 +10,7 @@ tags:
   - Portfolio
 featured: true
 highlights:
-  - 新站点直接落在 D:\workspace4Codex\blog
+  - 新站点直接落在 D:\workspace4Cursor\game\blog
   - 保留 Astro 文章体系，同时吸收 Quartz 的有效内容
   - 首页结构调整为“作品优先，日志其次，文章最后”
 ---

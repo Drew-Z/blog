@@ -121,7 +121,15 @@ const devlogs = defineCollection({
     description: z.string(),
     pubDate: z.coerce.date(),
     updatedDate: z.coerce.date().optional(),
-    project: z.enum(['game-first-tetris', 'game-next-spacewar', 'blog-platform']),
+    project: z.enum([
+      'game-first-tetris',
+      'game-next-spacewar',
+      'intespace',
+      'raiden-prototype',
+      'space-war',
+      'spacewar-ii',
+      'blog-platform'
+    ]),
     relatedGame: z.string().optional(),
     status: z.string().optional(),
     tags: z.array(z.string()).default([]),

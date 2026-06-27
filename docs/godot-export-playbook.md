@@ -40,7 +40,7 @@
 2. 不要把导出直接覆盖到最终上传目录  
    先导出到 `deploy/r2-play-refresh/`，成功后再同步到 `deploy/r2-play/`。
 
-3. 五个项目一定串行导出，不要并行  
+3. 六个项目一定串行导出，不要并行
    这样最容易定位是哪一个项目、哪一次导出出了问题。
 
 4. 导出失败后，不要立刻重试  
@@ -53,14 +53,14 @@
 
 已经准备好的脚本：
 
-- [export_r2_play_manual.cmd](/D:/workspace4Codex/blog/tools/export_r2_play_manual.cmd)
+- [export_r2_play_manual.cmd](/D:/workspace4Cursor/game/blog/tools/export_r2_play_manual.cmd)
 
 它会做这些事：
 
 1. 先检查当前是否还有 Godot 进程
 2. 检查本机默认 `AppData` 下的导出模板是否存在
 3. 清空并重建 `deploy/r2-play-refresh/`
-4. 串行导出五个项目
+4. 串行导出六个项目
 5. 成功后再把产物同步到 `deploy/r2-play/`
 
 ## 最推荐的执行方式
@@ -68,7 +68,7 @@
 用管理员 `cmd` 在本机手动执行：
 
 ```cmd
-D:\workspace4Codex\blog\tools\export_r2_play_manual.cmd
+D:\workspace4Cursor\game\blog\tools\export_r2_play_manual.cmd
 ```
 
 如果脚本一开始就提示“Found running Godot processes”，先不要继续导出，先清进程；如果 Windows 继续拒绝访问，直接重启。
@@ -86,8 +86,8 @@ D:\workspace4Codex\blog\tools\export_r2_play_manual.cmd
 
 后续所有 Godot 项目都统一复用这里的字体资源：
 
-- `D:\workspace4Codex\resources\font\NotoSansCJKsc-Regular.otf`
-- `D:\workspace4Codex\resources\font\NotoSansSC-VF.ttf`
+- `D:\workspace4Cursor\game\resources\font\NotoSansCJKsc-Regular.otf`
+- `D:\workspace4Cursor\game\resources\font\NotoSansSC-VF.ttf`
 
 如果后面还要给新项目补中文 UI 字体，优先从这个目录复制，而不是每次重新下载。
 
@@ -98,7 +98,7 @@ D:\workspace4Codex\blog\tools\export_r2_play_manual.cmd
 因此要分成两层：
 
 1. 共享源目录  
-   `D:\workspace4Codex\resources\font\NotoSansCJKsc-Regular.otf`
+   `D:\workspace4Cursor\game\resources\font\NotoSansCJKsc-Regular.otf`
 
 2. 项目内打包副本  
    `res://assets/fonts/NotoSansCJKsc-Regular.otf`
@@ -126,16 +126,16 @@ Godot 默认导出的 `index.html` 更偏“最小运行页”，直接新标签
 
 这个步骤已经并入：
 
-- [export_r2_play_manual.cmd](/D:/workspace4Codex/blog/tools/export_r2_play_manual.cmd)
+- [export_r2_play_manual.cmd](/D:/workspace4Cursor/game/blog/tools/export_r2_play_manual.cmd)
 
 已经准备好的同步脚本：
 
-- [sync_shared_fonts.cmd](/D:/workspace4Codex/blog/tools/sync_shared_fonts.cmd)
-- [apply_godot_ui_theme.cmd](/D:/workspace4Codex/blog/tools/apply_godot_ui_theme.cmd)
+- [sync_shared_fonts.cmd](/D:/workspace4Cursor/game/blog/tools/sync_shared_fonts.cmd)
+- [apply_godot_ui_theme.cmd](/D:/workspace4Cursor/game/blog/tools/apply_godot_ui_theme.cmd)
 
 管理员 `cmd` 里可直接执行：
 
 ```cmd
-D:\workspace4Codex\blog\tools\sync_shared_fonts.cmd
-D:\workspace4Codex\blog\tools\apply_godot_ui_theme.cmd
+D:\workspace4Cursor\game\blog\tools\sync_shared_fonts.cmd
+D:\workspace4Cursor\game\blog\tools\apply_godot_ui_theme.cmd
 ```

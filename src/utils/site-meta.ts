@@ -1,8 +1,8 @@
 export const siteMeta = {
   name: 'Biau Playlab',
-  title: '独立游戏原型与系统设计作品集',
-  description: '围绕 Godot 游戏原型、Web 试玩和系统策划拆解搭建的个人作品集。',
-  tagline: '游戏原型 / Web 试玩 / 系统拆解',
+  title: '独立游戏原型、Web 试玩与系统设计内容站',
+  description: '围绕六个 Godot 游戏原型、Web 试玩、开发日志和系统策划拆解搭建的独立游戏内容站。',
+  tagline: '六个 Godot 原型 / Web 试玩 / 系统拆解',
   englishTitle: 'Indie Game Prototypes, Systems Design, and Dev Writing',
   englishDescription:
     'A portfolio focused on Godot prototypes, systems analysis, and playable work, built to show both what was made and how the decisions were formed.',
@@ -15,8 +15,9 @@ export const siteMeta = {
 
 export const navLinks = [
   { href: '/', label: '首页' },
-  { href: '/games', label: '作品' },
+  { href: '/games', label: '游戏' },
   { href: '/articles', label: '文章' },
+  { href: '/logs', label: '开发日志' },
   { href: '/about', label: '关于' }
 ];
 
@@ -30,6 +31,10 @@ export const gameStatusLabels: Record<string, string> = {
 export const devlogProjectLabels: Record<string, string> = {
   'game-first-tetris': 'Game First Tetris',
   'game-next-spacewar': 'Game Next Spacewar',
+  intespace: 'intespace',
+  'raiden-prototype': 'Raiden Prototype',
+  'space-war': 'Space War',
+  'spacewar-ii': 'Spacewar II',
   'blog-platform': 'Blog Platform'
 };
 

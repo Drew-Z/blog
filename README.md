@@ -12,7 +12,7 @@
 Git Bash:
 
 ```bash
-cd /d/workspace4Codex/blog
+cd /d/workspace4Cursor/game/blog
 npm install
 npm run dev
 ```
@@ -22,7 +22,7 @@ npm run dev
 Git Bash:
 
 ```bash
-cd /d/workspace4Codex/blog
+cd /d/workspace4Cursor/game/blog
 npm run build
 ```
 
@@ -33,7 +33,7 @@ npm run build
 Git Bash:
 
 ```bash
-cd /d/workspace4Codex/blog
+cd /d/workspace4Cursor/game/blog
 npm run content:audit
 npm run dist:audit
 npm run verify
@@ -48,7 +48,7 @@ npm run verify
 - Build command: `npm run build`
 - Build output directory: `dist`
 - Environment variables:
-  - `SITE_URL=https://blog.playlab.eu.cc`
+  - `SITE_URL=https://games.playlab.eu.cc`
 
 如果你绑定自定义域名，通常不需要额外设置 `BASE_PATH`。
 

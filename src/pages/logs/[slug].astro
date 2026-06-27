@@ -1,0 +1,169 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import ContentPager from '../../components/ContentPager.astro';
+import ContentToc from '../../components/ContentToc.astro';
+import { toSiteUrl, withBase } from '../../utils/site';
+import { getEntryNeighbors, sortEditorialEntries } from '../../utils/entries';
+import { devlogProjectLabels, estimateReadingTime, formatDate } from '../../utils/site-meta';
+import { getAuthorSchema, getImageUrl } from '../../utils/schema';
+
+export async function getStaticPaths() {
+  const logs = await getCollection('devlogs');
+  return logs.map((log) => ({
+    params: { slug: log.id },
+    props: { log }
+  }));
+}
+
+const { log } = Astro.props;
+const { Content, headings } = await render(log);
+const allLogs = sortEditorialEntries(await getCollection('devlogs'));
+const relatedLogs = allLogs
+  .filter((item) => item.id !== log.id && item.data.project === log.data.project)
+  .slice(0, 3);
+const { newer, older } = getEntryNeighbors(allLogs, (item) => item.id === log.id);
+const readingTime = estimateReadingTime(log.body);
+const logUrl = toSiteUrl(`/logs/${log.id}`, Astro.site);
+const projectLabel = devlogProjectLabels[log.data.project] ?? log.data.project;
+const logSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  '@id': `${logUrl}#article`,
+  headline: log.data.title,
+  description: log.data.description,
+  image: getImageUrl(log.data.coverImage, Astro.site),
+  url: logUrl,
+  mainEntityOfPage: logUrl,
+  datePublished: log.data.pubDate.toISOString(),
+  dateModified: (log.data.updatedDate ?? log.data.pubDate).toISOString(),
+  author: getAuthorSchema(Astro.site),
+  publisher: getAuthorSchema(Astro.site),
+  keywords: log.data.tags,
+  inLanguage: 'zh-CN'
+};
+---
+
+<BaseLayout
+  title={`${log.data.title} | 开发日志`}
+  description={log.data.description}
+  image={log.data.coverImage}
+  type="article"
+  structuredData={logSchema}
+>
+  <Breadcrumbs items={[{ label: '首页', href: '/' }, { label: '开发日志', href: '/logs' }, { label: log.data.title }]} />
+  <article class="content-layout">
+    <div class="content-main">
+      <header class="content-header card content-header--article">
+        <div class="content-header-copy">
+          <p class="eyebrow">Devlog / {projectLabel}</p>
+          <h1>{log.data.title}</h1>
+          <p>{log.data.description}</p>
+          <div class="tag-list">
+            <span>{projectLabel}</span>
+            {log.data.status ? <span>{log.data.status}</span> : null}
+            {log.data.tags.map((tag) => <span>{tag}</span>)}
+          </div>
+        </div>
+        <div class="content-meta-panel">
+          {log.data.coverImage ? (
+            <div class="content-header-visual">
+              <img src={withBase(log.data.coverImage)} alt={log.data.title} loading="eager" decoding="async" fetchpriority="high" />
+            </div>
+          ) : null}
+          <div class="mini-panel">
+            <p class="eyebrow">记录日期</p>
+            <time datetime={log.data.pubDate.toISOString()}>{formatDate(log.data.pubDate)}</time>
+          </div>
+          <div class="mini-panel">
+            <p class="eyebrow">项目线</p>
+            <p>{projectLabel}</p>
+          </div>
+        </div>
+      </header>
+
+      {log.data.highlights.length > 0 && (
+        <section class="card">
+          <div class="section-heading">
+            <h2>阶段重点</h2>
+          </div>
+          <ul class="timeline-list">
+            {log.data.highlights.map((item) => <li>{item}</li>)}
+          </ul>
+        </section>
+      )}
+
+      <div class="prose-block prose-block--article">
+        <Content />
+      </div>
+
+      {relatedLogs.length > 0 && (
+        <section class="card">
+          <div class="section-heading">
+            <div>
+              <h2>同项目日志</h2>
+              <p class="content-meta">同一项目线里的其他阶段记录。</p>
+            </div>
+          </div>
+          <div class="link-list">
+            {relatedLogs.map((item) => (
+              <a href={withBase(`/logs/${item.id}`)}>{item.data.title}</a>
+            ))}
+          </div>
+        </section>
+      )}
+
+      <ContentPager
+        newer={
+          newer
+            ? {
+                href: `/logs/${newer.id}`,
+                label: '更新较新',
+                title: newer.data.title,
+                description: newer.data.description
+              }
+            : undefined
+        }
+        older={
+          older
+            ? {
+                href: `/logs/${older.id}`,
+                label: '更早一篇',
+                title: older.data.title,
+                description: older.data.description
+              }
+            : undefined
+        }
+      />
+    </div>
+
+    <aside class="content-sidebar card">
+      <section>
+        <div class="section-heading">
+          <h2>日志信息</h2>
+        </div>
+        <div class="meta-grid">
+          <div class="mini-panel">
+            <p class="eyebrow">阅读时长</p>
+            <p>{readingTime}</p>
+          </div>
+          <div class="mini-panel">
+            <p class="eyebrow">关联游戏</p>
+            {log.data.relatedGame ? (
+              <a href={withBase(`/games/${log.data.relatedGame}`)}>打开游戏页</a>
+            ) : (
+              <p>{projectLabel}</p>
+            )}
+          </div>
+          <div class="mini-panel">
+            <p class="eyebrow">状态</p>
+            <p>{log.data.status ?? '阶段记录'}</p>
+          </div>
+        </div>
+      </section>
+
+      <ContentToc headings={headings} />
+    </aside>
+  </article>
+</BaseLayout>
