@@ -43,6 +43,31 @@ body {
 \tmax-height: calc(100vh - 24px);
 }
 
+.codex-orientation-notice {
+\tposition: fixed;
+\tleft: 50%;
+\tbottom: clamp(12px, 4vw, 28px);
+\tz-index: 20;
+\tmax-width: min(340px, calc(100vw - 28px));
+\tpadding: 10px 13px;
+\tbox-sizing: border-box;
+\ttransform: translateX(-50%);
+\tborder: 1px solid rgba(220, 232, 255, 0.28);
+\tborder-radius: 8px;
+\tbackground: rgba(9, 13, 24, 0.84);
+\tbox-shadow: 0 14px 38px rgba(0, 0, 0, 0.34);
+\tcolor: rgba(245, 248, 255, 0.94);
+\tfont: 600 13px/1.45 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+\ttext-align: center;
+\tpointer-events: none;
+\topacity: 0;
+\ttransition: opacity 180ms ease;
+}
+
+.codex-orientation-notice.is-visible {
+\topacity: 1;
+}
+
 @media (max-width: 720px) {
 \tbody {
 \t\tpadding: 10px;
@@ -50,13 +75,23 @@ body {
 }
 `;
 
-const scriptPatch = `
+function buildScriptPatch(slug) {
+  const serializedSlug = JSON.stringify(slug);
+  return `
 \t\t<script id="codex-web-shell-patch">
 \t\t(function () {
 \t\t\tconst canvas = document.getElementById('canvas');
 \t\t\tif (!canvas) {
 \t\t\t\treturn;
 \t\t\t}
+
+\t\t\tconst showcaseSlug = ${serializedSlug};
+\t\t\tdocument.body.dataset.codexPlaySlug = showcaseSlug;
+
+\t\t\tconst orientationNotice = document.createElement('div');
+\t\t\torientationNotice.className = 'codex-orientation-notice';
+\t\t\torientationNotice.textContent = '横屏体验更完整 | Rotate for the full showcase view';
+\t\t\tdocument.body.appendChild(orientationNotice);
 
 \t\t\tfunction fitCanvas() {
 \t\t\t\tconst width = canvas.width || canvas.clientWidth;
@@ -76,6 +111,11 @@ const scriptPatch = `
 \t\t\t\tcanvas.style.left = '50%';
 \t\t\t\tcanvas.style.top = '50%';
 \t\t\t\tcanvas.style.transform = 'translate(-50%, -50%)';
+
+\t\t\t\tconst isKnownLandscapeGame = showcaseSlug === 'next-spacewar' || showcaseSlug === 'space-war';
+\t\t\t\tconst isLandscapeGame = isKnownLandscapeGame || width / height >= 1.45;
+\t\t\t\tconst isPortraitViewport = window.innerWidth / Math.max(window.innerHeight, 1) <= 0.85;
+\t\t\t\torientationNotice.classList.toggle('is-visible', isLandscapeGame && isPortraitViewport);
 \t\t\t}
 
 \t\t\twindow.addEventListener('resize', fitCanvas);
@@ -96,6 +136,7 @@ const scriptPatch = `
 \t\t}());
 \t\t</script>
 `;
+}
 
 for (const target of targets) {
   const filePath = path.join(target, 'index.html');
@@ -109,7 +150,8 @@ for (const target of targets) {
   html = html.replace('</style>', `${cssPatch}\n\t\t</style>`);
 
   html = html.replace(/\n\s*<script id="codex-web-shell-patch">[\s\S]*?<\/script>\s*/g, '\n');
-  html = html.replace('</body>', `${scriptPatch}\n\t</body>`);
+  const slug = path.basename(path.resolve(target)).toLowerCase();
+  html = html.replace('</body>', `${buildScriptPatch(slug)}\n\t</body>`);
 
   fs.writeFileSync(filePath, html, 'utf8');
   console.log(`Patched ${filePath}`);

@@ -1,9 +1,9 @@
 ---
 title: intespace
-description: 一个竖屏自动射击 Roguelite 项目，围绕武器树构筑、局内推进、局外成长和手机优先体验做统一试玩前的流程收口。
-summary: 一个基于 Godot 4.6.1 的竖屏自动射击 Roguelite，当前武器系统 v1 已冻结结构，局外成长和玩家主菜单已经落地，正在推进完整 session 的试玩准备。
+description: 一个竖屏自动射击 Roguelite 项目，围绕章节推进、生存挑战、Boss 试炼、武器树构筑、局内推进、局外成长和手机优先体验做统一试玩前的流程收口。
+summary: 一个基于 Godot 4.6.1 的竖屏自动射击 Roguelite，当前武器系统 v1 已冻结结构，章节/生存/Boss 试炼、局外成长和玩家主菜单已经落地，正在推进完整 session 的试玩准备。
 pubDate: 2026-04-21
-updatedDate: 2026-04-21
+updatedDate: 2026-06-28
 status: ongoing
 featured: false
 tags:
@@ -17,19 +17,19 @@ platforms:
   - Web 试玩
   - 手机优先
   - Windows 预留
-thumbnail: /images/projects/intespace-capture.png
+thumbnail: /images/projects/intespace-player-hub.png
 playtestVideo: /videos/projects/intespace-playtest.mp4
-playtestPoster: /images/projects/intespace-capture.png
+playtestPoster: /images/projects/intespace-gameplay-hud.png
 screenshots:
-  - src: /images/projects/intespace-capture.png
+  - src: /images/projects/intespace-player-hub.png
     title: 玩家中枢已经围绕完整 session、成长入口和试玩准备组织
     note: 这张截图来自本地 Godot 运行采集，能看到项目已经从战斗工作台转向完整玩家流程。
-  - src: /images/projects/intespace-shot-weapon.svg
-    title: 武器树 v1 已进入结构冻结阶段
-    note: 现在优先验证路线构筑是否清晰，而不是继续无限增加武器分支。
-  - src: /images/projects/intespace-shot-meta.svg
-    title: 局外成长和玩家主菜单已经落地
-    note: 项目开始从战斗工作台转向“玩家能按正常流程进入下一局”的产品形态。
+  - src: /images/projects/intespace-gameplay-hud.png
+    title: 章节战斗已经能展示自动射击、经验拾取、路线状态和局内进度
+    note: 真实战斗截图能直接说明项目的竖屏战场、HUD、升级节奏和章节推进已经连起来。
+  - src: /images/projects/intespace-result-summary.png
+    title: 作战完成页承接结算、成长动作和返回主界面
+    note: 结果截图展示了战斗总结、种子、作战时间、成长动作和重开路径，能说明它已经具备完整 session 回流。
 playableWeb: true
 embedUrl: https://play.playlab.eu.cc/intespace/index.html
 repoUrl: https://github.com/Drew-Z/intespace
@@ -45,10 +45,11 @@ teamSize: 单人
 workspacePath: D:\workspace4Cursor\game\intespace
 syncRepoPath: D:\workspace4Cursor\game\intespace
 currentBranch: main
-currentPhase: 武器系统 v1 冻结后 / 统一试玩前完整流程收口
+currentPhase: 章节/生存/Boss 试炼成形 / 武器系统 v1 冻结后 / 统一试玩前完整流程收口
 syncNote: 开发目录与同步仓库一致，仓库已初始化并完成首个 main 分支远端同步。
 progressSummary:
   - 武器系统 v1 已完成结构冻结，后续优先看路线可读性和平衡验证。
+  - 章节推进、生存挑战和 Boss 试炼已经形成三类可展示战斗入口。
   - 局外成长系统和玩家主菜单已经落地，项目开始围绕完整 session 而不是单个系统运转。
   - 当前主线是把首页、战斗、升级、结算、成长和下一局收成统一试玩入口。
 keyDocs:
@@ -67,8 +68,8 @@ directoryMap:
     summary: 主菜单、战斗、HUD、升级面板和实体场景。
   - label: scripts/
     summary: 自动射击战斗、武器树、成长流程和 UI 逻辑。
-challenge: 在手机优先的竖屏框架里，把自动射击、局内升级、武器路线和局外成长组织成一个能被统一试玩验证的完整 session。
-mechanic: 竖屏自动射击 + 武器树路线构筑 + 局内升级 + 结算反馈 + 局外成长 + 下一局循环
+challenge: 在手机优先的竖屏框架里，把自动射击、章节推进、生存挑战、Boss 试炼、局内升级、武器路线和局外成长组织成一个能被统一试玩验证的完整 session。
+mechanic: 竖屏自动射击 + 章节 / 生存 / Boss 试炼 + 武器树路线构筑 + 局内升级 + 结算反馈 + 局外成长 + 下一局循环
 milestones:
   - date: 2026-04-05
     title: 系统方向路线图收敛
@@ -82,13 +83,14 @@ milestones:
 devlogSlugs: []
 contribution:
   - 梳理竖屏自动射击 Roguelite 的产品定位和阶段路线
+  - 组织章节推进、生存挑战和 Boss 试炼三类战斗流程
   - 冻结武器系统 v1 结构，明确后续验证重点
   - 接入局外成长、玩家主菜单和统一试玩前的文档导航
   - 为手机优先、Web 试玩和 Windows 完整版保留发布路径
-outcome: 当前项目已经具备从系统工作台走向统一试玩的基础，最有价值的展示点是“如何在进入人工试玩前把完整 session 收成一个可理解的版本”。
+outcome: 当前项目已经具备从系统工作台走向统一试玩的基础，最有价值的展示点是“如何把章节、生存、Boss 试炼、武器树和局外成长收成一个可理解的完整 session”。
 nextStep:
-  - 完成完整流程与表现层的最后一轮统一
-  - 为正式统一试玩补齐下载包和发布说明
+  - 继续压缩主菜单和 HUD 的首屏信息密度，让第一次打开更像正式试玩入口
+  - 为正式统一试玩补齐发布说明和必要的轻量录屏
   - 继续验证武器路线可读性、局外成长节奏和移动端触屏体验
 ---
 
@@ -100,6 +102,7 @@ nextStep:
 
 - 武器树参考《Geometry Tower》的几何路线构筑感
 - 游戏模式参考《弓箭传说 2》的局内推进与局外成长节奏
+- 战斗入口已经覆盖章节推进、生存挑战和 Boss 试炼
 - 战斗基础延续既有自动射击项目的成熟思路
 - 首发优先级为手机，其次为 Web 试玩版和 Windows 完整版
 
@@ -110,13 +113,14 @@ nextStep:
 当前已经完成：
 
 - 武器系统 `v1` 结构冻结
+- 章节推进、生存挑战和 Boss 试炼三类战斗流程成形
 - 局外成长系统落地
 - 玩家主菜单落地
 - 当前阶段导航、系统路线图和试玩准备文档完成整理
 
 接下来最重要的流程是：
 
-`首页 -> 战斗 -> 升级 -> 结算 -> 成长 -> 下一局`
+`首页 -> 选择战斗入口 -> 战斗 -> 升级 -> 结算 -> 成长 -> 下一局`
 
 ## 为什么适合放进作品站
 

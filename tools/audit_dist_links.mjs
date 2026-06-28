@@ -6,6 +6,14 @@ const rootDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const distDir = path.join(rootDir, 'dist');
 const publicDir = path.join(rootDir, 'public');
 const siteOrigin = 'https://games.playlab.eu.cc';
+const legacyRedirects = [
+  {
+    file: 'dist/games/inteapsce/index.html',
+    legacyPath: '/games/inteapsce/',
+    targetPath: '/games/intespace/',
+    canonical: 'https://games.playlab.eu.cc/games/intespace/'
+  }
+];
 
 function walkFiles(dir, predicate = () => true) {
   if (!fs.existsSync(dir)) {
@@ -178,9 +186,64 @@ function requiredSchemaTypes(relativeFile) {
   return [];
 }
 
+function assertLegacyRedirects(distFiles) {
+  const errors = [];
+  const normalizedFiles = new Set(distFiles.map((file) => path.relative(rootDir, file).replace(/\\/g, '/')));
+
+  for (const redirect of legacyRedirects) {
+    if (!normalizedFiles.has(redirect.file)) {
+      errors.push({
+        message: `缺少 legacy redirect: ${redirect.legacyPath}`,
+        file: redirect.file
+      });
+      continue;
+    }
+
+    const source = fs.readFileSync(path.join(rootDir, redirect.file), 'utf8');
+    if (!source.includes('name="robots" content="noindex,follow"')) {
+      errors.push({
+        message: `legacy redirect 缺少 noindex,follow: ${redirect.legacyPath}`,
+        file: redirect.file
+      });
+    }
+    if (!source.includes(`content="0;url=${redirect.targetPath}"`)) {
+      errors.push({
+        message: `legacy redirect 目标不正确: ${redirect.legacyPath} -> ${redirect.targetPath}`,
+        file: redirect.file
+      });
+    }
+    if (!source.includes(`rel="canonical" href="${redirect.canonical}"`)) {
+      errors.push({
+        message: `legacy redirect canonical 不正确: ${redirect.legacyPath}`,
+        file: redirect.file
+      });
+    }
+  }
+
+  for (const file of distFiles) {
+    const relativeFile = path.relative(rootDir, file).replace(/\\/g, '/');
+    const source = fs.readFileSync(file, 'utf8');
+
+    for (const redirect of legacyRedirects) {
+      if (relativeFile === redirect.file) {
+        continue;
+      }
+      if (source.includes(redirect.legacyPath) || source.includes(`${siteOrigin}${redirect.legacyPath}`)) {
+        errors.push({
+          message: `非兼容页引用了 legacy redirect: ${redirect.legacyPath}`,
+          file: relativeFile
+        });
+      }
+    }
+  }
+
+  return errors;
+}
+
 const distFiles = walkFiles(distDir, (file) => /\.(?:html|xml|txt|css|js)$/.test(file));
 const missing = [];
 const schemaErrors = [];
+const legacyRedirectErrors = assertLegacyRedirects(distFiles);
 let schemaScriptCount = 0;
 
 for (const file of distFiles) {
@@ -244,5 +307,15 @@ if (schemaErrors.length > 0) {
   process.exit(1);
 }
 
+if (legacyRedirectErrors.length > 0) {
+  console.error('构建产物 legacy redirect 检查失败');
+  for (const item of legacyRedirectErrors) {
+    console.error(`- ${item.message}`);
+    console.error(`  来源: ${item.file}`);
+  }
+  process.exit(1);
+}
+
 console.log(`构建产物链接检查通过：扫描 ${distFiles.length} 个文件`);
 console.log(`构建产物结构化数据检查通过：解析 ${schemaScriptCount} 段 JSON-LD`);
+console.log(`legacy redirect 检查通过：${legacyRedirects.length} 条`);

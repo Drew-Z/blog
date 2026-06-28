@@ -1,7 +1,7 @@
 ---
 title: Spacewar II
-description: 面向 Web 展示的纵向移动射击续作原型，把移动端短局射击、拾取升级、炸弹、紧凑 HUD 和结算反馈整理成可试玩项目。
-summary: 一个基于 Godot 4.6.1 的纵向移动射击原型，围绕菜单、战斗、升级拾取、Boss/敌群压力和结果页形成公开展示路径。
+description: 面向 Web 展示的纵向移动射击续作原型，把移动端短局射击、差异化敌群、拾取升级、炸弹、Boss 相位、连击奖励、紧凑 HUD 和结算反馈整理成可试玩项目。
+summary: 一个基于 Godot 4.6.1 的纵向移动射击原型，围绕菜单、scout/diver/sweeper/tank 敌群、Boss 阶段升级、多向弹幕、清敌弹、升级拾取、短窗口连击、清关资源结算、HUD 和结果页形成公开展示路径。
 pubDate: 2026-06-28
 updatedDate: 2026-06-28
 status: playable
@@ -16,17 +16,17 @@ engine: Godot 4.6.1
 platforms:
   - Web 试玩
   - Windows
-thumbnail: /images/projects/spacewar-ii-cover.svg
+thumbnail: /images/projects/spacewar-ii-menu.png
 screenshots:
-  - src: /images/projects/spacewar-ii-cover.svg
-    title: 第六个项目作为移动射击续作原型进入作品线
-    note: 这个页面把原本只在本地目录里的 Spacewar II 纳入游戏站、试玩域名和主站外链体系。
-  - src: /images/projects/spacewar-ii-battle.svg
-    title: 纵向战斗画面聚焦自动射击、拾取升级和紧凑 HUD
-    note: 展示重点不是扩成复杂弹幕，而是让移动端短局核心循环足够清楚。
-  - src: /images/projects/spacewar-ii-result.svg
-    title: 结果页收束分数、存活时间、击破数和重开路径
-    note: 结果反馈让试玩结束后仍然能判断本局表现，并自然回到下一局。
+  - src: /images/projects/spacewar-ii-menu.png
+    title: 真实运行主菜单已经承接玩法目标、操作说明和开始入口
+    note: 这张截图来自本地 Godot 运行采集，说明第六个项目不再只是站点占位，而是具备可打开的展示入口。
+  - src: /images/projects/spacewar-ii-battle.png
+    title: Boss 阶段、紧凑 HUD 和多向弹幕形成纵向射击的终盘压力
+    note: 展示重点是移动端短局里的路线推进、武器等级、炸弹库存、Boss 压力和画面可读性。
+  - src: /images/projects/spacewar-ii-result.png
+    title: 结果页收束分数、路线、击破数、升级数、最高连击和重开路径
+    note: 结果反馈已经包含清关资源奖励和短窗口连击奖励，让试玩结束后仍然能判断本局表现，并自然回到下一局。
 playableWeb: true
 embedUrl: https://play.playlab.eu.cc/spacewar-ii/index.html
 downloadLinks:
@@ -37,12 +37,13 @@ teamSize: 单人
 workspacePath: 'D:\workspace4Cursor\game\spacewar II'
 syncRepoPath: 'D:\workspace4Cursor\game\spacewar II'
 currentBranch: main
-currentPhase: 第六个游戏接入 / Web 试玩导出准备 / 展示资料补齐
-syncNote: 本地项目目录已经存在菜单、战斗、HUD、升级、结果和 smoke test 结构；当前计划把它纳入统一试玩域名与游戏站内容模型。
+currentPhase: 第六个游戏接入 / Web 试玩导出已打通 / 真实截图已补齐 / 浏览器检查通过
+syncNote: 本地项目目录已经存在菜单、战斗、HUD、升级、结果和 smoke test 结构；当前已纳入统一试玩域名、导出脚本与游戏站内容模型。
 progressSummary:
   - 项目从本地 Godot 原型补齐为游戏站第六个公开案例。
-  - Web 试玩 URL 已按统一规则预留到 play.playlab.eu.cc/spacewar-ii/。
-  - 站点内容先用结构化说明和视觉资产承接，后续导出验证通过后可替换为真实运行截图或试玩视频。
+  - Web 试玩 URL 已按统一规则接到 play.playlab.eu.cc/spacewar-ii/，并通过本地导出与浏览器检查。
+  - 菜单、Boss 战斗和结果页的真实运行截图已经补入项目页。
+  - 敌群已经扩展到 scout、diver、sweeper、tank，Boss 具备阶段升级、多向弹幕、清敌弹收束、连击奖励和清关资源结算。
 keyDocs:
   - label: 项目说明
     path: README.md
@@ -60,7 +61,7 @@ directoryMap:
   - label: docs/
     summary: 设计方向、阶段记录和玩法说明。
 challenge: 在已有 Space War 横版复刻之外，补出一个更偏移动端纵向射击的续作原型，并让它达到和其他五个项目相同的公开展示标准。
-mechanic: 纵向移动 + 自动射击 + 两类敌人 + 拾取升级 + 炸弹 + HP/生命 + 结果结算
+mechanic: 纵向移动 + 自动射击 + scout/diver/sweeper/tank 敌群 + 拾取升级 + 炸弹清场 + 短窗口连击 + Boss 阶段升级 + 清关资源结算 + HP/生命 + 结果结算
 milestones:
   - date: 2026-06-28
     title: 第六个游戏进入统一内容模型
@@ -68,15 +69,17 @@ milestones:
 devlogSlugs:
   - spacewar-ii-web-playable-intake
 contribution:
-  - 梳理项目已有菜单、战斗、HUD、结果和 smoke test 结构
+  - 梳理并补强项目已有菜单、战斗、HUD、结果和 smoke test 结构
+  - 补齐差异化敌群、Boss 阶段、多向弹幕、短窗口连击、清敌弹、清关资源结算和结果反馈
   - 将第六个游戏纳入统一游戏站信息架构
-  - 为 Web 导出和试玩域名预留标准 slug
-  - 先补齐展示内容，再用导出验证决定后续游戏侧修复
-outcome: 这个项目现在补上了作品站身份，后续最关键的是把 Web 导出跑通并用真实截图或试玩视频替换当前站内视觉资产。
+  - 为 Web 导出和试玩域名接入标准 slug
+  - 采集真实运行截图，替换站点里的 SVG 示意图
+  - 通过导出与浏览器检查确认它可以作为第六个 Web 试玩项目展示
+outcome: 这个项目现在补上了作品站身份，并完成 Web 试玩接线、真实截图、基础浏览器检查和正式展品级战斗流程补强。
 nextStep:
-  - 运行 Godot Web export，确认浏览器启动、战斗、结果和返回路径
-  - 用 Playwright 截图检查 canvas 非空、横竖屏缩放和 HUD 可读性
-  - 通过后补真实运行截图或短视频，替换当前站内视觉资产
+  - 后续可补一段真实试玩短视频，继续增强证据链
+  - 继续观察移动端横竖屏缩放和 HUD 可读性
+  - 后续只修复影响公开展示和试玩可信度的问题
 ---
 
 ## 项目概览
@@ -87,23 +90,24 @@ nextStep:
 
 ## 当前接入重点
 
-这次不是大规模重写玩法，而是把它补进统一公开展示链路：
+这次不是大规模重写玩法，而是把它补进统一公开展示链路，并补到能被当作正式展品打开的状态：
 
 - 有独立游戏内容页
 - 有标准 Web 试玩 slug
 - 有导出脚本条目
 - 有主站项目外链目标
 - 有和其他五个项目一致的验收方式
+- 有差异化敌群、Boss 阶段、多向弹幕、清敌弹、HUD 和结果页
 
 ## 当前完成度判断
 
-项目目录里已经有菜单、战斗、HUD、结果、升级和 smoke test 结构，因此它具备成为公开案例的基础。
+项目目录里已经有菜单、战斗、HUD、结果、升级和 smoke test 结构，并已经通过本地 Web 导出和浏览器检查，因此它不再只是“预留第六个位置”。
 
-但真正完成公开接入之前，还需要一次 Web 导出和浏览器验证。导出通过后，站点里的示意图应替换为真实运行截图或试玩视频，这样第六个游戏才和其他五个项目保持同一证据标准。
+当前最关键的展示点是：`scout`、`diver`、`sweeper`、`tank` 让敌群有基础差异；Boss 阶段升级和多向弹幕让终盘有明确高潮；清敌弹、升级拾取和结果页让一局结束后能自然进入下一次试玩。站点里已经补入菜单、战斗和结果页的真实运行截图，证据标准已经和其他五个项目更接近。
 
 ## 试玩说明
 
-试玩入口统一预留为 `https://play.playlab.eu.cc/spacewar-ii/index.html`。首次加载会下载 Godot Web 运行时和项目资源，加载较慢属于正常现象。
+试玩入口统一为 `https://play.playlab.eu.cc/spacewar-ii/index.html`。首次加载会下载 Godot Web 运行时和项目资源，加载较慢属于正常现象。
 
 基础操作：
 
@@ -113,4 +117,4 @@ nextStep:
 
 ## 下一步
 
-下一轮应优先跑 Web export 和浏览器截图验证。如果发现菜单、HUD、结果页或窗口缩放有问题，只修复影响展示和试玩的最小必要部分。
+下一轮优先补真实试玩短视频，并继续观察移动端横竖屏缩放。如果发现菜单、HUD、结果页或窗口缩放有问题，只修复影响展示和试玩的最小必要部分。

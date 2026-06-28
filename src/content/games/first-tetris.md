@@ -1,9 +1,9 @@
 ﻿---
 title: Game First Tetris
-description: 验证经典俄罗斯方块主循环、Rogue 实验层和移动端触控方案能否在同一个 Godot 项目里长期共存并继续迭代。
-summary: 一个基于 Godot 4 的俄罗斯方块原型项目，已经形成经典模式、Rogue 实验线、多端适配与触屏输入准备这几条并行脉络。
+description: 验证经典俄罗斯方块主循环、经典计分压力、Rogue 实验层和移动端触控方案能否在同一个 Godot 项目里长期共存并继续迭代。
+summary: 一个基于 Godot 4 的俄罗斯方块原型项目，已经形成经典模式、等级/消行计分、软降/硬降得分、combo、back-to-back 提示、Rogue 实验线、多端适配与触屏输入准备这几条并行脉络。
 pubDate: 2026-04-09
-updatedDate: 2026-04-21
+updatedDate: 2026-06-28
 status: ongoing
 featured: true
 tags:
@@ -45,10 +45,11 @@ teamSize: 单人
 workspacePath: D:\workspace4Cursor\game\game-first-tetris
 syncRepoPath: D:\workspace4Cursor\game\game-first-tetris
 currentBranch: feature/mobile-touch-controls-next
-currentPhase: 移动端触控深化 / Web 试玩接通 / 多端可读性继续收口
+currentPhase: 经典计分与触控深化 / Web 试玩接通 / 多端可读性继续收口
 syncNote: 开发目录与同步仓库一致，当前分支已经同步到 origin/feature/mobile-touch-controls-next。
 progressSummary:
   - 经典模式已经稳定，可作为长期主线继续承接实验。
+  - 经典计分、软降/硬降得分、等级推进、combo 和 back-to-back 提示已经补入，让基础模式更接近正式展品。
   - Rogue 模式保留在低侵入范围内，用三轮固定选择和最小局间带入验证中程目标感。
   - 触屏输入桥接层与第一版正式触屏控件原型已经打通，当前重点是超窄尺寸下的真实可玩性。
   - Web 试玩入口已经接到独立试玩域名，作品页可以直接预览当前版本。
@@ -71,7 +72,7 @@ directoryMap:
   - label: artifacts/
     summary: 本地截图回归、运行日志和临时验证产物，不进入版本库。
 challenge: 在不破坏经典玩法稳定性的前提下，把 Rogue 原型、多端布局和移动端触控承接进同一条产品线。
-mechanic: 经典消行闭环 + Rogue 三轮固定选择 + 局间带入 + 响应式 HUD + 触屏桥接层
+mechanic: 经典消行闭环 + 等级/消行计分 + 软降/硬降得分 + combo + back-to-back 提示 + Rogue 三轮固定选择 + 局间带入 + 响应式 HUD + 触屏桥接层
 milestones:
   - date: 2026-03-30
     title: 经典模式与 Rogue 试验线并行落地
@@ -90,10 +91,11 @@ devlogSlugs:
   - tetris-responsive-baseline
 contribution:
   - 完成经典模式和 Rogue 模式的可玩闭环
+  - 补齐经典计分、软降/硬降得分、等级推进、combo 和 back-to-back 反馈，让基础模式更像可展示版本
   - 组织多端最小适配断点，并沉淀固定尺寸截图回归结果
   - 把输入层拆成动作映射、瞬时动作、持续状态和触屏桥接层
   - 收敛第一版正式触屏控件原型，为后续移动端方案打基础
-outcome: 当前项目已经不只是“能玩”，而是形成了可展示的经典主线、可保留的 Rogue 原型节点，以及可继续深化的移动端输入路径。
+outcome: 当前项目已经不只是“能玩”，而是形成了可展示的经典计分主线、可保留的 Rogue 原型节点，以及可继续深化的移动端输入路径。
 nextStep:
   - 继续打磨移动端触控的真实可玩性，尤其是 360 x 640 的超窄场景
   - 整理分支 / PR / 合并策略，把当前里程碑节点更清楚地沉淀下来
@@ -107,6 +109,7 @@ nextStep:
 它同时保留了三种不同层次的目标：
 
 - 经典模式作为稳定主线
+- 等级、消行计分、combo 和 back-to-back 作为经典分数压力
 - Rogue 模式作为低侵入实验层
 - 移动端和多端适配作为“展示版能不能真正拿出去给人看”的现实约束
 
@@ -129,6 +132,8 @@ nextStep:
 ### 1. 经典模式已经能作为稳定主线存在
 
 这让后续所有实验都不需要建立在一条摇晃的基础上。
+
+经典计分、等级推进、combo 和 back-to-back 提示补齐后，它也更像一个可被外部玩家理解的正式模式，而不是只有棋盘和下落逻辑的技术原型。
 
 ### 2. Rogue 原型被控制在低侵入范围内
 

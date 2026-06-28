@@ -98,7 +98,25 @@ if (files.length === 0) {
   process.exit(1);
 }
 
-const npx = process.platform === 'win32' ? 'npx.cmd' : 'npx';
+const npx = 'npx';
+
+function quotePowerShellArg(arg) {
+  return `'${String(arg).replace(/'/g, "''")}'`;
+}
+
+function runNpx(args) {
+  if (process.platform !== 'win32') {
+    return spawnSync(npx, args, { stdio: 'inherit', shell: false });
+  }
+
+  const command = `& ${quotePowerShellArg(npx)} ${args.map(quotePowerShellArg).join(' ')}; exit $LASTEXITCODE`;
+  return spawnSync(
+    'powershell.exe',
+    ['-NoProfile', '-ExecutionPolicy', 'Bypass', '-Command', command],
+    { stdio: 'inherit', shell: false },
+  );
+}
+
 console.log(`Uploading ${files.length} files from ${playRoot} to R2 bucket ${bucket}`);
 
 for (const filePath of files) {
@@ -129,7 +147,11 @@ for (const filePath of files) {
     continue;
   }
 
-  const result = spawnSync(npx, args, { stdio: 'inherit', shell: false });
+  const result = runNpx(args);
+  if (result.error) {
+    console.error(`Failed to start upload command: ${result.error.message}`);
+    process.exit(1);
+  }
   if ((result.status ?? 1) !== 0) {
     process.exit(result.status ?? 1);
   }

@@ -1,9 +1,9 @@
 ---
 title: Space War
-description: 复刻 Nokia 3310《Space Impact》初代体验，把横向自动卷轴、短局高压射击、关底 Boss 和低彩 LCD 气质收成一个完整可玩版本。
-summary: 一个基于 Godot 4.6.1 的横向卷轴射击项目，已经形成主菜单、阶段继续、五个常规 Sector、最终 Boss、结算、高分记录、双语设置和完整发布流程。
+description: 复刻 Nokia 3310《Space Impact》初代体验，把横向自动卷轴、短局高压射击、连续击破奖励、关底 Boss 和低彩 LCD 气质收成一个完整可玩版本。
+summary: 一个基于 Godot 4.6.1 的横向卷轴射击项目，已经形成主菜单、阶段继续、五个常规 Sector、连续击破分数压力、最终 Boss、结算、高分记录、双语设置和完整发布流程。
 pubDate: 2026-04-21
-updatedDate: 2026-04-21
+updatedDate: 2026-06-28
 status: playable
 featured: true
 tags:
@@ -45,10 +45,11 @@ teamSize: 单人
 workspacePath: D:\workspace4Cursor\game\space-war
 syncRepoPath: D:\workspace4Cursor\game\space-war
 currentBranch: main
-currentPhase: 完整可玩 / 可展示 / 发布后维护
+currentPhase: 完整可玩 / 连续击破奖励补强 / 可展示 / 发布后维护
 syncNote: 开发目录与同步仓库一致，当前主分支已连接 origin/main，并通过 GitHub Release 对外分发。
 progressSummary:
   - 经典 Nokia 3310《Space Impact》初代体验已经完成可玩闭环，并收成正式发布版本。
+  - 参考手机横向 shoot 'em up 的短局分数压力，新增连续击破奖励、HUD 链式状态和结果页统计。
   - Windows 发布页、GitHub Release 和基于 R2 的 Web 试玩入口都已经接通，适合直接对外展示。
   - 当前重点转向维护、试玩反馈和展示资料补齐，而不是继续大规模扩系统。
 keyDocs:
@@ -70,7 +71,7 @@ directoryMap:
   - label: release/
     summary: 正式分发包与版本目录。
 challenge: 在不把项目扩成现代原创横版射击的前提下，尽量保留《Space Impact》初代最有辨识度的手机游戏体验，并把它做成完整可展示版本。
-mechanic: 横向自动卷轴 + 5 个 Sector + 最终 Boss + 13 级武器成长 + 拾取强化 + 暂停 / 结算 / 高分回路
+mechanic: 横向自动卷轴 + 5 个 Sector + 连续击破奖励 + 最终 Boss + 13 级武器成长 + 拾取强化 + 暂停 / 结算 / 高分回路
 milestones:
   - date: 2026-03-28
     title: 经典手机射击体验拆解完成
@@ -85,9 +86,10 @@ devlogSlugs: []
 contribution:
   - 拆解 Nokia 3310《Space Impact》初代的核心节奏和视觉约束
   - 完成五个常规 Sector、最终 Boss、敌群扩展、武器成长和结算回路
+  - 补入连续击破奖励、链式 HUD 状态和结果页最高连击统计
   - 整理 Windows 发布包、GitHub Release 和独立试玩域名入口
-  - 用真实截图替换概念图，让作品页更接近可验证项目档案
-outcome: 当前项目已经具备完整可玩、可展示、可维护的状态，适合放在作品站里作为“文档先行、阶段推进、发布收口”的代表案例。
+  - 补齐真实菜单、战斗和结算截图，让作品页更接近可验证项目档案
+outcome: 当前项目已经具备完整可玩、可展示、可维护的状态，能同时呈现复古横向射击的短局压力、连续击破节奏和发布收口能力。
 nextStep:
   - 继续补充人工试玩反馈，确认后期 Sector 的节奏和难度曲线
   - 视需要补更轻量的 Web 包，减少首次加载体积
@@ -103,6 +105,7 @@ nextStep:
 - 横向自动卷轴
 - 短局高压射击
 - 简洁直接的敌人编排
+- 连续击破带来的额外分数压力
 - 局内即时生效的强化拾取
 - 关底 Boss 压轴
 - 单色 / 低彩 LCD 气质的视觉和 UI
@@ -111,7 +114,7 @@ nextStep:
 
 项目已经进入完整可玩、可展示、可维护的阶段。
 
-当前版本包含主菜单、阶段继续、设置、中英文切换、五个常规 Sector、最终 Boss、13 级武器成长、暂停、结算、最高分记录和发布文档。也就是说，它已经不只是一个战斗原型，而是可以被外部玩家按正常流程打开、试玩、结束和再次开始的版本。
+当前版本包含主菜单、阶段继续、设置、中英文切换、五个常规 Sector、连续击破奖励、最终 Boss、13 级武器成长、暂停、结算、最高分记录和发布文档。也就是说，它已经不只是一个战斗原型，而是可以被外部玩家按正常流程打开、试玩、结束和再次开始的版本。
 
 ## 为什么适合放在作品站
 

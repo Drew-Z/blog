@@ -1,9 +1,9 @@
 ﻿---
 title: Game Next Spacewar
-description: 验证一款本地展示版 2D Space Shooter 如何从基础关卡闭环逐步长成一个能对外展示、能讲清楚版本定位的可试玩项目。
-summary: 一个使用 Godot 开发的本地展示版太空射击项目，当前已经形成主菜单、设置、About / Help、暂停、独立结果页和会话总结这些完整展示外壳。
+description: 验证一款本地展示版 2D Space Shooter 如何从基础关卡闭环逐步长成一个能对外展示、能讲清楚版本定位的短任务试玩项目。
+summary: 一个使用 Godot 开发的本地展示版太空射击项目，当前已经形成主菜单、设置、About / Help、暂停、三波短任务、漂移/装甲目标、障碍压力、击破计分、短窗口连击、波次奖励、独立结果页和会话总结这些完整展示外壳。
 pubDate: 2026-04-09
-updatedDate: 2026-04-21
+updatedDate: 2026-06-28
 status: showcase
 featured: true
 tags:
@@ -16,16 +16,19 @@ engine: Godot 4.6.1
 platforms:
   - Windows
   - Web 试玩
-thumbnail: /images/projects/next-spacewar-capture.png
+thumbnail: /images/projects/next-spacewar-menu.png
 playtestVideo: /videos/projects/next-spacewar-playtest.mp4
-playtestPoster: /images/projects/next-spacewar-capture.png
+playtestPoster: /images/projects/next-spacewar-battle.png
 screenshots:
-  - src: /images/projects/next-spacewar-capture.png
-    title: 真实运行主菜单已经能承接 Start Run、Settings 和 About / Help
+  - src: /images/projects/next-spacewar-menu.png
+    title: 真实运行主菜单已经能承接开始、设置和说明入口
     note: 这张截图来自本地 Godot 运行采集，能说明项目已经从单关原型转向更完整的外层体验组织。
-  - src: /images/projects/spacewar-shot-result.svg
-    title: 单局结束后进入独立结果页，而不是停留在战斗场景里
-    note: 结果页承担了展示版状态提示、本局结果和下一步操作说明。
+  - src: /images/projects/next-spacewar-battle.png
+    title: 三波短任务中已经能看到击破计分、连击状态和障碍压力
+    note: 战斗截图展示了波次目标、目标清除数、分数、连击和漂移障碍，能更直接说明这不是裸射击循环。
+  - src: /images/projects/next-spacewar-result.png
+    title: 单局结束后进入独立结果页，并展示最终分数和最高连击
+    note: 结果页承担了展示版状态提示、本局结果、连击奖励和下一步操作说明。
 playableWeb: true
 embedUrl: https://play.playlab.eu.cc/next-spacewar/index.html
 repoUrl: https://github.com/Drew-Z/game-next-spacewar
@@ -41,11 +44,13 @@ teamSize: 单人
 workspacePath: D:\workspace4Cursor\game\game-next-spacewar
 syncRepoPath: D:\workspace4Cursor\game\game-next-spacewar
 currentBranch: feature/stage-22-release-readiness-and-export-metadata
-currentPhase: 展示版收尾 / Web 试玩接通 / release readiness
+currentPhase: 三波短任务展示版 / Web 试玩接通 / release readiness
 syncNote: 开发目录与同步仓库一致，当前阶段分支已经推送并建立上游跟踪。
 progressSummary:
   - 主菜单、设置、About / Help、暂停返回已经形成稳定展示入口。
-  - 首局按键提示、独立结果页和会话总结已经把单关 MVP 收成可讲清楚定位的展示版。
+  - 三波短任务、漂移目标、装甲目标和障碍物压力已经把单关 MVP 收成更像正式展示的试玩切片。
+  - 新增击破计分、短窗口连击和整波清除奖励，让战斗流程更接近经典街机射击的得分驱动。
+  - 首局按键提示、独立结果页和会话总结已经把短任务体验收成可讲清楚定位的展示版。
   - 当前工作更偏向 review / PR / 素材包装，而不是继续横向扩充关卡内容。
   - Web 试玩入口已经迁移到独立试玩域名，方便直接在作品站里验证完整展示链路。
 keyDocs:
@@ -67,7 +72,7 @@ directoryMap:
   - label: assets/
     summary: 展示版所需的资源文件。
 challenge: 把一个基础 2D 射击闭环收成真正可展示的 build，而不是停留在“能打能输能重开”的开发态。
-mechanic: 2D 单关空战 + 主菜单 / 设置 / About / Help + 暂停与返回 + 独立结果页 + 会话总结
+mechanic: 2D 三波短任务空战 + 漂移/装甲目标 + 障碍压力 + 击破计分 + 短窗口连击 + 波次清除奖励 + 主菜单 / 设置 / About / Help + 暂停与返回 + 独立结果页 + 会话总结
 milestones:
   - date: 2026-03-25
     title: 单关空战闭环完成
@@ -85,11 +90,12 @@ devlogSlugs:
   - spacewar-showcase-finish
 contribution:
   - 完成主菜单、设置、About / Help 和暂停返回主菜单的外层流程
-  - 为结果页补上本局结果、击毁统计和展示版 build 标识
+  - 补强三波短任务、目标差异和障碍物压力，让战斗不再只是单一击毁循环
+  - 为结果页补上本局结果、击毁统计、最终分数、最高连击和展示版 build 标识
   - 把单局开场提示、结果页承接和主菜单入口串成一条完整展示链路
-outcome: 项目已经从基础玩法原型推进到了“可对外演示的展示版”阶段，具备正式创建 PR 和继续包装展示素材的条件。
+outcome: 项目已经从基础玩法原型推进到了“可对外演示的展示版”阶段，能用短任务、目标差异、障碍压力、击破连击和结果页说明项目已经完成公开展示闭环。
 nextStep:
-  - 补充录屏或真实截图，让展示页更像成品案例
+  - 视需要补充轻量录屏，让已有真实截图之外的战斗节奏更容易被快速理解
   - 整理 PR / review 资料，把当前版本作为明确里程碑收口
   - 如果后续继续推进，再评估是否扩更丰富的关卡与内容层
 ---
@@ -102,6 +108,8 @@ nextStep:
 
 - 主菜单入口
 - 设置与帮助说明
+- 三波短任务和差异化目标
+- 漂移/装甲敌人与障碍压力
 - 暂停与返回主菜单
 - 单局结束后的独立结果页
 - 当前 build 的身份提示
@@ -118,15 +126,19 @@ nextStep:
 
 这意味着项目对外不再是直接进关卡的裸原型。
 
-### 2. 首局按键提示和暂停流程已经串起来
+### 2. 三波短任务已经形成局内节奏
+
+当前战斗不再只是“生成敌人、击毁敌人”的裸循环，而是通过三波短任务、漂移目标、装甲目标和障碍物制造一个可读的开局、中段和收束。
+
+### 3. 首局按键提示和暂停流程已经串起来
 
 它们负责降低第一次体验时的理解成本。
 
-### 3. 结果页独立出来了
+### 4. 结果页独立出来了
 
 这是一个很关键的变化。单局结束以后不再只是停在游戏场景，而是进入一个更适合总结和承接下一步的页面。
 
-### 4. 展示版 build 标识明确
+### 5. 展示版 build 标识明确
 
 这会让项目定位更清楚。别人看到它时，不会误以为这是完整商业版，也不会把阶段状态看得太模糊。
 

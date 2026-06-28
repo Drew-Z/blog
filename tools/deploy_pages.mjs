@@ -35,7 +35,24 @@ if (!existsSync(distDir)) {
   process.exit(1);
 }
 
-const npx = process.platform === 'win32' ? 'npx.cmd' : 'npx';
+const npx = 'npx';
+function quotePowerShellArg(arg) {
+  return `'${String(arg).replace(/'/g, "''")}'`;
+}
+
+function runNpx(args) {
+  if (process.platform !== 'win32') {
+    return spawnSync(npx, args, { stdio: 'inherit', shell: false });
+  }
+
+  const command = `& ${quotePowerShellArg(npx)} ${args.map(quotePowerShellArg).join(' ')}; exit $LASTEXITCODE`;
+  return spawnSync(
+    'powershell.exe',
+    ['-NoProfile', '-ExecutionPolicy', 'Bypass', '-Command', command],
+    { stdio: 'inherit', shell: false },
+  );
+}
+
 const args = [
   'wrangler',
   'pages',
@@ -55,5 +72,9 @@ if (dryRun) {
   process.exit(0);
 }
 
-const result = spawnSync(npx, args, { stdio: 'inherit', shell: false });
+const result = runNpx(args);
+if (result.error) {
+  console.error(`Failed to start deploy command: ${result.error.message}`);
+  process.exit(1);
+}
 process.exit(result.status ?? 1);

@@ -1,9 +1,9 @@
 ---
 title: Raiden Prototype
-description: 以纵版街机射击为核心，验证双关章节、敌群编排、火力成长、炸弹资源、Boss 收束和 Demo 试玩包装是否能形成稳定展示候选版。
-summary: 一个基于 Godot 4.6.1 的纵版射击展示原型，当前已推进到 RC-0.4，推荐入口为 Chapter Run，具备双关流程、章节继承、结尾演出、公开 Demo 包和 Web 试玩入口。
+description: 以纵版街机射击为核心，验证双关章节、敌群编排、火力成长、炸弹资源、连锁击破、Boss 收束和 Demo 试玩包装是否能形成稳定展示候选版。
+summary: 一个基于 Godot 4.6.1 的纵版射击展示原型，当前已推进到 RC-0.4，推荐入口为 Chapter Run，具备双关流程、章节继承、连锁击破奖励、结尾演出、公开 Demo 包和 Web 试玩入口。
 pubDate: 2026-04-10
-updatedDate: 2026-04-21
+updatedDate: 2026-06-28
 status: playable
 featured: true
 tags:
@@ -24,12 +24,12 @@ screenshots:
   - src: /images/projects/raiden-capture.png
     title: 公开 Demo 准备版主菜单把完整章节入口、语言和音频设置集中前置
     note: 这张截图来自本地 Godot 运行采集，能说明项目已经进入外部试玩和 Demo 包装阶段。
-  - src: /images/projects/raiden-shot-boss.svg
-    title: Boss 与风暴机关共同压缩安全区域
-    note: 第二关 Storm Front 已接入风暴十字封线、overdrive 和最后安全窗口预警。
-  - src: /images/projects/raiden-shot-result.svg
-    title: 结果页、章节总评和 Outro 承接短局反馈
-    note: 短局街机项目需要在结束后解释发生了什么，并给出下一步试玩动机。
+  - src: /images/projects/raiden-stage-02-storm.png
+    title: 第二关风暴机关、弹幕密度和火力成长已经形成真实战斗证据
+    note: 真实运行截图能看到 Storm Front 的纵向压迫、敌群弹幕和玩家火力路线，而不是概念式示意图。
+  - src: /images/projects/raiden-results-summary.png
+    title: 结果页、章节总评和双关路线承接短局反馈
+    note: 结算截图展示了章节评价、双关完成状态、击破率和后续操作，让试玩结束后的状态可复查。
 playableWeb: true
 embedUrl: https://play.playlab.eu.cc/raiden/index.html
 repoUrl: https://github.com/Drew-Z/raiden-prototype
@@ -45,11 +45,12 @@ teamSize: 单人
 workspacePath: D:\workspace4Cursor\game\raiden-prototype
 syncRepoPath: D:\workspace4Cursor\game\raiden-prototype\.publish-final
 currentBranch: main
-currentPhase: RC-0.4 稳定展示候选 / 公开 Demo 准备
+currentPhase: RC-0.4 稳定展示候选 / 连锁击破节奏补强 / 公开 Demo 准备
 syncNote: 根目录主要作为开发工作目录使用，实际对外同步和发布记录以 .publish-final/main -> origin/main 为准。
 progressSummary:
   - 双关垂直切片已经完成展示候选收口，推荐从 Chapter Run 进入完整流程。
   - Stage 02 的风暴机关、Boss overdrive、最后安全窗口和 ChapterEnding / Outro 已经串成完整高潮。
+  - 参考纵向街机射击的分数压力，新增短窗口连锁击破、奖励分和结果页拆分。
   - 当前重点是外部试玩、公开 Demo 包、素材授权和首屏表现，而不是继续默认扩系统。
   - 根目录继续承担开发工作目录角色，实际 GitHub 同步仓库为 `.publish-final`。
 keyDocs:
@@ -73,7 +74,7 @@ directoryMap:
   - label: .publish-final/
     summary: 实际同步到 GitHub 的发布仓库，当前 `main` 已连接 `origin/main`。
 challenge: 把雷电式纵版射击做得既有短局街机爽感，又能让外部玩家第一次打开时理解入口、目标、章节推进和当前版本定位。
-mechanic: 纵版卷轴推进 + 自动持续射击 + 火力成长 + 炸弹清屏 + 双关章节继承 + Storm Front 环境压迫 + Boss 终盘收束
+mechanic: 纵版卷轴推进 + 自动持续射击 + 火力成长 + 炸弹清屏 + 连锁击破奖励 + 双关章节继承 + Storm Front 环境压迫 + Boss 终盘收束
 milestones:
   - date: 2026-03-22
     title: 纵版卷轴和基础敌群框架建立
@@ -88,9 +89,10 @@ devlogSlugs: []
 contribution:
   - 完成 Stage 01 // Scramble 与 Stage 02 // Storm Front 的双关展示路线
   - 组织火力成长、炸弹资源、敌群编排、Boss 相位和风暴机关的反馈层
+  - 补入连锁击破奖励、击破弹字、HUD 短提示和结算拆分，让街机分数压力更清楚
   - 补齐 ChapterBriefing、ChapterEnding、ChapterOutro、结果页和重开流程
   - 准备公开 Demo 包、试玩说明、已知问题和素材授权检查清单
-outcome: 当前项目已经从“纵版射击原型”推进到稳定展示候选版，能展示短局街机射击的战场阅读、资源决策、章节包装和发布收口能力。
+outcome: 当前项目已经从“纵版射击原型”推进到稳定展示候选版，能展示短局街机射击的战场阅读、资源决策、连锁击破节奏、章节包装和发布收口能力。
 nextStep:
   - 做一轮外部人工试玩，确认双关节奏和首屏理解成本
   - 精简 Web 包资源，避免公开试玩首次加载过重
@@ -105,10 +107,11 @@ nextStep:
 
 1. 从主菜单进入 `Stage 01` 或 `Chapter Run`
 2. 在短局战斗中通过击破敌人获取火力升级
-3. 在高压波次和 Boss 段落中使用炸弹维持节奏
-4. 通关 `Stage 01` 后进入结果页和 `ChapterBriefing`
-5. 继承生命、炸弹、火力进入 `Stage 02`
-6. 通关双关后进入 `ChapterEnding -> ChapterOutro`
+3. 在短窗口里连续击破敌人，争取连锁奖励和更高结算
+4. 在高压波次和 Boss 段落中使用炸弹维持节奏
+5. 通关 `Stage 01` 后进入结果页和 `ChapterBriefing`
+6. 继承生命、炸弹、火力进入 `Stage 02`
+7. 通关双关后进入 `ChapterEnding -> ChapterOutro`
 
 ## 当前可玩内容
 
@@ -119,6 +122,7 @@ nextStep:
 - 主菜单，可选择 `Stage 01`、`Stage 02` 和 `Chapter Run`
 - 玩家移动、自动持续射击、受伤、死亡
 - 敌群编排、掉落升级、火力成长、炸弹清屏
+- 连锁击破奖励、击破弹字、最高连锁和奖励分结算
 - 两个可打通关卡：`Stage 01 // Scramble` 与 `Stage 02 // Storm Front`
 - 第一关到第二关的章节继承
 - `ChapterBriefing`、`ChapterEnding`、`ChapterOutro`

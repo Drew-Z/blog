@@ -30,42 +30,42 @@ const webDemoGames = games.filter((game) => game.data.playableWeb).slice(0, 6);
 const projectPersonas: Record<string, { kicker: string; identity: string; accent: string; accent2: string; rgb: string }> = {
   'first-tetris': {
     kicker: 'Rogue Tetris Lab',
-    identity: '经典方块、Rogue 实验和移动触控并行推进',
+    identity: '经典计分、Rogue 实验和移动触控并行推进',
     accent: '#0078d4',
     accent2: '#00a99d',
     rgb: '0, 120, 212'
   },
   'next-spacewar': {
     kicker: 'Showcase Shooter',
-    identity: '单关空战、菜单帮助和结果页收成展示版',
+    identity: '三波短任务、菜单帮助和结果页收成展示版',
     accent: '#0b7bd3',
     accent2: '#4aa3ff',
     rgb: '11, 123, 211'
   },
   intespace: {
     kicker: 'Mobile Roguelite',
-    identity: '竖屏自动射击、武器树和局外成长收口',
+    identity: '章节、生存、Boss 试炼、武器树和局外成长收口',
     accent: '#00a99d',
     accent2: '#7cddc9',
     rgb: '0, 169, 157'
   },
   raiden: {
     kicker: 'Arcade RC Build',
-    identity: '纵版街机双关 Demo 和公开试玩包装',
+    identity: '纵版街机双关 Demo、连锁击破和公开试玩包装',
     accent: '#ff7a59',
     accent2: '#f4b23f',
     rgb: '255, 122, 89'
   },
   'space-war': {
     kicker: 'Retro Release',
-    identity: 'Nokia 横向卷轴复刻、Boss 和正式发布流程',
+    identity: 'Nokia 横向卷轴复刻、连续击破、Boss 和正式发布流程',
     accent: '#21a65b',
     accent2: '#9fd36a',
     rgb: '33, 166, 91'
   },
   'spacewar-ii': {
     kicker: 'Mobile Sequel Lab',
-    identity: '纵向移动射击、升级拾取和短局结算回路',
+    identity: '纵向移动射击、差异化敌群、Boss 阶段和短局结算回路',
     accent: '#6f7cff',
     accent2: '#ffce5c',
     rgb: '111, 124, 255'
@@ -94,7 +94,7 @@ const filterGroups = [
   { label: '移动导向', value: 'mobile' },
   { label: '正式发布', value: 'released' }
 ];
-const pageDescription = '围绕玩法验证、展示版包装、多端适配和 Web 试玩整理的项目案例。';
+const pageDescription = '围绕六个 Godot 游戏、玩法验证、展示版包装、多端适配和 Web 试玩整理的项目案例。';
 const collectionSchema = getCollectionPageSchema({
   site: Astro.site,
   path: '/games',
