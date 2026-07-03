@@ -1,6 +1,6 @@
 export const siteMeta = {
-  name: 'Biau Playlab',
-  title: '独立游戏原型、Web 试玩与系统设计内容站',
+  name: 'BIAU Playlab',
+  title: '泊岸游戏原型、Web 试玩与系统设计内容站',
   description: '围绕六个 Godot 游戏原型、Web 试玩、开发日志和系统策划拆解搭建的独立游戏内容站。',
   tagline: '六个 Godot 原型 / Web 试玩 / 系统拆解',
   englishTitle: 'Indie Game Prototypes, Systems Design, and Dev Writing',

@@ -11,7 +11,7 @@
   <path d="M140 150H176C196.987 150 214 167.013 214 188C214 208.987 196.987 226 176 226H140V150Z" fill="#FFF8EF"/>
   <path d="M162 168H177C188.046 168 197 176.954 197 188C197 199.046 188.046 208 177 208H162V168Z" fill="#1D6B60"/>
   <path d="M148 144L172 144C196.301 144 216 163.699 216 188C216 212.301 196.301 232 172 232L148 232" stroke="#C66B3D" stroke-width="8" stroke-linecap="round"/>
-  <text x="322" y="184" fill="#15554D" font-family="Georgia, 'Times New Roman', serif" font-size="38" font-weight="700">Biau Playlab</text>
+  <text x="322" y="184" fill="#15554D" font-family="Georgia, 'Times New Roman', serif" font-size="38" font-weight="700">BIAU Playlab</text>
   <text x="322" y="256" fill="#17211F" font-family="Georgia, 'Times New Roman', serif" font-size="72" font-weight="700">Indie Game Prototypes</text>
   <text x="322" y="336" fill="#17211F" font-family="Georgia, 'Times New Roman', serif" font-size="72" font-weight="700">Systems Design &amp; Dev Writing</text>
   <text x="322" y="404" fill="#5F6F68" font-family="'Segoe UI', 'PingFang SC', sans-serif" font-size="28">A portfolio blog for project cases, devlogs, and long-form analysis.</text>

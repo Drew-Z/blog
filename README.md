@@ -1,4 +1,4 @@
-# Biau Playlab
+# BIAU Playlab
 
 一个用 Astro 搭建的个人作品站，整合了：
 
