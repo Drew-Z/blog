@@ -2,6 +2,8 @@
 
 Astro-powered game showcase and writing site for BIAU Playlab. It publishes Godot project case studies, playable Web entry links, development logs, and selected long-form game/system design articles.
 
+简体中文文档：[README.zh-CN.md](README.zh-CN.md)
+
 ![Astro](https://img.shields.io/badge/Astro-5.x-ff5d01)
 ![Static Site](https://img.shields.io/badge/output-static%20site-2563eb)
 ![Cloudflare Pages](https://img.shields.io/badge/deploy-Cloudflare%20Pages-f38020)
