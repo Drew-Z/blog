@@ -246,4 +246,4 @@ npm run deploy:check
 
 ## License
 
-No standalone license file is included yet. Add a clear license before advertising this repository for unrestricted open-source reuse.
+This repository is licensed under the [Apache License 2.0](LICENSE).
