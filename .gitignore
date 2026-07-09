@@ -22,3 +22,15 @@ output/
 deploy/r2-play/
 deploy/r2-play-refresh/
 public/play/
+
+# Local AI/session artifacts
+.agent-work/
+.scratch/
+.claude/settings.local.json
+.codex/sessions/
+.codex/tmp/
+.trellis/.developer
+.trellis/.runtime/
+.trellis/tmp/
+.trellis/workspace/
+.trellis/tasks/archive/
